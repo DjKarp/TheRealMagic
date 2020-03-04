@@ -42,7 +42,7 @@ public class BallMoveVerThree : MonoBehaviour
 
                 m_Rigidbody2D.AddForce((GetOurMouseMosition() - m_Transform.position) * speed * 10 * Time.deltaTime, ForceMode2D.Force);
 
-                LookAt2D(GetOurMouseMosition() - m_Transform.position);
+                LookAt2D(GetOurMouseMosition());
 
             }
 

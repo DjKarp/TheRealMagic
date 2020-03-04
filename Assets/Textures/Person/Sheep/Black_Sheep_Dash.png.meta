@@ -1,7 +1,88 @@
 fileFormatVersion: 2
 guid: a04cbcd6b0513394088f0a721aa4613c
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 8784947073300709713
+    second: Black_Sheep_Dash_0
+  - first:
+      213: 5700995504429848046
+    second: Black_Sheep_Dash_1
+  - first:
+      213: 4858312088085023494
+    second: Black_Sheep_Dash_2
+  - first:
+      213: 4921003596173946979
+    second: Black_Sheep_Dash_3
+  - first:
+      213: -160097968402356542
+    second: Black_Sheep_Dash_4
+  - first:
+      213: 5317984237148425334
+    second: Black_Sheep_Dash_5
+  - first:
+      213: -5161811398604940043
+    second: Black_Sheep_Dash_6
+  - first:
+      213: 8871246483148557171
+    second: Black_Sheep_Dash_7
+  - first:
+      213: -3762126555068144685
+    second: Black_Sheep_Dash_8
+  - first:
+      213: 4609666712007475133
+    second: Black_Sheep_Dash_0
+  - first:
+      213: -1113547464870429684
+    second: Black_Sheep_Dash_1
+  - first:
+      213: 3784984199676002714
+    second: Black_Sheep_Dash_2
+  - first:
+      213: -7735482653526875438
+    second: Black_Sheep_Dash_3
+  - first:
+      213: -6929785274901250884
+    second: Black_Sheep_Dash_4
+  - first:
+      213: -2010683382893340389
+    second: Black_Sheep_Dash_5
+  - first:
+      213: 5226981983053602606
+    second: Black_Sheep_Dash_6
+  - first:
+      213: 2177005523867011520
+    second: Black_Sheep_Dash_7
+  - first:
+      213: 6666124569827222431
+    second: Black_Sheep_Dash_8
+  - first:
+      213: 2458017364685242080
+    second: Black_Sheep_Dash_9
+  - first:
+      213: 8701281972141255252
+    second: Black_Sheep_Dash_10
+  - first:
+      213: -5453980424054352100
+    second: Black_Sheep_Dash_11
+  - first:
+      213: -2612593813992493136
+    second: Black_Sheep_Dash_12
+  - first:
+      213: -8357426406987056655
+    second: Black_Sheep_Dash_13
+  - first:
+      213: -5531822199845561154
+    second: Black_Sheep_Dash_14
+  - first:
+      213: -8074097391691090894
+    second: Black_Sheep_Dash_15
+  - first:
+      213: -6156416004091670562
+    second: Black_Sheep_Dash_16
+  - first:
+      213: 7966379737306224107
+    second: Black_Sheep_Dash_17
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,7 +121,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -70,9 +151,96 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Black_Sheep_Dash_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbff5269373d8ff30800000000000000
+      internalID: 4609666712007475133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Black_Sheep_Dash_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0c7cd30b72eb80f0800000000000000
+      internalID: -1113547464870429684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Black_Sheep_Dash_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a91872e6317f68430800000000000000
+      internalID: 3784984199676002714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

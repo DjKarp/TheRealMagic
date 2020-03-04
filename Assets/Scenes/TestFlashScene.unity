@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f59db87de348894599207a6ed359c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 14
 --- !u!58 &631200269
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -432,7 +432,7 @@ Rigidbody2D:
   m_UseAutoMass: 1
   m_Mass: 0.014155579
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 42.31
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: f366615362594204caaa6f198e976974, type: 2}
   m_Interpolate: 0
@@ -590,7 +590,7 @@ EdgeCollider2D:
   - {x: 8.999359, y: 4.9993606}
   - {x: -8.99936, y: 4.99936}
   - {x: -8.999359, y: -4.6800003}
-  - {x: -8.999359, y: -4.7100005}
+  - {x: -8.999359, y: -4.7000003}
   - {x: -8.999359, y: -4.9993606}
 --- !u!114 &1165395889
 MonoBehaviour:
@@ -701,13 +701,14 @@ SpriteShapeRenderer:
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 0}
   m_Sprites:
+  - {fileID: 21300000, guid: 71f467455caef9a4db285c3e8012ac33, type: 3}
   - {fileID: 21300000, guid: 841a3befeb4a0494f972da145cc1d751, type: 3}
   - {fileID: 21300000, guid: b7b731fa9a101c8459bc6af6cc76dddc, type: 3}
   - {fileID: 21300000, guid: 09336aa8b285d6b4b9eee7cf91b48614, type: 3}
   - {fileID: 21300000, guid: 28c0eae144baff143be3eec95f6780c7, type: 3}
   - {fileID: 21300000, guid: 60b5ef9dd8230ae48b1465d168862f60, type: 3}
-  - {fileID: 21300000, guid: 4a619181e97912440924569a789bd0e6, type: 3}
-  - {fileID: 21300000, guid: 21d726317217e96499be1682de8e8fb8, type: 3}
+  - {fileID: 21300000, guid: 71f467455caef9a4db285c3e8012ac33, type: 3}
+  - {fileID: 21300000, guid: 71f467455caef9a4db285c3e8012ac33, type: 3}
   - {fileID: 21300000, guid: 080a9669d81695b439c7b364de8a2c43, type: 3}
   - {fileID: 21300000, guid: f0a118fadc6f19345a1665cac7214fb2, type: 3}
   m_LocalAABB:
@@ -826,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f59db87de348894599207a6ed359c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 2
 --- !u!50 &1410878185566642609
 Rigidbody2D:
   serializedVersion: 4
