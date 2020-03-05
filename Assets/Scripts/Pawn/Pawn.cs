@@ -12,13 +12,13 @@ public class Pawn : MonoBehaviour
 
     [Header("Sprite самой полоски HP Bar'а.")]
     [SerializeField]
-    private Transform hpBar;
-    private float startHpBarValue;
+    protected Transform hpBar;
+    protected float startHpBarValue;
 
-    private Animator m_Animator;
+    protected Animator m_Animator;
 
 
-    public void Awake()
+    protected virtual void Awake()
     {
 
         HP = maxHP;
@@ -27,22 +27,17 @@ public class Pawn : MonoBehaviour
         startHpBarValue = m_Transform.localScale.x;
 
         m_Animator = gameObject.GetComponent<Animator>();
-        if (m_Animator == null) m_Animator = gameObject.GetComponentInChildren<Animator>();
+        if (m_Animator == null) m_Animator = gameObject.GetComponentInChildren<Animator>();               
         
-        GameManager.Instance.EnemyPawn.Add(this);
-        GameManager.Instance.EnemyPawnTransform.Add(m_Transform);
-
-
     }
 
-    private void Update()
+    protected virtual void Update()
     {
 
-        CheckDie();
 
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
 
         HP = Mathf.Clamp(HP - damage, 0.0f, maxHP);
@@ -53,7 +48,7 @@ public class Pawn : MonoBehaviour
 
     }
 
-    private void CheckDie()
+    protected virtual void CheckDie()
     {
 
         if (HP <= 0.0f)
@@ -73,7 +68,7 @@ public class Pawn : MonoBehaviour
 
     }
 
-    public void Die()
+    protected virtual void Die()
     {
 
         GameManager.Instance.EnemyPawn.Remove(this);
@@ -83,13 +78,6 @@ public class Pawn : MonoBehaviour
 
         Destroy(gameObject, 2.0f);
 
-    }
-
-    public void Attack()
-    {
-
-        m_Animator.SetTrigger("Attack");
-
-    }
+    }    
 
 }
