@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 
     
     public GameMode CurrentGameMode;
-
     public enum GameMode
     {
 
@@ -32,10 +31,36 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public WeaponHero CurrentWeaponHero;
+    public enum WeaponHero
+    {
+
+        Sword,
+        Lighting,
+        WaterBall,
+        FireBall,
+        FrozenBall        
+
+    }
+
+    public WeaponEnemy ChoiceWeaponEnemy;
+    public enum WeaponEnemy
+    {
+
+        Sword,
+        Lighting,
+        WaterBall,
+        FireBall,
+        FrozenBall        
+
+    }
+
     public HeroPawn m_HeroPawn;
     public Transform m_HeroTransform;
 
     private Transform nextMovePointHero;
+
+    public int openWeapon;
 
     public List<Pawn> EnemyPawn = new List<Pawn>();
     public List<Transform> EnemyPawnTransform = new List<Transform>();
@@ -75,6 +100,8 @@ public class GameManager : MonoBehaviour
         camTransform = m_Camera.gameObject.transform;
 
         sceneName = SceneManager.GetActiveScene().name;
+
+        GetWeaponOffValue();
         
     }
 
@@ -136,7 +163,7 @@ public class GameManager : MonoBehaviour
 
         m_HeroPawn.HeroMove(false);
 
-        GUIManager.Instance.ShowAndHideDialogWindow(true, 0);
+        GUIManager.Instance.ShowAndHideDialogWindow(true, 0);        
 
         while (!Input.anyKey)
         {
@@ -146,6 +173,13 @@ public class GameManager : MonoBehaviour
         }
 
         GUIManager.Instance.ShowAndHideDialogWindow(false, 0);
+        GUIManager.Instance.ShowAndHideWeaponChoice(true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        GUIManager.Instance.OnWeaponOff();
+
+        yield return new WaitForSeconds(1.0f);
 
         ChangeGameMode(GameMode.PlayerTurn);
 
@@ -154,11 +188,38 @@ public class GameManager : MonoBehaviour
     IEnumerator PlayerTurnGameMode()
     {
 
+        GUIManager.Instance.ShowAndHideWeaponChoice(true);
 
+        yield return null; 
 
     }
 
 
+
+    public void ChangeWeaponHero(WeaponHero m_WeaponHero)
+    {
+
+        CurrentWeaponHero = m_WeaponHero;
+
+        GUIManager.Instance.ShowAndHideWeaponChoice(false);
+
+    }
+
+    public void SetWeaponOffValue()
+    {
+
+        openWeapon++;
+        //PlayerPrefs.SetInt("openWeapon", openWeapon);
+
+    }
+
+    public void GetWeaponOffValue()
+    {
+
+        //openWeapon = PlayerPrefs.HasKey("openWeapon") ? PlayerPrefs.GetInt("openWeapon") : 0;
+        openWeapon = 0;
+
+    }
 
     private void KeyBoardHack()
     {
