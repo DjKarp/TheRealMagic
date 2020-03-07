@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class GUIManager : MonoBehaviour
 {
@@ -14,18 +15,19 @@ public class GUIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject m_WeaponChoice;
-
     [SerializeField]
     private GameObject[] m_WeaponOff;
-
     [SerializeField]
     private Transform[] weaponButtonTransform;
 
     [SerializeField]
     private GameObject powerArrowGO;
-
     [SerializeField]
     private Image powerArrowImage;
+
+    [SerializeField]
+    private GameObject TextCurrentTurn;
+    private TextMeshProUGUI m_TextMesh;
 
 
 
@@ -41,10 +43,35 @@ public class GUIManager : MonoBehaviour
 
         for (int i = 0; i < m_WeaponOff.Length; i++) if (i < GameManager.Instance.openWeapon) m_WeaponOff[i].SetActive(false);
 
+        m_TextMesh = TextCurrentTurn.GetComponent<TextMeshProUGUI>();
+        if (m_TextMesh == null) m_TextMesh = TextCurrentTurn.GetComponentInChildren<TextMeshProUGUI>();
+        TextCurrentTurn.SetActive(false);
+
+        GameManager.Instance.changeGameModeEvent += OnChangeState;
+
     }
 
 
+    public void OnChangeState()
+    {
 
+        switch (GameManager.Instance.CurrentGameMode)
+        {
+
+            case GameManager.GameMode.PlayerTurn:
+                ShowTextCurrentTurn("Player Turn");
+                break;
+
+            case GameManager.GameMode.EnemyTurn:
+                ShowTextCurrentTurn("Enemy Turn");
+                break;
+
+            default:
+                break;
+
+        }
+
+    }
 
     public void OnWeaponOff()
     {
@@ -58,7 +85,6 @@ public class GUIManager : MonoBehaviour
                 m_WeaponOff[i].SetActive(false);
 
                 weaponButtonTransform[i].DOShakeScale(1.4f);
-                weaponButtonTransform[i].DOShakeRotation(1.4f);
 
                 GameManager.Instance.SetWeaponOffValue();
 
@@ -94,6 +120,25 @@ public class GUIManager : MonoBehaviour
     {
 
         powerArrowImage.fillAmount = m_Value;
+
+    }
+
+    public void ShowTextCurrentTurn(string m_Text)
+    {
+
+        TextCurrentTurn.SetActive(true);
+        m_TextMesh.text = m_Text;
+
+        StartCoroutine(HideTextTurn());
+
+    }
+
+    IEnumerator HideTextTurn()
+    {
+
+        yield return new WaitForSeconds(2.0f);
+
+        TextCurrentTurn.SetActive(false);
 
     }
 

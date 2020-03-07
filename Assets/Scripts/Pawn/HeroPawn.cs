@@ -9,6 +9,9 @@ using UnityEngine;
 public class HeroPawn : Pawn
 {
 
+    public float swordDamage = 3.0f;
+
+
     protected override void Awake()
     {
 
@@ -42,6 +45,32 @@ public class HeroPawn : Pawn
     {
 
         m_Animator.SetBool("isWalking", isMoveHeroNow);
+
+    }
+
+    public void AttackSwordHero()
+    {
+
+        m_Animator.SetTrigger("SwordAttack");
+
+    }
+
+    public void AttackMagicHero(bool startEnd)
+    {
+
+        m_Animator.SetBool("isCastMagic", startEnd);
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait)
+        {
+
+            collision.gameObject.GetComponent<EnemyPawn>().TakeDamage(swordDamage);
+
+        }
 
     }
 

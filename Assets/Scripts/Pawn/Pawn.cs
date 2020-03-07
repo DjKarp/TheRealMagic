@@ -17,6 +17,8 @@ public class Pawn : MonoBehaviour
 
     protected Animator m_Animator;
 
+    public Transform shootPoint;
+
 
     protected virtual void Awake()
     {

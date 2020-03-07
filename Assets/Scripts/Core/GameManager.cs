@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance { get; private set; } = null;
-    
 
-    public event Action EventChangeGameMode;
+    public delegate void ChangeState();
+    public event ChangeState changeGameModeEvent;
 
     
     public GameMode CurrentGameMode;
@@ -73,6 +73,21 @@ public class GameManager : MonoBehaviour
     private Transform camTransform;
     private int camPointNumber = 0;
 
+
+    private Vector2 weaponPositionOnOff = new Vector2(-100, -100);
+
+    private float currentShootStrange;
+    private float timeShootLoad = 5.0f;
+    private float currentTimeShootLoad = 0.0f;
+
+    [SerializeField]
+    private GameObject weaponLightingGO;
+    private Transform weaponLightingTR;
+    private Rigidbody2D weaponLightingRB;
+    private LightingWeapon weaponLighting;
+    private float weaponLightingSpeedMin = 5.0f;
+    private float weaponLightingSpeedMax = 15.0f;
+
     public float Timer;
 
     private string sceneName;
@@ -80,6 +95,10 @@ public class GameManager : MonoBehaviour
     private int roomCount = 0;
 
 
+    //для преобразования при повороте
+    private Vector3 xDirection;
+    private Vector3 yDirection;
+    private Vector3 zDirection;
 
     private float tempFloat;
     private int tempInt;
@@ -102,7 +121,13 @@ public class GameManager : MonoBehaviour
         sceneName = SceneManager.GetActiveScene().name;
 
         GetWeaponOffValue();
-        
+        CurrentWeaponHero = WeaponHero.Sword;
+
+        weaponLightingTR = weaponLightingGO.transform;
+        weaponLightingRB = weaponLightingGO.GetComponent<Rigidbody2D>();
+        weaponLighting = weaponLightingGO.GetComponent<LightingWeapon>();
+        weaponLightingGO.SetActive(false);
+
     }
 
     private void Start()
@@ -124,7 +149,7 @@ public class GameManager : MonoBehaviour
 
         CurrentGameMode = m_GameMode;
 
-        //EventChangeGameMode();
+        changeGameModeEvent();
 
         switch (m_GameMode)
         {
@@ -138,7 +163,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.PlayerWeaponWait:
-                
+                if (CurrentWeaponHero == WeaponHero.Lighting) StartCoroutine(WeaponLightingMode());
                 break;
 
         }
@@ -152,25 +177,15 @@ public class GameManager : MonoBehaviour
 
         m_HeroPawn.HeroMove(true);
 
-        while (Mathf.Abs(m_HeroTransform.position.x - nextMovePointHero.position.x) > 0.1f)
-        {
-            
-            m_HeroTransform.DOMoveX(nextMovePointHero.position.x, 5.0f);
+        m_HeroTransform.DOMoveX(nextMovePointHero.position.x, 5.0f);
 
-            yield return null;
-
-        }
+        while (Mathf.Abs(m_HeroTransform.position.x - nextMovePointHero.position.x) > 0.1f) yield return null;
 
         m_HeroPawn.HeroMove(false);
 
         GUIManager.Instance.ShowAndHideDialogWindow(true, 0);        
 
-        while (!Input.anyKey)
-        {
-
-            yield return null;
-
-        }
+        while (!Input.anyKey) yield return null;
 
         GUIManager.Instance.ShowAndHideDialogWindow(false, 0);
         GUIManager.Instance.ShowAndHideWeaponChoice(true);
@@ -190,11 +205,106 @@ public class GameManager : MonoBehaviour
 
         GUIManager.Instance.ShowAndHideWeaponChoice(true);
 
-        yield return null; 
+        while (CurrentGameMode == GameMode.PlayerTurn)
+        {
+
+            switch (CurrentWeaponHero)
+            {
+
+                case WeaponHero.Sword:
+                    WeaponSword();
+                    break;
+
+                case WeaponHero.Lighting:
+                    StartCoroutine(WeaponLighting());
+                    break;
+                    
+                default:
+                    WeaponSword();
+                    break;
+
+            }
+
+
+            yield return null;
+
+        }
+
 
     }
 
+    private void WeaponSword()
+    {
 
+        if (Input.GetMouseButtonUp(0))
+        {
+
+            StartCoroutine(WaitAnimationAndChangeGameState(2.0f, GameMode.EnemyTurn));
+
+        }
+
+    } 
+
+
+    IEnumerator WaitAnimationAndChangeGameState(float timeDelay, GameMode m_GameMode)
+    {
+
+        m_HeroPawn.AttackSwordHero();
+
+        yield return new WaitForSeconds(timeDelay);
+
+        ChangeGameMode(m_GameMode);
+
+    }
+
+    IEnumerator WeaponLighting()
+    {
+
+        while (!Input.GetMouseButtonDown(0)) yield return null;
+
+        m_HeroPawn.AttackMagicHero(true);
+
+        weaponLightingGO.SetActive(true);
+        weaponLightingTR.position = m_HeroPawn.shootPoint.position;
+
+        GUIManager.Instance.ShowAndHidePowerArrow(true);
+
+        timeShootLoad = weaponLightingSpeedMin;
+
+        while (!Input.GetMouseButtonUp(0))
+        {
+
+            if (currentTimeShootLoad < timeShootLoad) currentTimeShootLoad += Time.deltaTime;
+            currentShootStrange = weaponLightingSpeedMin + (((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
+            GUIManager.Instance.SetPowerArrowSliderValue((currentShootStrange - weaponLightingSpeedMin) / (weaponLightingSpeedMax - weaponLightingSpeedMin));
+            /*
+            Debug.Log("currentTimeShootLoad = " + currentTimeShootLoad);
+            Debug.Log("currentShootStrange = " + currentShootStrange);
+            Debug.Log("sliderValue = " + (currentShootStrange - weaponLightingSpeedMin) / (weaponLightingSpeedMax - weaponLightingSpeedMin));
+            */
+            yield return null;
+
+        }
+
+        weaponLightingRB.AddForce((GetOurMouseMosition() - weaponLightingTR.position) * currentTimeShootLoad * 10 * Time.deltaTime, ForceMode2D.Force);
+
+        ChangeGameMode(GameMode.PlayerWeaponWait);
+
+    }
+
+    IEnumerator WeaponLightingMode()
+    {
+
+        while (!weaponLighting.isTheEnd) yield return null;
+
+        yield return new WaitForSeconds(0.5f);
+                
+        weaponLightingTR.position = weaponPositionOnOff;
+        weaponLightingGO.SetActive(false);
+
+        ChangeGameMode(GameMode.EnemyTurn);
+
+    }
 
     public void ChangeWeaponHero(WeaponHero m_WeaponHero)
     {
@@ -270,6 +380,25 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+
+    }
+
+    private Vector3 GetOurMouseMosition()
+    {
+
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    }
+
+    public void LookAt2D(Vector3 lookTarget, Transform m_Transform)
+    {
+
+        //Желаемое направление оси X, от которого устанавливаем ось Y. Z ось обращена к нам.
+        xDirection = (lookTarget - transform.position).normalized;
+        yDirection = Quaternion.Euler(0, 0, 90) * xDirection;
+        zDirection = Vector3.forward;
+
+        m_Transform.rotation = Quaternion.LookRotation(zDirection, yDirection);
 
     }
 
