@@ -35,16 +35,9 @@ public class LightingWeapon : MonoBehaviour
     private void Update()
     {
         
-        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn) LookAt2D(GetOurMouseMosition());
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn) LookAt2D(GameManager.Instance.GetOurMouseMosition());
         else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait) LookAt2D(m_Rigidbody2D.velocity);
         
-    }
-    
-    private Vector3 GetOurMouseMosition()
-    {
-
-        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -66,7 +59,7 @@ public class LightingWeapon : MonoBehaviour
             }
 
         }
-        else if (collision.gameObject.CompareTag("Enemy"))
+        else if (collision.gameObject.CompareTag("Enemy") | collision.gameObject.CompareTag("Player"))
         {
 
             isTheEnd = true;
@@ -83,9 +76,26 @@ public class LightingWeapon : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("DestructionObject"))
         {
-            
-            Instantiate(GameManager.Instance.hitRockDestroyPrefab, collision.GetContact(0).point, Quaternion.identity);            
-            Destroy(collision.gameObject);
+
+            collisionCount++;
+
+            if (collisionCount > maxCollisionCount)
+            {
+
+                isTheEnd = true;
+                hitGO = Instantiate(GameManager.Instance.hitSimpleLightingPrefab, collision.GetContact(0).point, Quaternion.identity);
+                GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
+                Destroy(gameObject);
+
+            }
+            else
+            {
+
+                hitGO = Instantiate(GameManager.Instance.hitRockDestroyPrefab, collision.GetContact(0).point, Quaternion.identity);
+                hitGO.transform.parent = null;
+                Destroy(collision.gameObject);
+
+            }
 
         }
 

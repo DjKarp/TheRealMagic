@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4133432334451894922}
   - component: {fileID: 4133432334451894917}
   - component: {fileID: 5332572560786355304}
+  - component: {fileID: 4083641141145922285}
   m_Layer: 0
   m_Name: FX_Explosion
   m_TagString: Untagged
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -7292255015935249530, guid: 6a5e352e0c5b80344830621b77978d5c,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -102,3 +103,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4083641141145922285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133432334451894916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e14d45c5fc948244ba3dde6be94c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 5332572560786355304}
+  nameAnimation: FX_Explosion_01_EndFrame

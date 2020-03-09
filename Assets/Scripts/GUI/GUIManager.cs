@@ -22,6 +22,7 @@ public class GUIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject powerArrowGO;
+    private Transform powerArrowTR;
     [SerializeField]
     private Image powerArrowImage;
 
@@ -29,7 +30,9 @@ public class GUIManager : MonoBehaviour
     private GameObject TextCurrentTurn;
     private TextMeshProUGUI m_TextMesh;
 
-
+    private Vector3 xDirection;
+    private Vector3 yDirection;
+    private Vector3 zDirection;
 
 
     private void Awake()
@@ -48,6 +51,8 @@ public class GUIManager : MonoBehaviour
         TextCurrentTurn.SetActive(false);
 
         GameManager.Instance.changeGameModeEvent += OnChangeState;
+
+        powerArrowTR = powerArrowGO.transform;
 
     }
 
@@ -68,9 +73,23 @@ public class GUIManager : MonoBehaviour
 
             default:
                 ShowAndHideWeaponChoice(false);
+                StartCoroutine(HideTextTurn(0.0f));
                 break;
 
         }
+
+    }
+
+    private void Update()
+    {
+        
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn)
+        {
+
+            powerArrowTR.position = Camera.main.WorldToScreenPoint(GameManager.Instance.m_HeroPawn.shootPoint.position);
+            powerArrowTR.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.Angle(Vector2.right, (Input.mousePosition - powerArrowTR.position)));
+
+        } 
 
     }
 
@@ -129,15 +148,13 @@ public class GUIManager : MonoBehaviour
 
         TextCurrentTurn.SetActive(true);
         m_TextMesh.text = m_Text;
-
-        StartCoroutine(HideTextTurn());
-
+        
     }
 
-    IEnumerator HideTextTurn()
+    IEnumerator HideTextTurn(float hideTime)
     {
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(hideTime);
 
         TextCurrentTurn.SetActive(false);
 
@@ -160,6 +177,18 @@ public class GUIManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+
+    }
+
+    public void LookAt2D(Vector3 lookTarget, Transform rotateTransform)
+    {
+
+        //Желаемое направление оси X, от которого устанавливаем ось Y. Z ось обращена к нам.
+        xDirection = (lookTarget - transform.position).normalized;
+        yDirection = Quaternion.Euler(0, 0, 90) * xDirection;
+        zDirection = Vector3.forward;
+
+        rotateTransform.rotation = Quaternion.LookRotation(zDirection, yDirection);
 
     }
 

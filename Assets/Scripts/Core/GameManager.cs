@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using System;
-using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public class GameManager : MonoBehaviour
@@ -39,7 +36,7 @@ public class GameManager : MonoBehaviour
         Lighting,
         WaterBall,
         FireBall,
-        FrozenBall        
+        IceBall        
 
     }
 
@@ -71,30 +68,43 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public Camera m_Camera;
     private Transform camTransform;
-    private int camPointNumber = 0;
+    [HideInInspector]
+    public int camPointNumber = 0;
     
     private float currentShootStrange;
     private float timeShootLoad = 5.0f;
     private float currentTimeShootLoad = 0.0f;
 
     [SerializeField]
-    private GameObject weaponLightingPrefab;
-    private GameObject weaponLightingGO;
-    private Rigidbody2D weaponLightingRB;
+    private GameObject weaponLightingPrefab;    
     private float weaponLightingSpeedMin = 20.0f;
     private float weaponLightingSpeedMax = 50.0f;
     private bool isCountTime = false;
 
+    [SerializeField]
+    private GameObject weaponWaterBallPrefab;
+
+    [SerializeField]
+    private GameObject weaponFireBallPrefab;
+
+    [SerializeField]
+    private GameObject weaponIceBallPrefab;
+
+    private GameObject weaponGO;
+    private Rigidbody2D weaponRB;
+
     public GameObject hitPrefab;
     public GameObject hitRockDestroyPrefab;
     public GameObject hitSimpleLightingPrefab;
+    public GameObject hitWaterBallExplousenPrefab;
 
     public float Timer;
 
     private string sceneName;
 
-    private int roomCount = 0;
-
+    [SerializeField]
+    private int[] EnemyCountInRoom;
+    private int countLiveEnemyInRoom;
 
     //для преобразования при повороте
     private Vector3 xDirection;
@@ -157,10 +167,15 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.PlayerTurn:
-                GUIManager.Instance.ShowAndHideWeaponChoice(true);
+                if (countLiveEnemyInRoom >= EnemyCountInRoom[camPointNumber]) ChangeGameMode(GameMode.NextRoom); 
+                else GUIManager.Instance.ShowAndHideWeaponChoice(true);
                 break;
 
             case GameMode.PlayerWeaponWait:
+
+                break;
+
+            case GameMode.NextRoom:
 
                 break;
 
@@ -192,6 +207,18 @@ public class GameManager : MonoBehaviour
                     StartCoroutine(WeaponLighting());
                     break;
 
+                case WeaponHero.WaterBall:
+                    StartCoroutine(WeaponWaterBall());
+                    break;
+
+                case WeaponHero.FireBall:
+                    StartCoroutine(WeaponFireBall());
+                    break;
+
+                case WeaponHero.IceBall:
+                    StartCoroutine(WeaponIceBall());
+                    break;
+
                 default:
                     StartCoroutine(WeaponSword());
                     break;
@@ -204,6 +231,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DialogeGameMode()
     {
+
+        countLiveEnemyInRoom = 0;
 
         nextMovePointHero = LevelHeroPathPoint.GetNextPoint();
 
@@ -229,6 +258,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         ChangeGameMode(GameMode.PlayerTurn);
+
+        yield break;
 
     }
     
@@ -258,17 +289,14 @@ public class GameManager : MonoBehaviour
     {
 
         while (!Input.GetMouseButtonDown(0)) yield return null;
-
         m_HeroPawn.AttackMagicHero(true);
-
-        weaponLightingGO = Instantiate(weaponLightingPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
-        weaponLightingRB = weaponLightingGO.GetComponent<Rigidbody2D>();
-
         GUIManager.Instance.ShowAndHidePowerArrow(true);
-
         currentTimeShootLoad = 0.0f;
         isCountTime = true;
 
+        weaponGO = Instantiate(weaponLightingPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
+        weaponRB = weaponGO.GetComponent<Rigidbody2D>();             
+               
         while (!Input.GetMouseButtonUp(0))
         {
 
@@ -283,14 +311,122 @@ public class GameManager : MonoBehaviour
         GUIManager.Instance.ShowAndHidePowerArrow(false);
         m_HeroPawn.AttackMagicHero(false);
 
-        weaponLightingRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
+        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
 
         ChangeGameMode(GameMode.PlayerWeaponWait);
 
         yield break;
 
     }
- 
+
+    IEnumerator WeaponWaterBall()
+    {
+
+        while (!Input.GetMouseButtonDown(0)) yield return null;
+        m_HeroPawn.AttackMagicHero(true);
+        GUIManager.Instance.ShowAndHidePowerArrow(true);
+        currentTimeShootLoad = 0.0f;
+        isCountTime = true;
+
+        weaponGO = Instantiate(weaponWaterBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
+        weaponRB = weaponGO.GetComponent<Rigidbody2D>();
+        weaponRB.bodyType = RigidbodyType2D.Kinematic;
+
+        while (!Input.GetMouseButtonUp(0))
+        {
+
+            currentShootStrange = (((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
+            GUIManager.Instance.SetPowerArrowSliderValue(currentShootStrange / (weaponLightingSpeedMax - weaponLightingSpeedMin));
+
+            yield return null;
+
+        }
+
+        isCountTime = false;
+        GUIManager.Instance.ShowAndHidePowerArrow(false);
+        m_HeroPawn.AttackMagicHero(false);
+
+        weaponRB.bodyType = RigidbodyType2D.Dynamic;
+        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 40 * Time.deltaTime, ForceMode2D.Impulse);
+
+        ChangeGameMode(GameMode.PlayerWeaponWait);
+
+        yield break;
+
+    }
+
+    IEnumerator WeaponFireBall()
+    {
+
+        while (!Input.GetMouseButtonDown(0)) yield return null;
+        m_HeroPawn.AttackMagicHero(true);
+        GUIManager.Instance.ShowAndHidePowerArrow(true);
+        currentTimeShootLoad = 0.0f;
+        isCountTime = true;
+
+        weaponGO = Instantiate(weaponFireBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
+        weaponRB = weaponGO.GetComponent<Rigidbody2D>();
+        weaponRB.bodyType = RigidbodyType2D.Kinematic;
+
+        while (!Input.GetMouseButtonUp(0))
+        {
+
+            currentShootStrange = (((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
+            GUIManager.Instance.SetPowerArrowSliderValue(currentShootStrange / (weaponLightingSpeedMax - weaponLightingSpeedMin));
+
+            yield return null;
+
+        }
+
+        isCountTime = false;
+        GUIManager.Instance.ShowAndHidePowerArrow(false);
+        m_HeroPawn.AttackMagicHero(false);
+
+        weaponRB.bodyType = RigidbodyType2D.Dynamic;
+        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 60 * Time.deltaTime, ForceMode2D.Impulse);
+
+        ChangeGameMode(GameMode.PlayerWeaponWait);
+
+        yield break;
+
+    }
+
+    IEnumerator WeaponIceBall()
+    {
+
+        while (!Input.GetMouseButtonDown(0)) yield return null;
+        m_HeroPawn.AttackMagicHero(true);
+        GUIManager.Instance.ShowAndHidePowerArrow(true);
+        currentTimeShootLoad = 0.0f;
+        isCountTime = true;
+
+        weaponGO = Instantiate(weaponIceBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
+        weaponRB = weaponGO.GetComponent<Rigidbody2D>();
+        weaponRB.bodyType = RigidbodyType2D.Kinematic;
+
+        while (!Input.GetMouseButtonUp(0))
+        {
+
+            currentShootStrange = (((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
+            GUIManager.Instance.SetPowerArrowSliderValue(currentShootStrange / (weaponLightingSpeedMax - weaponLightingSpeedMin));
+
+            yield return null;
+
+        }
+
+        isCountTime = false;
+        GUIManager.Instance.ShowAndHidePowerArrow(false);
+        m_HeroPawn.AttackMagicHero(false);
+
+        weaponRB.bodyType = RigidbodyType2D.Dynamic;
+        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 100 * Time.deltaTime, ForceMode2D.Impulse);
+
+        ChangeGameMode(GameMode.PlayerWeaponWait);
+
+        yield break;
+
+    }
+
 
     public void SetWeaponOffValue()
     {
@@ -304,7 +440,14 @@ public class GameManager : MonoBehaviour
     {
 
         //openWeapon = PlayerPrefs.HasKey("openWeapon") ? PlayerPrefs.GetInt("openWeapon") : 0;
-        openWeapon = 0;
+        openWeapon = 4;
+
+    }
+
+    public void AddDeathEnemy()
+    {
+
+        countLiveEnemyInRoom++;
 
     }
 
@@ -360,7 +503,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private Vector3 GetOurMouseMosition()
+    public Vector3 GetOurMouseMosition()
     {
 
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);

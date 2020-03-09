@@ -51,6 +51,8 @@ public class EnemyPawn : Pawn
 
         base.Die();
 
+        GameManager.Instance.AddDeathEnemy();
+
     }
 
     public void OnGameChangeState()

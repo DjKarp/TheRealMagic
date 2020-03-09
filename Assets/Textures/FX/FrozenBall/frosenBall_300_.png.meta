@@ -1,0 +1,499 @@
+fileFormatVersion: 2
+guid: 57f23f54e220e044cab2558c16fb8a64
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6871213531697231510
+    second: frosenBall_300__0
+  - first:
+      213: 5100027308303903284
+    second: frosenBall_300__1
+  - first:
+      213: -1109736479260930849
+    second: frosenBall_300__2
+  - first:
+      213: 4689982779498619602
+    second: frosenBall_300__3
+  - first:
+      213: 6529878585578074762
+    second: frosenBall_300__4
+  - first:
+      213: 4934008922889335192
+    second: frosenBall_300__5
+  - first:
+      213: 7035720697919067348
+    second: frosenBall_300__6
+  - first:
+      213: 6407726554408942385
+    second: frosenBall_300__7
+  - first:
+      213: 2145696404876429404
+    second: frosenBall_300__8
+  - first:
+      213: -1254128848101409897
+    second: frosenBall_300__9
+  - first:
+      213: 4818306879249798486
+    second: frosenBall_300__10
+  - first:
+      213: -6762611078242973570
+    second: frosenBall_300__11
+  - first:
+      213: 8853520444377898355
+    second: frosenBall_300__12
+  - first:
+      213: 8030824328750709408
+    second: frosenBall_300__13
+  - first:
+      213: 7413669746586717776
+    second: frosenBall_300__14
+  - first:
+      213: 7446665502438865202
+    second: frosenBall_300__15
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: frosenBall_300__0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 188.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.4050523, y: 0.6522562}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 696bba44d447b5f50800000000000000
+      internalID: 6871213531697231510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__1
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 188.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.49208772, y: 0.6522562}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43aee38d0dfe6c640800000000000000
+      internalID: 5100027308303903284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__2
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 188.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.54747367, y: 0.6522562}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdc0c5f3d8c6990f0800000000000000
+      internalID: -1109736479260930849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__3
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 188.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.58703536, y: 0.6522562}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d2e6b64d7a261140800000000000000
+      internalID: 4689982779498619602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 126.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.3813154, y: 0.5580021}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82bfcf0af9ce9a50800000000000000
+      internalID: 6529878585578074762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__5
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 126.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.46835074, y: 0.5217506}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8913d6f49fe197440800000000000000
+      internalID: 4934008922889335192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__6
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 126.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.5791228, y: 0.53625125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d4545aa2b6e3a160800000000000000
+      internalID: 7035720697919067348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__7
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 126.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.6107722, y: 0.5507518}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13bf1650a51dce850800000000000000
+      internalID: 6407726554408942385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 58
+        height: 63
+      alignment: 9
+      pivot: {x: 0.41371512, y: 0.4422273}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c580e78038b07cd10800000000000000
+      internalID: 2145696404876429404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__9
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 64
+        width: 58
+        height: 63
+      alignment: 9
+      pivot: {x: 0.53137654, y: 0.4133411}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b78521570789ee0800000000000000
+      internalID: -1254128848101409897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__10
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 64.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.55538595, y: 0.42024615}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 655518404901ed240800000000000000
+      internalID: 4818306879249798486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__11
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 64.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.6107722, y: 0.42024615}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e78c43fdd016622a0800000000000000
+      internalID: -6762611078242973570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.4050523, y: 0.31874183}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37d9dcaafe50eda70800000000000000
+      internalID: 8853520444377898355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__13
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 2.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.46835074, y: 0.3549934}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aa30c88d28337f60800000000000000
+      internalID: 8030824328750709408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__14
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 2.25
+        width: 57.5
+        height: 62.75
+      alignment: 9
+      pivot: {x: 0.5237366, y: 0.33324248}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05e8c5fea55a2e660800000000000000
+      internalID: 7413669746586717776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frosenBall_300__15
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 2.25
+        width: 57.5
+        height: 62.75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 239360202ded75760800000000000000
+      internalID: 7446665502438865202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
