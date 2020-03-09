@@ -5,6 +5,13 @@ using UnityEngine;
 public class EnemyPawn : Pawn
 {
 
+    private GameObject hitGO;
+    private Animator hitAnimator;
+
+    public float damage = 7.0f;
+
+    private bool isAttack = false;
+
     protected override void Awake()
     {
         
@@ -12,6 +19,8 @@ public class EnemyPawn : Pawn
 
         GameManager.Instance.EnemyPawn.Add(this);
         GameManager.Instance.EnemyPawnTransform.Add(m_Transform);
+
+        GameManager.Instance.changeGameModeEvent += OnGameChangeState;
 
     }
 
@@ -25,7 +34,15 @@ public class EnemyPawn : Pawn
     public void Attack()
     {
 
+        isAttack = true;
+
         m_Animator.SetTrigger("Attack");
+
+        hitGO = Instantiate(GameManager.Instance.hitPrefab, GameManager.Instance.m_HeroTransform.position, Quaternion.identity);
+        hitAnimator = hitGO.GetComponent<Animator>();
+        hitAnimator.SetTrigger("Start");
+
+        GameManager.Instance.m_HeroPawn.TakeDamage(damage);
 
     }
 
@@ -33,6 +50,37 @@ public class EnemyPawn : Pawn
     {
 
         base.Die();
+
+    }
+
+    public void OnGameChangeState()
+    {
+
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.EnemyTurn)
+        {
+
+            StartCoroutine(EnemyTurn());
+
+        }
+
+    }
+
+    IEnumerator EnemyTurn()
+    {
+
+        isAttack = false;
+
+        yield return new WaitForSeconds(2.0f);
+
+        if (!isAttack) Attack();
+
+        GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyWeaponWait);
+
+        yield return new WaitForSeconds(1.0f);
+
+        if (!GameManager.Instance.m_HeroPawn.IsDie()) GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
+
+        yield break;
 
     }
 

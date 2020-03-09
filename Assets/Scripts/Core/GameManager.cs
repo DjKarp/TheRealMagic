@@ -72,21 +72,22 @@ public class GameManager : MonoBehaviour
     public Camera m_Camera;
     private Transform camTransform;
     private int camPointNumber = 0;
-
-
-    private Vector2 weaponPositionOnOff = new Vector2(-100, -100);
-
+    
     private float currentShootStrange;
     private float timeShootLoad = 5.0f;
     private float currentTimeShootLoad = 0.0f;
 
     [SerializeField]
+    private GameObject weaponLightingPrefab;
     private GameObject weaponLightingGO;
-    private Transform weaponLightingTR;
     private Rigidbody2D weaponLightingRB;
-    private LightingWeapon weaponLighting;
-    private float weaponLightingSpeedMin = 5.0f;
-    private float weaponLightingSpeedMax = 15.0f;
+    private float weaponLightingSpeedMin = 20.0f;
+    private float weaponLightingSpeedMax = 50.0f;
+    private bool isCountTime = false;
+
+    public GameObject hitPrefab;
+    public GameObject hitRockDestroyPrefab;
+    public GameObject hitSimpleLightingPrefab;
 
     public float Timer;
 
@@ -122,12 +123,7 @@ public class GameManager : MonoBehaviour
 
         GetWeaponOffValue();
         CurrentWeaponHero = WeaponHero.Sword;
-
-        weaponLightingTR = weaponLightingGO.transform;
-        weaponLightingRB = weaponLightingGO.GetComponent<Rigidbody2D>();
-        weaponLighting = weaponLightingGO.GetComponent<LightingWeapon>();
-        weaponLightingGO.SetActive(false);
-
+        
     }
 
     private void Start()
@@ -141,6 +137,8 @@ public class GameManager : MonoBehaviour
     {
 
         KeyBoardHack();
+
+        if (isCountTime && currentTimeShootLoad < timeShootLoad) currentTimeShootLoad += Time.deltaTime;
 
     }
 
@@ -159,12 +157,46 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.PlayerTurn:
-                StartCoroutine(PlayerTurnGameMode());
+                GUIManager.Instance.ShowAndHideWeaponChoice(true);
                 break;
 
             case GameMode.PlayerWeaponWait:
-                if (CurrentWeaponHero == WeaponHero.Lighting) StartCoroutine(WeaponLightingMode());
+
                 break;
+
+            case GameMode.EnemyTurn:
+                break;
+
+        }
+
+    }
+
+    public void ChangeWeaponHero(WeaponHero m_WeaponHero)
+    {
+
+        CurrentWeaponHero = m_WeaponHero;
+
+        GUIManager.Instance.ShowAndHideWeaponChoice(false);
+
+        if (CurrentGameMode == GameMode.PlayerTurn)
+        {
+
+            switch (CurrentWeaponHero)
+            {
+
+                case WeaponHero.Sword:
+                    StartCoroutine(WeaponSword());
+                    break;
+
+                case WeaponHero.Lighting:
+                    StartCoroutine(WeaponLighting());
+                    break;
+
+                default:
+                    StartCoroutine(WeaponSword());
+                    break;
+
+            }
 
         }
 
@@ -199,64 +231,29 @@ public class GameManager : MonoBehaviour
         ChangeGameMode(GameMode.PlayerTurn);
 
     }
-
-    IEnumerator PlayerTurnGameMode()
+    
+    IEnumerator WeaponSword()
     {
 
-        GUIManager.Instance.ShowAndHideWeaponChoice(true);
+        yield return new WaitForSeconds(1.0f);
 
-        while (CurrentGameMode == GameMode.PlayerTurn)
+        if (!Input.GetMouseButtonUp(0))
         {
-
-            switch (CurrentWeaponHero)
-            {
-
-                case WeaponHero.Sword:
-                    WeaponSword();
-                    break;
-
-                case WeaponHero.Lighting:
-                    StartCoroutine(WeaponLighting());
-                    break;
-                    
-                default:
-                    WeaponSword();
-                    break;
-
-            }
-
 
             yield return null;
 
         }
 
-
-    }
-
-    private void WeaponSword()
-    {
-
-        if (Input.GetMouseButtonUp(0))
-        {
-
-            StartCoroutine(WaitAnimationAndChangeGameState(2.0f, GameMode.EnemyTurn));
-
-        }
-
-    } 
-
-
-    IEnumerator WaitAnimationAndChangeGameState(float timeDelay, GameMode m_GameMode)
-    {
-
         m_HeroPawn.AttackSwordHero();
 
-        yield return new WaitForSeconds(timeDelay);
+        yield return new WaitForSeconds(3.0f);
 
-        ChangeGameMode(m_GameMode);
+        ChangeGameMode(GameMode.EnemyTurn);
 
-    }
+        yield break;
 
+    } 
+    
     IEnumerator WeaponLighting()
     {
 
@@ -264,56 +261,36 @@ public class GameManager : MonoBehaviour
 
         m_HeroPawn.AttackMagicHero(true);
 
-        weaponLightingGO.SetActive(true);
-        weaponLightingTR.position = m_HeroPawn.shootPoint.position;
+        weaponLightingGO = Instantiate(weaponLightingPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
+        weaponLightingRB = weaponLightingGO.GetComponent<Rigidbody2D>();
 
         GUIManager.Instance.ShowAndHidePowerArrow(true);
 
-        timeShootLoad = weaponLightingSpeedMin;
+        currentTimeShootLoad = 0.0f;
+        isCountTime = true;
 
         while (!Input.GetMouseButtonUp(0))
         {
 
-            if (currentTimeShootLoad < timeShootLoad) currentTimeShootLoad += Time.deltaTime;
-            currentShootStrange = weaponLightingSpeedMin + (((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
-            GUIManager.Instance.SetPowerArrowSliderValue((currentShootStrange - weaponLightingSpeedMin) / (weaponLightingSpeedMax - weaponLightingSpeedMin));
-            /*
-            Debug.Log("currentTimeShootLoad = " + currentTimeShootLoad);
-            Debug.Log("currentShootStrange = " + currentShootStrange);
-            Debug.Log("sliderValue = " + (currentShootStrange - weaponLightingSpeedMin) / (weaponLightingSpeedMax - weaponLightingSpeedMin));
-            */
+            currentShootStrange =(((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
+            GUIManager.Instance.SetPowerArrowSliderValue(currentShootStrange / (weaponLightingSpeedMax - weaponLightingSpeedMin));
+                        
             yield return null;
 
         }
 
-        weaponLightingRB.AddForce((GetOurMouseMosition() - weaponLightingTR.position) * currentTimeShootLoad * 10 * Time.deltaTime, ForceMode2D.Force);
+        isCountTime = false;
+        GUIManager.Instance.ShowAndHidePowerArrow(false);
+        m_HeroPawn.AttackMagicHero(false);
+
+        weaponLightingRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
 
         ChangeGameMode(GameMode.PlayerWeaponWait);
 
-    }
-
-    IEnumerator WeaponLightingMode()
-    {
-
-        while (!weaponLighting.isTheEnd) yield return null;
-
-        yield return new WaitForSeconds(0.5f);
-                
-        weaponLightingTR.position = weaponPositionOnOff;
-        weaponLightingGO.SetActive(false);
-
-        ChangeGameMode(GameMode.EnemyTurn);
+        yield break;
 
     }
-
-    public void ChangeWeaponHero(WeaponHero m_WeaponHero)
-    {
-
-        CurrentWeaponHero = m_WeaponHero;
-
-        GUIManager.Instance.ShowAndHideWeaponChoice(false);
-
-    }
+ 
 
     public void SetWeaponOffValue()
     {

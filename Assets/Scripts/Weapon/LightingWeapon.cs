@@ -14,13 +14,11 @@ public class LightingWeapon : MonoBehaviour
 
     public bool isTheEnd = false;
 
-    public float damage = 5;
+    public float damage = 4;
 
-    [SerializeField]
-    private GameObject hitPrefab;
     private GameObject hitGO;
     private Animator hitAnimator;
-
+    
     //для преобразования при повороте
     private Vector3 xDirection;
     private Vector3 yDirection;
@@ -30,11 +28,7 @@ public class LightingWeapon : MonoBehaviour
     {
 
         m_Transform = gameObject.transform;
-        m_Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-
-        hitGO = Instantiate(hitPrefab, m_Transform);
-        hitAnimator = hitGO.GetComponent<Animator>();
-        hitGO.SetActive(false);
+        m_Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();        
 
     }
 
@@ -43,16 +37,9 @@ public class LightingWeapon : MonoBehaviour
         
         if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn) LookAt2D(GetOurMouseMosition());
         else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait) LookAt2D(m_Rigidbody2D.velocity);
-
+        
     }
-
-    private void LateUpdate()
-    {
-
-        if (collisionCount > maxCollisionCount) isTheEnd = true;
-
-    }
-
+    
     private Vector3 GetOurMouseMosition()
     {
 
@@ -63,33 +50,44 @@ public class LightingWeapon : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Wall")) collisionCount++;
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+
+            collisionCount++;
+
+            if (collisionCount > maxCollisionCount)
+            {
+
+                isTheEnd = true;
+                hitGO = Instantiate(GameManager.Instance.hitSimpleLightingPrefab, collision.GetContact(0).point, Quaternion.identity);
+                GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
+                Destroy(gameObject);
+
+            }
+
+        }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
 
             isTheEnd = true;
             collision.gameObject.GetComponent<EnemyPawn>().TakeDamage(damage);
 
-            hitGO.SetActive(true);
+            hitGO = Instantiate(GameManager.Instance.hitPrefab, collision.GetContact(0).point, Quaternion.identity);
+            hitAnimator = hitGO.GetComponent<Animator>();
             hitAnimator.SetTrigger("Start");
-            StartCoroutine(HitFXDelay());
+
+            GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
+
+            Destroy(gameObject);
 
         }
         else if (collision.gameObject.CompareTag("DestructionObject"))
         {
-
-
+            
+            Instantiate(GameManager.Instance.hitRockDestroyPrefab, collision.GetContact(0).point, Quaternion.identity);            
+            Destroy(collision.gameObject);
 
         }
-
-    }
-
-    IEnumerator HitFXDelay()
-    {
-
-        yield return new WaitForSeconds(0.5f);
-
-        hitGO.SetActive(false);
 
     }
 

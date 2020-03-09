@@ -67,6 +67,7 @@ public class GUIManager : MonoBehaviour
                 break;
 
             default:
+                ShowAndHideWeaponChoice(false);
                 break;
 
         }
@@ -139,6 +140,8 @@ public class GUIManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         TextCurrentTurn.SetActive(false);
+
+        yield break;
 
     }
 

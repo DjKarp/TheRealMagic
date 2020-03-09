@@ -11,6 +11,8 @@ public class HeroPawn : Pawn
 
     public float swordDamage = 3.0f;
 
+    private EnemyPawn m_EnemyPawn;
+
 
     protected override void Awake()
     {
@@ -68,7 +70,13 @@ public class HeroPawn : Pawn
         if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait)
         {
 
-            collision.gameObject.GetComponent<EnemyPawn>().TakeDamage(swordDamage);
+            if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Knight_attack"))
+            {
+
+                m_EnemyPawn = collision.gameObject.GetComponent<EnemyPawn>();
+                if (m_EnemyPawn != null) m_EnemyPawn.TakeDamage(swordDamage);
+
+            }
 
         }
 

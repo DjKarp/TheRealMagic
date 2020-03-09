@@ -26,7 +26,7 @@ public class Pawn : MonoBehaviour
         HP = maxHP;
 
         m_Transform = gameObject.transform;
-        startHpBarValue = m_Transform.localScale.x;
+        startHpBarValue = hpBar.localScale.x;
 
         m_Animator = gameObject.GetComponent<Animator>();
         if (m_Animator == null) m_Animator = gameObject.GetComponentInChildren<Animator>();               
@@ -70,6 +70,14 @@ public class Pawn : MonoBehaviour
 
     }
 
+    public virtual bool IsDie()
+    {
+
+        if (HP <= 0.0f) return true;
+        else return false;
+
+    }
+
     protected virtual void Die()
     {
 
@@ -78,7 +86,7 @@ public class Pawn : MonoBehaviour
 
         m_Animator.SetTrigger("Die");
 
-        Destroy(gameObject, 2.0f);
+        Destroy(m_Transform.parent.gameObject, 2.0f);
 
     }    
 
