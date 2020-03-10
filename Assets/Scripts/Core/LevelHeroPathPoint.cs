@@ -66,7 +66,13 @@ public class LevelHeroPathPoint : MonoBehaviour
         foreach(LevelHeroPathPoint point in allPoints)
         {
 
-            if (point.pointPassed) tempTransform = point.gameObject.transform;
+            if (point.pointPassed)
+            {
+
+                tempTransform = point.gameObject.transform;
+                point.pointPassed = false;
+
+            }
 
         }
 

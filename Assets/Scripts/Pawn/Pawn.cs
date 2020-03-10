@@ -80,10 +80,7 @@ public class Pawn : MonoBehaviour
 
     protected virtual void Die()
     {
-
-        GameManager.Instance.EnemyPawn.Remove(this);
-        GameManager.Instance.EnemyPawnTransform.Remove(m_Transform);
-
+        
         m_Animator.SetTrigger("Die");
 
         Destroy(m_Transform.parent.gameObject, 2.0f);

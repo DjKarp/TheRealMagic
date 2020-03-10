@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 
 //isCastMagic
@@ -11,28 +12,31 @@ public class HeroPawn : Pawn
 
     public float swordDamage = 3.0f;
 
+    public float speed = 10.0f;
+    private bool isMove = false;
+
+    private SpriteRenderer m_SpriteRenderer;
+
     private EnemyPawn m_EnemyPawn;
-
-    private BoxCollider2D m_BoxCollider2D;    
-    private CapsuleCollider2D m_CapsuleCollider2D;
-
+    
 
     protected override void Awake()
     {
 
         base.Awake();
 
-        m_BoxCollider2D = gameObject.GetComponent<BoxCollider2D>();
-        m_CapsuleCollider2D = gameObject.GetComponent<CapsuleCollider2D>();
+        GameManager.Instance.changeGameModeEvent += OnGameChangeState;
 
-        isAttackSwordSwitchCollider(false);
-
+        m_SpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        
     }
 
     protected override void Update()
     {
 
         base.Update();
+
+        //MoveHero();
 
     }
 
@@ -72,6 +76,70 @@ public class HeroPawn : Pawn
 
     }
 
+    public void OnGameChangeState()
+    {
+
+        switch (GameManager.Instance.CurrentGameMode)
+        {
+
+            case GameManager.GameMode.PlayerTurn:
+                //StartCoroutine(MoveHero());
+                break;
+
+        }
+
+    }
+
+    private void MoveHero()
+    {
+
+        while(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn)
+        {
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+
+                if (!isMove)
+                {
+
+                    HeroMove(true);
+                    isMove = true;
+
+                }
+
+                if (m_SpriteRenderer.flipX) m_SpriteRenderer.flipX = false;
+
+                //m_Transform.position = new Vector3(m_Transform.position.x + (speed * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
+
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+
+                HeroMove(true);
+
+                if (!m_SpriteRenderer.flipX) m_SpriteRenderer.flipX = true;
+
+                m_Transform.Translate(Vector3.left * speed * Time.deltaTime);
+
+            }
+            else
+            {
+
+                if (isMove)
+                {
+
+                    HeroMove(false);
+                    isMove = false;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
@@ -90,13 +158,5 @@ public class HeroPawn : Pawn
         }
 
     }
-
-    public void isAttackSwordSwitchCollider(bool isStart)
-    {
-
-        m_BoxCollider2D.enabled = !isStart;
-        m_CapsuleCollider2D.enabled = isStart;
-
-    }
-
+    
 }

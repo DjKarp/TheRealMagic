@@ -16,12 +16,9 @@ public class EnemyPawn : Pawn
     {
         
         base.Awake();
-
-        GameManager.Instance.EnemyPawn.Add(this);
-        GameManager.Instance.EnemyPawnTransform.Add(m_Transform);
-
+        
         GameManager.Instance.changeGameModeEvent += OnGameChangeState;
-
+        
     }
 
     protected override void Update()
@@ -51,20 +48,21 @@ public class EnemyPawn : Pawn
 
         base.Die();
 
-        GameManager.Instance.EnemyInRoom[GameManager.Instance.camPointNumber].enemyGO.Remove(gameObject);
+        GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyGO.Remove(gameObject);
+        GameManager.Instance.enemyLiveInScene--;
 
     }
 
     public void OnGameChangeState()
     {
-
+        /*
         if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.EnemyTurn)
         {
 
-            StartCoroutine(EnemyTurn());
+            if (HP > 0) StartCoroutine(EnemyTurn());
 
         }
-
+        */
     }
 
     IEnumerator EnemyTurn()
@@ -83,18 +81,6 @@ public class EnemyPawn : Pawn
         if (!GameManager.Instance.m_HeroPawn.IsDie()) GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
 
         yield break;
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-        if (collision.gameObject.CompareTag("Player"))
-        {
-
-
-
-        } 
 
     }
 

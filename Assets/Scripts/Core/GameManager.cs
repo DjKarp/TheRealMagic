@@ -56,15 +56,14 @@ public class GameManager : MonoBehaviour
     public HeroPawn m_HeroPawn;
     public Transform m_HeroTransform;
 
-    private Transform nextMovePointHero;
+    [SerializeField]
+    private List<Transform> pathPointHero;
+    private int nextMovePointHero;
 
     public int openWeapon;
-
-    public List<Pawn> EnemyPawn = new List<Pawn>();
-    public List<Transform> EnemyPawnTransform = new List<Transform>();
-
+    
     [SerializeField]
-    private List<Transform> camPathPoint;
+    public List<Transform> camPathPoint;
 
     [HideInInspector]
     public Camera m_Camera;
@@ -99,18 +98,15 @@ public class GameManager : MonoBehaviour
     public GameObject hitSimpleLightingPrefab;
     public GameObject hitWaterBallExplousenPrefab;
     
-    private string sceneName;
+    private string sceneName;    
 
-    [Serializable]
-    public class EnemyRoom
-    {
+    public List<EnemyRoom> enemyInRoom;
+    private int enemyTurnCount;
+    public int enemyLiveInScene;
 
-        public int numberRoom;
-        public List<GameObject> enemyGO;
-
-    }
-
-    public List<EnemyRoom> EnemyInRoom;
+    [SerializeField]
+    private List<GameObject> noWayBack;
+    private int noWayBackCount;
 
     public float Timer;
 
@@ -129,6 +125,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 
+        camPointNumber = -1;
+        nextMovePointHero = -1;
+        noWayBackCount = 0;
+
         SearchDestroyCopySingletonOrThisCreateInstance();
 
         m_HeroPawn = FindObjectOfType<HeroPawn>();
@@ -141,6 +141,8 @@ public class GameManager : MonoBehaviour
 
         GetWeaponOffValue();
         CurrentWeaponHero = WeaponHero.Sword;
+
+        foreach (EnemyRoom er in enemyInRoom) foreach (GameObject go in er.enemyGO) go.SetActive(false);
         
     }
 
@@ -163,6 +165,8 @@ public class GameManager : MonoBehaviour
     public void ChangeGameMode(GameMode m_GameMode)
     {
 
+        if (m_GameMode != GameMode.Dialog && enemyLiveInScene == 0) ChangeGameMode(GameMode.Dialog);
+
         CurrentGameMode = m_GameMode;
 
         changeGameModeEvent();
@@ -175,8 +179,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.PlayerTurn:
-                if (EnemyInRoom[camPointNumber].enemyGO.Count <= 0) ChangeGameMode(GameMode.NextRoom); 
-                else GUIManager.Instance.ShowAndHideWeaponChoice(true);
+                GUIManager.Instance.ShowAndHideWeaponChoice(true);
                 break;
 
             case GameMode.PlayerWeaponWait:
@@ -188,6 +191,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.EnemyTurn:
+                StartCoroutine(EnemyTurn());
                 break;
 
         }
@@ -239,15 +243,23 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DialogeGameMode()
     {
-        
-        nextMovePointHero = LevelHeroPathPoint.GetNextPoint();
 
+        GUIManager.Instance.ShowAndHideWeaponChoice(false);        
+
+        CameraMoveOnNextCamPathPoint();
+        SetOnOffNoWayBack(false);
+
+        enemyLiveInScene = enemyInRoom[camPointNumber].enemyGO.Count;
+        foreach (GameObject go in enemyInRoom[camPointNumber].enemyGO) go.SetActive(true);
+
+        nextMovePointHero++;
         m_HeroPawn.HeroMove(true);
-        m_HeroTransform.DOMoveX(nextMovePointHero.position.x, Vector2.Distance(m_HeroTransform.position, nextMovePointHero.position));
+        m_HeroTransform.DOMoveX(pathPointHero[nextMovePointHero].position.x, Vector2.Distance(m_HeroTransform.position, pathPointHero[nextMovePointHero].position));
 
-        while (Mathf.Abs(m_HeroTransform.position.x - nextMovePointHero.position.x) > 0.1f) yield return null;
+        while (Mathf.Abs(m_HeroTransform.position.x - pathPointHero[nextMovePointHero].position.x) > 0.1f) yield return null;
 
         m_HeroPawn.HeroMove(false);
+        SetOnOffNoWayBack(true);
 
         GUIManager.Instance.ShowAndHideDialogWindow(true, camPointNumber);        
 
@@ -263,21 +275,17 @@ public class GameManager : MonoBehaviour
 
             GUIManager.Instance.OnWeaponOff();
 
-        }        
-
-        yield return new WaitForSeconds(1.0f);
+        }
 
         ChangeGameMode(GameMode.PlayerTurn);
 
         yield break;
 
     }
-    
+        
     IEnumerator WeaponSword()
     {
-
-        yield return new WaitForSeconds(1.0f);
-
+        
         if (!Input.GetMouseButtonUp(0))
         {
 
@@ -286,14 +294,8 @@ public class GameManager : MonoBehaviour
         }
 
         m_HeroPawn.AttackSwordHero();
-
-        yield return new WaitForSeconds(1.0f);
-
-        m_HeroPawn.isAttackSwordSwitchCollider(true);
-
+        
         yield return new WaitForSeconds(2.0f);
-
-        m_HeroPawn.isAttackSwordSwitchCollider(false);
 
         ChangeGameMode(GameMode.EnemyTurn);
 
@@ -443,12 +445,52 @@ public class GameManager : MonoBehaviour
 
     }
 
+    IEnumerator EnemyTurn()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+
+        ChangeGameMode(GameMode.PlayerTurn);
+
+        /*
+        enemyTurnCount = 0;
+
+        while (enemyTurnCount < enemyInRoom[camPointNumber].enemyGO.Count)
+        {
+
+            yield return new WaitForSeconds(1.0f);
+
+            enemyInRoom[camPointNumber].enemyGO[enemyTurnCount].GetComponent<EnemyPawn>().Attack();
+            enemyTurnCount++;
+            
+            yield return new WaitForSeconds(2.0f);
+
+        }
+
+        ChangeGameMode(GameMode.PlayerTurn);
+        */
+
+    }
+
     public void CameraMoveOnNextCamPathPoint()
     {
 
         camPointNumber++;
 
-        camTransform.DOMoveX(camPathPoint[camPointNumber].position.x, camPathPoint[camPointNumber].position.x - camPathPoint[camPointNumber - 1].position.x);
+        if (camPointNumber > 0) camTransform.DOMoveX(camPathPoint[camPointNumber].position.x, camPathPoint[camPointNumber].position.x - camPathPoint[camPointNumber - 1].position.x);
+
+    }
+
+    private void SetOnOffNoWayBack(bool isFinish)
+    {
+
+        for (int i = 0; i < noWayBack.Count; i++)
+        {
+
+            if (i == camPointNumber && !isFinish) noWayBack[i].SetActive(false);
+            else noWayBack[i].SetActive(true);
+
+        }
 
     }
 
@@ -536,6 +578,28 @@ public class GameManager : MonoBehaviour
         zDirection = Vector3.forward;
 
         m_Transform.rotation = Quaternion.LookRotation(zDirection, yDirection);
+
+    }
+
+    [Serializable]
+    public class EnemyRoom
+    {
+
+        public int numberRoom;
+        public List<GameObject> enemyGO;
+
+        private int tempCountGO;
+
+        public int LiveEnemyCount()
+        {
+
+            tempCountGO = 0;
+
+            foreach (GameObject go in enemyGO) if (go != null) tempCountGO++;
+
+            return tempCountGO;
+
+        }
 
     }
 
