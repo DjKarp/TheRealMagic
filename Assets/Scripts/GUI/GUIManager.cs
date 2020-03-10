@@ -11,7 +11,7 @@ public class GUIManager : MonoBehaviour
     public static GUIManager Instance { get; private set; } = null;
 
     [SerializeField]
-    private GameObject m_DialogueWindow;
+    private GameObject[] m_DialogueWindow;
 
     [SerializeField]
     private GameObject m_WeaponChoice;
@@ -40,7 +40,7 @@ public class GUIManager : MonoBehaviour
 
         SearchDestroyCopySingletonOrThisCreateInstance();
 
-        ShowAndHideDialogWindow(false, 0);
+        for(int i = 0; i < m_DialogueWindow.Length; i++) ShowAndHideDialogWindow(false, i);
         ShowAndHideWeaponChoice(false);
         ShowAndHidePowerArrow(false);
 
@@ -64,11 +64,11 @@ public class GUIManager : MonoBehaviour
         {
 
             case GameManager.GameMode.PlayerTurn:
-                ShowTextCurrentTurn("Player Turn");
+                ShowTextCurrentTurn("ход игрока");
                 break;
 
             case GameManager.GameMode.EnemyTurn:
-                ShowTextCurrentTurn("Enemy Turn");
+                ShowTextCurrentTurn("ход врагов");
                 break;
 
             default:
@@ -119,7 +119,7 @@ public class GUIManager : MonoBehaviour
     public void ShowAndHideDialogWindow(bool isShow, int numberText)
     {
 
-        m_DialogueWindow.SetActive(isShow);
+        if (m_DialogueWindow[numberText].activeSelf != isShow) m_DialogueWindow[numberText].SetActive(isShow);
 
     }
 

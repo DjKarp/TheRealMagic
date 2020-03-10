@@ -13,11 +13,19 @@ public class HeroPawn : Pawn
 
     private EnemyPawn m_EnemyPawn;
 
+    private BoxCollider2D m_BoxCollider2D;    
+    private CapsuleCollider2D m_CapsuleCollider2D;
+
 
     protected override void Awake()
     {
 
         base.Awake();
+
+        m_BoxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        m_CapsuleCollider2D = gameObject.GetComponent<CapsuleCollider2D>();
+
+        isAttackSwordSwitchCollider(false);
 
     }
 
@@ -67,7 +75,8 @@ public class HeroPawn : Pawn
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait)
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait | 
+            (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn & GameManager.Instance.CurrentWeaponHero == GameManager.WeaponHero.Sword))
         {
 
             if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Knight_attack"))
@@ -79,6 +88,14 @@ public class HeroPawn : Pawn
             }
 
         }
+
+    }
+
+    public void isAttackSwordSwitchCollider(bool isStart)
+    {
+
+        m_BoxCollider2D.enabled = !isStart;
+        m_CapsuleCollider2D.enabled = isStart;
 
     }
 

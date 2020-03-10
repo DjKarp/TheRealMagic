@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2195643903292128955}
   - component: {fileID: 2195643903292128935}
   - component: {fileID: 7739647122062845167}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponMagicIceBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,9 +115,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 0.55
   m_LinearDrag: 0
-  m_AngularDrag: 100
+  m_AngularDrag: 10
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 4fdd1db162635ef47b85b4d368800d53, type: 2}
   m_Interpolate: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 2410329707969372311}
   - component: {fileID: 4949224408106327797}
   - component: {fileID: 4478253450224250306}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Steam
   m_TagString: Untagged
   m_Icon: {fileID: 0}

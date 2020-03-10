@@ -51,7 +51,7 @@ public class EnemyPawn : Pawn
 
         base.Die();
 
-        GameManager.Instance.AddDeathEnemy();
+        GameManager.Instance.EnemyInRoom[GameManager.Instance.camPointNumber].enemyGO.Remove(gameObject);
 
     }
 
@@ -83,6 +83,18 @@ public class EnemyPawn : Pawn
         if (!GameManager.Instance.m_HeroPawn.IsDie()) GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
 
         yield break;
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+        if (collision.gameObject.CompareTag("Player"))
+        {
+
+
+
+        } 
 
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2660748417273524149}
   - component: {fileID: 2660748417273524137}
   - component: {fileID: 5907701147532129761}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponMagicFireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,9 +115,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.5
+  m_Mass: 0.25
   m_LinearDrag: 0
-  m_AngularDrag: 100
+  m_AngularDrag: 10
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 4dc30d574157ea648a0e1b51a62afdb3, type: 2}
   m_Interpolate: 0
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 2660748417290851638}
   - component: {fileID: 2660748417290851636}
   - component: {fileID: 2660748417290851637}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
