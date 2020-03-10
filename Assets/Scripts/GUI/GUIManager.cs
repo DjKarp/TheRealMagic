@@ -64,11 +64,11 @@ public class GUIManager : MonoBehaviour
         {
 
             case GameManager.GameMode.PlayerTurn:
-                ShowTextCurrentTurn("ход игрока");
+                ShowTextCurrentTurn("ход игрока", 0);
                 break;
 
             case GameManager.GameMode.EnemyTurn:
-                ShowTextCurrentTurn("ход врагов");
+                ShowTextCurrentTurn("ход врагов", 0);
                 break;
 
             default:
@@ -143,12 +143,13 @@ public class GUIManager : MonoBehaviour
 
     }
 
-    public void ShowTextCurrentTurn(string m_Text)
+    public void ShowTextCurrentTurn(string m_Text, int numberEnemyTurn)
     {
 
         TextCurrentTurn.SetActive(true);
-        m_TextMesh.text = m_Text;
-        
+        if (numberEnemyTurn == 0) m_TextMesh.text = m_Text;
+        else m_TextMesh.text = m_Text + numberEnemyTurn;
+
     }
 
     IEnumerator HideTextTurn(float hideTime)

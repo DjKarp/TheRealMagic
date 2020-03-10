@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour
     private string sceneName;    
 
     public List<EnemyRoom> enemyInRoom;
-    private int enemyTurnCount;
     public int enemyLiveInScene;
 
     [SerializeField]
@@ -247,10 +246,7 @@ public class GameManager : MonoBehaviour
         GUIManager.Instance.ShowAndHideWeaponChoice(false);        
 
         CameraMoveOnNextCamPathPoint();
-        SetOnOffNoWayBack(false);
-
-        enemyLiveInScene = enemyInRoom[camPointNumber].enemyGO.Count;
-        foreach (GameObject go in enemyInRoom[camPointNumber].enemyGO) go.SetActive(true);
+        SetOnOffNoWayBack(false);        
 
         nextMovePointHero++;
         m_HeroPawn.HeroMove(true);
@@ -260,6 +256,9 @@ public class GameManager : MonoBehaviour
 
         m_HeroPawn.HeroMove(false);
         SetOnOffNoWayBack(true);
+
+        enemyLiveInScene = enemyInRoom[camPointNumber].enemyGO.Count;
+        foreach (GameObject go in enemyInRoom[camPointNumber].enemyGO) go.SetActive(true);
 
         GUIManager.Instance.ShowAndHideDialogWindow(true, camPointNumber);        
 
@@ -447,28 +446,30 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-
+        /*
         yield return new WaitForSeconds(3.0f);
 
         ChangeGameMode(GameMode.PlayerTurn);
-
-        /*
-        enemyTurnCount = 0;
-
-        while (enemyTurnCount < enemyInRoom[camPointNumber].enemyGO.Count)
-        {
-
-            yield return new WaitForSeconds(1.0f);
-
-            enemyInRoom[camPointNumber].enemyGO[enemyTurnCount].GetComponent<EnemyPawn>().Attack();
-            enemyTurnCount++;
-            
-            yield return new WaitForSeconds(2.0f);
-
-        }
-
-        ChangeGameMode(GameMode.PlayerTurn);
         */
+        if (enemyLiveInScene > 0)
+        {
+            
+            for (int i = 0; i < enemyInRoom[camPointNumber].enemyGO.Count; i++)
+            {
+
+                GUIManager.Instance.ShowTextCurrentTurn("ход врага ", 0);
+
+                yield return new WaitForSeconds(1.0f);
+
+                if (enemyInRoom[camPointNumber].enemyGO[i] != null) enemyInRoom[camPointNumber].enemyGO[i].GetComponentInChildren<EnemyPawn>().Attack();
+
+                yield return new WaitForSeconds(2.0f);
+
+            }
+
+            ChangeGameMode(GameMode.PlayerTurn);
+
+        }         
 
     }
 

@@ -99,7 +99,7 @@ public class HeroPawn : Pawn
     private void MoveHero()
     {
 
-        if(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn)
+        if(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn && GameManager.Instance.camPointNumber > 0)
         {
             
             if (Input.GetKeyDown(KeyCode.RightArrow) && !isRight)
