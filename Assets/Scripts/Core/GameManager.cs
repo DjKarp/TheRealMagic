@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour
 
         nextMovePointHero++;
         m_HeroPawn.HeroMove(true);
-        m_HeroTransform.DOMoveX(pathPointHero[nextMovePointHero].position.x, Vector2.Distance(m_HeroTransform.position, pathPointHero[nextMovePointHero].position));
+        m_HeroTransform.DOMoveX(pathPointHero[nextMovePointHero].position.x, Vector2.Distance(m_HeroTransform.position, pathPointHero[nextMovePointHero].position) / 2);
 
         while (Mathf.Abs(m_HeroTransform.position.x - pathPointHero[nextMovePointHero].position.x) > 0.1f) yield return null;
 
@@ -477,7 +477,7 @@ public class GameManager : MonoBehaviour
 
         camPointNumber++;
 
-        if (camPointNumber > 0) camTransform.DOMoveX(camPathPoint[camPointNumber].position.x, camPathPoint[camPointNumber].position.x - camPathPoint[camPointNumber - 1].position.x);
+        if (camPointNumber > 0) camTransform.DOMoveX(camPathPoint[camPointNumber].position.x, (camPathPoint[camPointNumber].position.x - camPathPoint[camPointNumber - 1].position.x) / 2);
 
     }
 
@@ -562,12 +562,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public Vector3 GetOurMouseMosition()
-    {
+    public Vector3 GetOurMouseMosition() { return Camera.main.ScreenToWorldPoint(Input.mousePosition); }
 
-        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-    }
+    public Transform CameraTransform() { return camTransform; }
 
     public void LookAt2D(Vector3 lookTarget, Transform m_Transform)
     {

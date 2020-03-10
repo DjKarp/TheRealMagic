@@ -14,6 +14,10 @@ public class HeroPawn : Pawn
 
     public float speed = 10.0f;
     private bool isMove = false;
+    private bool isLeft = false;
+    private bool isRight = false;
+    private float rightEdge;
+    private float leftEdge;
 
     private SpriteRenderer m_SpriteRenderer;
 
@@ -36,7 +40,7 @@ public class HeroPawn : Pawn
 
         base.Update();
 
-        //MoveHero();
+        MoveHero();
 
     }
 
@@ -59,6 +63,8 @@ public class HeroPawn : Pawn
     {
 
         m_Animator.SetBool("isWalking", isMoveHeroNow);
+
+        if (GameManager.Instance.CurrentGameMode != GameManager.GameMode.PlayerTurn) if (m_SpriteRenderer.flipX) m_SpriteRenderer.flipX = false;
 
     }
 
@@ -93,10 +99,10 @@ public class HeroPawn : Pawn
     private void MoveHero()
     {
 
-        while(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn)
+        if(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn)
         {
-
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            
+            if (Input.GetKeyDown(KeyCode.RightArrow) && !isRight)
             {
 
                 if (!isMove)
@@ -109,20 +115,26 @@ public class HeroPawn : Pawn
 
                 if (m_SpriteRenderer.flipX) m_SpriteRenderer.flipX = false;
 
-                //m_Transform.position = new Vector3(m_Transform.position.x + (speed * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
+                isRight = true;
 
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) && !isLeft)
             {
 
-                HeroMove(true);
+                if (!isMove)
+                {
+
+                    HeroMove(true);
+                    isMove = true;
+
+                }
 
                 if (!m_SpriteRenderer.flipX) m_SpriteRenderer.flipX = true;
 
-                m_Transform.Translate(Vector3.left * speed * Time.deltaTime);
+                isLeft = true;
 
             }
-            else
+            else if (Input.GetKeyUp(KeyCode.RightArrow) | Input.GetKeyUp(KeyCode.LeftArrow))
             {
 
                 if (isMove)
@@ -130,11 +142,27 @@ public class HeroPawn : Pawn
 
                     HeroMove(false);
                     isMove = false;
+                    isRight = false;
+                    isLeft = false;
 
                 }
 
             }
 
+            if (isMove)
+            {
+
+                if (isRight) m_Transform.position = new Vector3(m_Transform.position.x + ((speed / 7) * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
+                if (isLeft) m_Transform.position = new Vector3(m_Transform.position.x - ((speed / 7) * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
+
+                rightEdge = GameManager.Instance.CameraTransform().position.x + 8.5f;
+                leftEdge = GameManager.Instance.CameraTransform().position.x - 8.5f;
+
+                if (m_Transform.position.x > rightEdge) m_Transform.position = new Vector3(rightEdge, m_Transform.position.y, m_Transform.position.z);
+                else if (m_Transform.position.x < leftEdge) m_Transform.position = new Vector3(leftEdge, m_Transform.position.y, m_Transform.position.z);
+
+            }
+            
         }
 
     }
@@ -143,19 +171,7 @@ public class HeroPawn : Pawn
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait | 
-            (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn & GameManager.Instance.CurrentWeaponHero == GameManager.WeaponHero.Sword))
-        {
-
-            if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Knight_attack"))
-            {
-
-                m_EnemyPawn = collision.gameObject.GetComponent<EnemyPawn>();
-                if (m_EnemyPawn != null) m_EnemyPawn.TakeDamage(swordDamage);
-
-            }
-
-        }
+        
 
     }
     
