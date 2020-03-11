@@ -21,8 +21,8 @@ public class HeroPawn : Pawn
 
     private SpriteRenderer m_SpriteRenderer;
 
-    private EnemyPawn m_EnemyPawn;
-    
+    public CircleCollider2D fakeSwordCollider;
+
 
     protected override void Awake()
     {
@@ -32,7 +32,7 @@ public class HeroPawn : Pawn
         GameManager.Instance.changeGameModeEvent += OnGameChangeState;
 
         m_SpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        
+                
     }
 
     protected override void Update()
@@ -52,10 +52,27 @@ public class HeroPawn : Pawn
 
     }
 
+    public  void TakePoisen()
+    {
+
+        float poisen = 50.0f;
+
+        HP = Mathf.Clamp(HP + poisen, 0.0f, maxHP);
+
+        m_Animator.SetTrigger("isPoisen");
+
+        m_HPBarTextDamage.TakeHealth(poisen);
+
+        CheckDie();
+
+    }
+
     protected override void Die()
     {
 
         base.Die();
+
+        GameManager.Instance.ChangeGameMode(GameManager.GameMode.Loose);
 
     }
 
@@ -85,14 +102,6 @@ public class HeroPawn : Pawn
     public void OnGameChangeState()
     {
 
-        switch (GameManager.Instance.CurrentGameMode)
-        {
-
-            case GameManager.GameMode.PlayerTurn:
-                //StartCoroutine(MoveHero());
-                break;
-
-        }
 
     }
 
@@ -102,7 +111,7 @@ public class HeroPawn : Pawn
         if(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn && GameManager.Instance.camPointNumber > 0)
         {
             
-            if (Input.GetKeyDown(KeyCode.RightArrow) && !isRight)
+            if ((Input.GetKeyDown(KeyCode.RightArrow) | (Input.GetKeyDown(KeyCode.D)) && (!isRight)))
             {
 
                 if (!isMove)
@@ -118,7 +127,7 @@ public class HeroPawn : Pawn
                 isRight = true;
 
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) && !isLeft)
+            else if ((Input.GetKeyDown(KeyCode.LeftArrow) | (Input.GetKeyDown(KeyCode.A)) && !isLeft))
             {
 
                 if (!isMove)
@@ -134,7 +143,7 @@ public class HeroPawn : Pawn
                 isLeft = true;
 
             }
-            else if (Input.GetKeyUp(KeyCode.RightArrow) | Input.GetKeyUp(KeyCode.LeftArrow))
+            else if ((Input.GetKeyUp(KeyCode.RightArrow) | Input.GetKeyUp(KeyCode.LeftArrow)) | (Input.GetKeyUp(KeyCode.D) | (Input.GetKeyUp(KeyCode.A))))
             {
 
                 if (isMove)
@@ -171,7 +180,27 @@ public class HeroPawn : Pawn
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        
+        if (collision.gameObject.CompareTag("Healt"))            
+        {
+
+            TakePoisen();
+            collision.gameObject.SetActive(false);
+
+        }
+        else if (collision.gameObject.CompareTag("DestructionObject"))
+        {
+
+            if (isMove)
+            {
+
+                HeroMove(false);
+                isMove = false;
+                isRight = false;
+                isLeft = false;
+
+            }
+
+        }
 
     }
     

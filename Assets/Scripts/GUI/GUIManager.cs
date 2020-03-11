@@ -30,6 +30,18 @@ public class GUIManager : MonoBehaviour
     private GameObject TextCurrentTurn;
     private TextMeshProUGUI m_TextMesh;
 
+    [SerializeField]
+    public GameObject strangeTwoGO;
+    public Image strangeTwo;
+
+    public GameObject[] desToClick;
+
+    public TextMeshProUGUI m_TextMeshTimer;
+    public float timer;
+
+    public GameObject winnerScreen;
+    public GameObject looserScreen;
+
     private Vector3 xDirection;
     private Vector3 yDirection;
     private Vector3 zDirection;
@@ -40,7 +52,9 @@ public class GUIManager : MonoBehaviour
 
         SearchDestroyCopySingletonOrThisCreateInstance();
 
-        for(int i = 0; i < m_DialogueWindow.Length; i++) ShowAndHideDialogWindow(false, i);
+        powerArrowTR = powerArrowGO.transform;
+
+        for (int i = 0; i < m_DialogueWindow.Length; i++) ShowAndHideDialogWindow(false, i);
         ShowAndHideWeaponChoice(false);
         ShowAndHidePowerArrow(false);
 
@@ -50,9 +64,7 @@ public class GUIManager : MonoBehaviour
         if (m_TextMesh == null) m_TextMesh = TextCurrentTurn.GetComponentInChildren<TextMeshProUGUI>();
         TextCurrentTurn.SetActive(false);
 
-        GameManager.Instance.changeGameModeEvent += OnChangeState;
-
-        powerArrowTR = powerArrowGO.transform;
+        GameManager.Instance.changeGameModeEvent += OnChangeState;        
 
     }
 
@@ -60,15 +72,29 @@ public class GUIManager : MonoBehaviour
     public void OnChangeState()
     {
 
+        if (GameManager.Instance.nextMovePointHero - 1 >= GameManager.Instance.pathPointHero.Count)
+        {
+
+            GameManager.Instance.ChangeGameMode(GameManager.GameMode.Winner);
+            winnerScreen.SetActive(true);
+
+        }
+        
         switch (GameManager.Instance.CurrentGameMode)
         {
 
             case GameManager.GameMode.PlayerTurn:
+                timer = 60.0f;
                 ShowTextCurrentTurn("ход игрока", 0);
                 break;
 
             case GameManager.GameMode.EnemyTurn:
+                timer = 30.0f;
                 ShowTextCurrentTurn("ход врагов", 0);
+                break;
+
+            case GameManager.GameMode.Loose:
+                looserScreen.SetActive(true);
                 break;
 
             default:
@@ -82,14 +108,38 @@ public class GUIManager : MonoBehaviour
 
     private void Update()
     {
-        
+
         if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn)
         {
 
             powerArrowTR.position = Camera.main.WorldToScreenPoint(GameManager.Instance.m_HeroPawn.shootPoint.position);
             powerArrowTR.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.Angle(Vector2.right, (Input.mousePosition - powerArrowTR.position)));
 
-        } 
+        }
+        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.MainMenu && Input.GetMouseButtonUp(0))
+        {
+
+            foreach (GameObject go in desToClick) go.SetActive(false);
+
+        }
+
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn && timer > 0.0f)
+        {
+
+            timer -= Time.deltaTime;
+            m_TextMeshTimer.text = Mathf.RoundToInt(timer).ToString();
+
+        }
+        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn && timer <= 0.0f) GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
+
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.EnemyTurn && timer > 0.0f)
+        {
+
+            timer -= Time.deltaTime;
+            m_TextMeshTimer.text = Mathf.RoundToInt(timer).ToString();
+
+        }
+        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.EnemyTurn && timer <= 0.0f) GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
 
     }
 
@@ -119,7 +169,7 @@ public class GUIManager : MonoBehaviour
     public void ShowAndHideDialogWindow(bool isShow, int numberText)
     {
 
-        if (m_DialogueWindow[numberText].activeSelf != isShow) m_DialogueWindow[numberText].SetActive(isShow);
+        if (numberText < m_DialogueWindow.Length) if (m_DialogueWindow[numberText].activeSelf != isShow) m_DialogueWindow[numberText].SetActive(isShow);
 
     }
 
@@ -134,12 +184,14 @@ public class GUIManager : MonoBehaviour
     {
 
         powerArrowGO.SetActive(isShow);
+        strangeTwoGO.SetActive(isShow);
 
     }
     public void SetPowerArrowSliderValue(float m_Value)
     {
 
         powerArrowImage.fillAmount = m_Value;
+        strangeTwo.fillAmount = m_Value;
 
     }
 

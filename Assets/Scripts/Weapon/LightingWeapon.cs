@@ -65,7 +65,7 @@ public class LightingWeapon : MonoBehaviour
         {
 
             isTheEnd = true;
-            collision.gameObject.GetComponent<EnemyPawn>().TakeDamage(damage);
+            if (collision.gameObject != null) if (collision.gameObject.GetComponent<EnemyPawn>() != null) collision.gameObject.GetComponent<EnemyPawn>().TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
 
             hitGO = Instantiate(GameManager.Instance.hitPrefab, collision.GetContact(0).point, Quaternion.identity);
             hitAnimator = hitGO.GetComponent<Animator>();

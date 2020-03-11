@@ -12,6 +12,8 @@ public class EnemyPawn : Pawn
 
     private bool isAttack = false;
 
+    
+
     protected override void Awake()
     {
         
@@ -26,6 +28,8 @@ public class EnemyPawn : Pawn
 
         base.Update();
 
+        
+
     }
 
     public void Attack()
@@ -39,7 +43,7 @@ public class EnemyPawn : Pawn
         hitAnimator = hitGO.GetComponent<Animator>();
         hitAnimator.SetTrigger("Start");
 
-        GameManager.Instance.m_HeroPawn.TakeDamage(damage);
+        GameManager.Instance.m_HeroPawn.TakeDamage(Random.Range((damage - (damage/3)), (damage + (damage/3))));
 
     }
 

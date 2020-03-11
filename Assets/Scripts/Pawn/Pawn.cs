@@ -19,7 +19,10 @@ public class Pawn : MonoBehaviour
 
     public Transform shootPoint;
 
-    private HPBarTextDamage m_HPBarTextDamage;
+    public HPBarTextDamage m_HPBarTextDamage;
+
+    private bool isDamage = false;
+    private float damageTimer = 0.0f;
 
 
     protected virtual void Awake()
@@ -40,19 +43,34 @@ public class Pawn : MonoBehaviour
     protected virtual void Update()
     {
 
+        if (isDamage) damageTimer += Time.deltaTime;
+        if (damageTimer > 5.0f)
+        {
+
+            isDamage = false;
+            damageTimer = 0.0f;
+
+        }
 
     }
 
     public virtual void TakeDamage(float damage)
     {
 
-        HP = Mathf.Clamp(HP - damage, 0.0f, maxHP);
+        if (!isDamage)
+        {
 
-        m_Animator.SetTrigger("Damage");
+            isDamage = true;
 
-        m_HPBarTextDamage.TakeDamage(damage);
+            HP = Mathf.Clamp(HP - (damage / GameManager.Instance.levelOfComplexity), 0.0f, maxHP);
 
-        CheckDie();
+            m_Animator.SetTrigger("Damage");
+
+            m_HPBarTextDamage.TakeDamage(damage);
+
+            CheckDie();
+
+        }       
 
     }
 

@@ -18,13 +18,14 @@ public class GameManager : MonoBehaviour
     public enum GameMode
     {
 
+        MainMenu,
         Dialog,
         PlayerTurn,
         PlayerWeaponWait,
         EnemyTurn,
         EnemyWeaponWait,
         PauseGame,
-        NextRoom, 
+        Winner,
         Loose
 
     }
@@ -57,8 +58,8 @@ public class GameManager : MonoBehaviour
     public Transform m_HeroTransform;
 
     [SerializeField]
-    private List<Transform> pathPointHero;
-    private int nextMovePointHero;
+    public List<Transform> pathPointHero;
+    public int nextMovePointHero;
 
     public int openWeapon;
     
@@ -98,7 +99,9 @@ public class GameManager : MonoBehaviour
     public GameObject hitSimpleLightingPrefab;
     public GameObject hitWaterBallExplousenPrefab;
     
-    private string sceneName;    
+    private string sceneName;
+
+    public float levelOfComplexity = 1.0f;
 
     public List<EnemyRoom> enemyInRoom;
     public int enemyLiveInScene;
@@ -108,6 +111,8 @@ public class GameManager : MonoBehaviour
     private int noWayBackCount;
 
     public float Timer;
+
+    public GameObject destr;
 
     //для преобразования при повороте
     private Vector3 xDirection;
@@ -131,7 +136,8 @@ public class GameManager : MonoBehaviour
         SearchDestroyCopySingletonOrThisCreateInstance();
 
         m_HeroPawn = FindObjectOfType<HeroPawn>();
-        m_HeroTransform = m_HeroPawn.gameObject.GetComponent<Transform>();        
+        m_HeroTransform = m_HeroPawn.gameObject.GetComponent<Transform>();
+        m_HeroPawn.fakeSwordCollider.enabled = false;
 
         m_Camera = Camera.main;
         camTransform = m_Camera.gameObject.transform;
@@ -148,7 +154,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
 
-        ChangeGameMode(GameMode.Dialog);
+        ChangeGameMode(GameMode.MainMenu);
 
     }
 
@@ -159,12 +165,15 @@ public class GameManager : MonoBehaviour
 
         if (isCountTime && currentTimeShootLoad < timeShootLoad) currentTimeShootLoad += Time.deltaTime;
 
+        if ((CurrentGameMode == GameMode.Winner | CurrentGameMode == GameMode.Loose) & Input.anyKeyDown) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+
     }
 
     public void ChangeGameMode(GameMode m_GameMode)
     {
 
-        if (m_GameMode != GameMode.Dialog && enemyLiveInScene == 0) ChangeGameMode(GameMode.Dialog);
+        if (m_GameMode != GameMode.Dialog && m_GameMode != GameMode.MainMenu && enemyLiveInScene == 0) ChangeGameMode(GameMode.Dialog);
 
         CurrentGameMode = m_GameMode;
 
@@ -174,6 +183,7 @@ public class GameManager : MonoBehaviour
         {
 
             case GameMode.Dialog:
+                destr.SetActive(false);
                 StartCoroutine(DialogeGameMode());
                 break;
 
@@ -185,13 +195,27 @@ public class GameManager : MonoBehaviour
 
                 break;
 
-            case GameMode.NextRoom:
-
+            case GameMode.MainMenu:
+                StartCoroutine(MainMenu());
                 break;
 
             case GameMode.EnemyTurn:
                 StartCoroutine(EnemyTurn());
                 break;
+
+        }
+
+    }
+
+    IEnumerator MainMenu()
+    {
+
+        while (CurrentGameMode == GameMode.MainMenu)
+        {
+
+
+
+            yield return null;
 
         }
 
@@ -292,9 +316,12 @@ public class GameManager : MonoBehaviour
 
         }
 
+        m_HeroPawn.fakeSwordCollider.enabled = true;
         m_HeroPawn.AttackSwordHero();
         
         yield return new WaitForSeconds(2.0f);
+
+        m_HeroPawn.fakeSwordCollider.enabled = false;
 
         ChangeGameMode(GameMode.EnemyTurn);
 
@@ -328,7 +355,7 @@ public class GameManager : MonoBehaviour
         GUIManager.Instance.ShowAndHidePowerArrow(false);
         m_HeroPawn.AttackMagicHero(false);
 
-        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
+        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * 1.5f * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
 
         ChangeGameMode(GameMode.PlayerWeaponWait);
 
@@ -524,7 +551,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextScene()
     {
 
-        ChangeGameMode(GameMode.Dialog);
+        //ChangeGameMode(GameMode.Dialog);
         /*
         switch (sceneName)
         {

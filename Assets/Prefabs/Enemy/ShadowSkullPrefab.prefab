@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660366121519645913}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -62.492416, y: -2.7518327, z: 8.027889}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -73,9 +73,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4548982448069294294}
   - component: {fileID: 2713479467219141994}
-  - component: {fileID: 5919243782339992769}
   - component: {fileID: 3253062922226463013}
   - component: {fileID: 9122017610612660008}
+  - component: {fileID: 7490837122108105326}
   m_Layer: 0
   m_Name: ShadowSkull
   m_TagString: Enemy
@@ -147,32 +147,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5919243782339992769
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8512132918984093339}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0034489632, y: 0.0034486055}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.04, y: 2.22}
-    newSize: {x: 2.04, y: 2.22}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.9089403, y: 2.116533}
-  m_EdgeRadius: 0
 --- !u!95 &3253062922226463013
 Animator:
   serializedVersion: 3
@@ -206,9 +180,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 20
   maxHP: 20
-  hpBar: {fileID: 0}
-  shootPoint: {fileID: 0}
+  hpBar: {fileID: 2030919635458130648}
+  shootPoint: {fileID: 1908818348976455132}
+  m_HPBarTextDamage: {fileID: 8222859819740564173}
   damage: 5
+--- !u!70 &7490837122108105326
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8512132918984093339}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2.04, y: 2.22}
+  m_Direction: 0
 --- !u!1001 &418261362724234912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,6 +211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HP_Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471554539003003771, guid: b40e7acfb2d7ca840b396694930d7bdd,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8147128343036690887, guid: b40e7acfb2d7ca840b396694930d7bdd,
         type: 3}
@@ -299,3 +295,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 418261362724234912}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2030919635458130648 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1865247653058307192, guid: b40e7acfb2d7ca840b396694930d7bdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 418261362724234912}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8222859819740564173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8633542386238811245, guid: b40e7acfb2d7ca840b396694930d7bdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 418261362724234912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7613192aaa0b4e4892afc75458a443d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -65,7 +65,7 @@ public class MagicBallWeapon : MonoBehaviour
         {
 
             isTheEnd = true;
-            collision.gameObject.GetComponent<Pawn>().TakeDamage(damage);
+            collision.gameObject.GetComponent<Pawn>().TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
 
             hitGO = Instantiate(explousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
 
