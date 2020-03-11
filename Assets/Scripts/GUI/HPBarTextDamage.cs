@@ -21,7 +21,16 @@ public class HPBarTextDamage : MonoBehaviour
     public void TakeDamage(float damage)
     {
 
-        m_TextMeshPro.text = Mathf.RoundToInt(damage).ToString();
+        m_TextMeshPro.text = "- " + Mathf.RoundToInt(damage).ToString();
+
+        m_Animator.SetTrigger("isStart");
+
+    }
+
+    public void TakeHealth(float addHPCount)
+    {
+
+        m_TextMeshPro.text = "+ " + Mathf.RoundToInt(addHPCount).ToString();
 
         m_Animator.SetTrigger("isStart");
 
