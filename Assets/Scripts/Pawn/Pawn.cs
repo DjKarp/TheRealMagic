@@ -19,6 +19,8 @@ public class Pawn : MonoBehaviour
 
     public Transform shootPoint;
 
+    private HPBarTextDamage m_HPBarTextDamage;
+
 
     protected virtual void Awake()
     {
@@ -29,7 +31,9 @@ public class Pawn : MonoBehaviour
         startHpBarValue = hpBar.localScale.x;
 
         m_Animator = gameObject.GetComponent<Animator>();
-        if (m_Animator == null) m_Animator = gameObject.GetComponentInChildren<Animator>();               
+        if (m_Animator == null) m_Animator = gameObject.GetComponentInChildren<Animator>();
+
+        m_HPBarTextDamage = m_Transform.parent.gameObject.GetComponentInChildren<HPBarTextDamage>();
         
     }
 
@@ -45,6 +49,8 @@ public class Pawn : MonoBehaviour
         HP = Mathf.Clamp(HP - damage, 0.0f, maxHP);
 
         m_Animator.SetTrigger("Damage");
+
+        m_HPBarTextDamage.TakeDamage(damage);
 
         CheckDie();
 

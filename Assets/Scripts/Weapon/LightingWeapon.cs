@@ -24,6 +24,8 @@ public class LightingWeapon : MonoBehaviour
     private Vector3 yDirection;
     private Vector3 zDirection;
 
+    private float ange;
+
     private void Awake()
     {
 
@@ -36,8 +38,8 @@ public class LightingWeapon : MonoBehaviour
     {
         
         if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn) LookAt2D(GameManager.Instance.GetOurMouseMosition());
-        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait) LookAt2D(m_Rigidbody2D.velocity);
-        
+        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait) m_Transform.rotation = Quaternion.Euler(0.0f, 0.0f, m_Rigidbody2D.angularVelocity);
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -118,6 +120,13 @@ public class LightingWeapon : MonoBehaviour
         zDirection = Vector3.forward;
 
         m_Transform.rotation = Quaternion.LookRotation(zDirection, yDirection);
+
+    }
+
+    public void LookAt2D()
+    {
+
+        ange = Vector2.Angle(Vector2.right, m_Rigidbody2D.velocity);
 
     }
 
