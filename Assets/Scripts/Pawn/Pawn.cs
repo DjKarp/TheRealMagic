@@ -21,8 +21,8 @@ public class Pawn : MonoBehaviour
 
     public HPBarTextDamage m_HPBarTextDamage;
 
-    private bool isDamage = false;
-    private float damageTimer = 0.0f;
+    public bool isDamage = false;
+    public float damageTimer = 0.0f;
 
 
     protected virtual void Awake()

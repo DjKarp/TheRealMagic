@@ -165,7 +165,7 @@ PlayerSettings:
   applicationIdentifier:
     Standalone: com.RedLegGames.TheRealMagic
   buildNumber:
-    Standalone: 0.03
+    Standalone: 0.05
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0

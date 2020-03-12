@@ -47,10 +47,23 @@ public class HeroPawn : Pawn
     public override void TakeDamage(float damage)
     {
         
-        base.TakeDamage(damage);
+        if (!isDamage)
+        {
 
+            isDamage = true;
+
+            HP = Mathf.Clamp(HP - (damage * GameManager.Instance.levelOfComplexity), 0.0f, maxHP);
+
+            m_Animator.SetTrigger("Damage");
+
+            m_HPBarTextDamage.TakeDamage(damage);
+
+            CheckDie();
+
+        }
 
     }
+
 
     public  void TakePoisen()
     {

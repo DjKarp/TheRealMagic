@@ -10015,6 +10015,8 @@ MonoBehaviour:
   hpBar: {fileID: 1841075462}
   shootPoint: {fileID: 2079927496}
   m_HPBarTextDamage: {fileID: 0}
+  isDamage: 0
+  damageTimer: 0
   swordDamage: 3
   speed: 10
   fakeSwordCollider: {fileID: 1604556765}
@@ -11967,6 +11969,8 @@ MonoBehaviour:
   hpBar: {fileID: 392900945}
   shootPoint: {fileID: 1309742449}
   m_HPBarTextDamage: {fileID: 0}
+  isDamage: 0
+  damageTimer: 0
   damage: 2
 --- !u!95 &452571387
 Animator:
@@ -42055,12 +42059,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -43279,6 +43283,8 @@ MonoBehaviour:
   hpBar: {fileID: 923424595}
   shootPoint: {fileID: 254733876}
   m_HPBarTextDamage: {fileID: 0}
+  isDamage: 0
+  damageTimer: 0
   damage: 2
 --- !u!95 &1549032445
 Animator:
@@ -47602,12 +47608,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
