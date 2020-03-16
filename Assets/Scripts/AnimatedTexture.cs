@@ -1,24 +1,71 @@
 using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Скрипт простенькой анимации через добавление фреймов в инспекторе
+/// </summary>
 public class AnimatedTexture : MonoBehaviour
 {
     public float fps = 30.0f;
     public Sprite[] frames;
 
     private int frameIndex;
-    private SpriteRenderer rendererMy;
+    private SpriteRenderer m_SpriteRenderer;
 
-    void Start()
+    public bool isSlow = true;
+    private float slowOnTimer;
+    private float slowOffTimer;
+    private float timer = 0.0f;
+
+
+    private void Awake()
     {
-        rendererMy = GetComponent<SpriteRenderer>();
-        NextFrame();
-        InvokeRepeating("NextFrame", 1 / fps, 1 / fps);
+
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+
+        slowOffTimer = 1 / fps;
+        slowOnTimer = slowOffTimer * 2;
+
     }
 
-    void NextFrame()
+    void Update()
     {
-        rendererMy.sprite = frames[frameIndex];
-        frameIndex = (frameIndex + 1) % frames.Length;
+
+        if (!isSlow)
+        {
+
+            if (timer < slowOffTimer) timer += Time.deltaTime;
+            else
+            {
+
+                m_SpriteRenderer.sprite = frames[frameIndex];
+                frameIndex = (frameIndex + 1) % frames.Length;
+                timer = 0.0f;
+
+            }
+
+        }
+        else
+        {
+
+            if (timer < slowOnTimer) timer += Time.deltaTime;
+            else
+            {
+
+                m_SpriteRenderer.sprite = frames[frameIndex];
+                frameIndex = (frameIndex + 1) % frames.Length;
+                timer = 0.0f;
+
+            }
+            
+        }
+
     }
+
+    public void SetIsSlow(bool m_IsSlow)
+    {
+
+        isSlow = m_IsSlow;
+
+    }
+
 }

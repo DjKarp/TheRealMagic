@@ -11,11 +11,7 @@ public class StateButtonAndDiffycly : MonoBehaviour
     [SerializeField]
     private Button m_Button;
 
-    [Header("В какой игровой режим переводит кнопка.")]
-    [SerializeField]
-    private GameManager.GameMode new_GameMode;
-
-    public Difficly m_Difficly;
+    public Difficly m_Difficly = Difficly.Normal;
     public enum Difficly
     {
 
@@ -24,8 +20,8 @@ public class StateButtonAndDiffycly : MonoBehaviour
         Easy
 
     }
-
-    private GameObject parentGO;
+    
+    private MainMenuController m_MainMenuController;
 
 
     private void Awake()
@@ -33,37 +29,33 @@ public class StateButtonAndDiffycly : MonoBehaviour
 
         if (m_Button == null) m_Button = gameObject.GetComponent<Button>();
 
+        m_MainMenuController = FindObjectOfType<MainMenuController>();
+
         m_Button.onClick.AddListener(TaskOnClick);
-
-        parentGO = gameObject.transform.parent.gameObject;
-
+        
     }
     
-    void TaskOnClick()
+    public void TaskOnClick()
     {              
 
         switch (m_Difficly)
         {
 
             case Difficly.Hard:
-                GameManager.Instance.levelOfComplexity = 1.0f;
+                PlayerPrefs.SetFloat("LevelOfComplexity", 1.0f);
                 break;
 
             case Difficly.Normal:
-                GameManager.Instance.levelOfComplexity = 0.75f;
+                PlayerPrefs.SetFloat("LevelOfComplexity", 0.75f);
                 break;
 
             case Difficly.Easy:
-                GameManager.Instance.levelOfComplexity = 0.5f;
+                PlayerPrefs.SetFloat("LevelOfComplexity", 0.5f);
                 break;
 
         }
 
-        GameManager.Instance.m_Camera.transform.position = GameManager.Instance.camPathPoint[0].position;
-
-        if (GameManager.Instance.CurrentGameMode != new_GameMode) GameManager.Instance.ChangeGameMode(new_GameMode);
-
-        parentGO.SetActive(false);
-
+        m_MainMenuController.SetDiffyclyEnd();
+        
     }
 }
