@@ -4,25 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Управление меню
+/// Управление меню.
 /// </summary>
-/// isGameHistoryOff
 public class MainMenuController : MonoBehaviour
 {
-
-    [SerializeField]
-    private GameObject RedLegGamesLogoGO;
-
-    [SerializeField]
-    private GameObject GameHistoryGO;
-
-    [SerializeField]
-    private GameObject mainMenuScene;
-    [SerializeField]
-    private GameObject mainMenuGUI;
-
+    
     private Animator animatorMainMenu;
-
     private float timer;
 
 

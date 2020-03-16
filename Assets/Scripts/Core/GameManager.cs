@@ -99,8 +99,6 @@ public class GameManager : MonoBehaviour
     public GameObject hitSimpleLightingPrefab;
     public GameObject hitWaterBallExplousenPrefab;
     
-    private string sceneName;
-
     public float levelOfComplexity = 1.0f;
 
     public List<EnemyRoom> enemyInRoom;
@@ -142,12 +140,12 @@ public class GameManager : MonoBehaviour
         m_Camera = Camera.main;
         camTransform = m_Camera.gameObject.transform;
 
-        sceneName = SceneManager.GetActiveScene().name;
-
         GetWeaponOffValue();
         CurrentWeaponHero = WeaponHero.Sword;
 
         foreach (EnemyRoom er in enemyInRoom) foreach (GameObject go in er.enemyGO) go.SetActive(false);
+
+        levelOfComplexity = PlayerPrefs.HasKey("LevelOfComplexity") ? PlayerPrefs.GetFloat("LevelOfComplexity") : 0.75f;
         
     }
 
@@ -526,14 +524,12 @@ public class GameManager : MonoBehaviour
     {
 
         openWeapon++;
-        //PlayerPrefs.SetInt("openWeapon", openWeapon);
 
     }
 
     public void GetWeaponOffValue()
     {
 
-        //openWeapon = PlayerPrefs.HasKey("openWeapon") ? PlayerPrefs.GetInt("openWeapon") : 0;
         openWeapon = 0;
 
     }
@@ -546,31 +542,6 @@ public class GameManager : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.W)) return;
         else if (Input.GetKeyUp(KeyCode.A)) return;
 
-    }
-
-    public void LoadNextScene()
-    {
-
-        //ChangeGameMode(GameMode.Dialog);
-        /*
-        switch (sceneName)
-        {
-
-            case "001":
-                SceneManager.LoadScene("002");
-                break;
-
-            case "002":
-                SceneManager.LoadScene("003");
-                break;
-
-            case "003":
-                SceneManager.LoadScene("001");
-                break;
-
-
-        }
-        */
     }
 
     private void SearchDestroyCopySingletonOrThisCreateInstance()
