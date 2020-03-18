@@ -33,9 +33,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField]
     public GameObject strangeTwoGO;
     public Image strangeTwo;
-
-    public GameObject[] desToClick;
-
+    
     public TextMeshProUGUI m_TextMeshTimer;
     public float timer;
 
@@ -114,12 +112,6 @@ public class GUIManager : MonoBehaviour
 
             powerArrowTR.position = Camera.main.WorldToScreenPoint(GameManager.Instance.m_HeroPawn.shootPoint.position);
             powerArrowTR.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.Angle(Vector2.right, (Input.mousePosition - powerArrowTR.position)));
-
-        }
-        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.MainMenu && Input.GetMouseButtonUp(0))
-        {
-
-            foreach (GameObject go in desToClick) go.SetActive(false);
 
         }
 

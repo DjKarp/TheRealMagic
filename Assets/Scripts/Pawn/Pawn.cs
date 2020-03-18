@@ -2,25 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Основа для всех персонажей. Общие переменные и методы.
+/// </summary>
+[RequireComponent(typeof(Animator))]
 public class Pawn : MonoBehaviour
 {
 
+    //Трансформ, аниматор самого Pawn
     protected Transform m_Transform;
+    protected Animator m_Animator;
 
+    //Текущий и максимальный уровни здоровья
     public float HP;
     public float maxHP;
 
+    //Скрипт сам выставляет уровень здоровья на полоске HP Bar.
+    //И так как сам бар делается как спрайт на сцене (а не GUI элемент), то изменять размер полоски будем скейлом по оси. 
+    //Для этого надо не забывать, что пивот полоски должен быть в нуле, т.е. в самой левой центральной части, если полоска уменьшается справа на лево.
     [Header("Sprite самой полоски HP Bar'а.")]
     [SerializeField]
     protected Transform hpBar;
-    protected float startHpBarValue;
+    //Запоминаем начальный скейл полоски. Так как он может и не равняться еденице. Тогда будем апромиксировать.
+    protected float startHpBarValue;   
 
-    protected Animator m_Animator;
-
+    //Точка из которой снаряд стартует.
     public Transform shootPoint;
 
+    //Для вызова всплывающей анимации изменения солстояния здоровья павна.
     public HPBarTextDamage m_HPBarTextDamage;
 
+    //Проверка на то, чтобы дамаг не проходил несколько раз от одного оружия за один ход.
     public bool isDamage = false;
     public float damageTimer = 0.0f;
 

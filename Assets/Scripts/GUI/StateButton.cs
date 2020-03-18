@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Смена игрового режима по нажатию кнопки.
+/// </summary>
 [RequireComponent(typeof(Button))]
 public class StateButton : MonoBehaviour
 {

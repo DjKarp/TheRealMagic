@@ -3,101 +3,111 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+/// <summary>
+/// инициализация и контроль молнии и эффектов попадания.
+/// </summary>
+[RequireComponent(typeof(Rigidbody2D))]
 public class LightingWeapon : MonoBehaviour
 {
     
     private Transform m_Transform;
-    private Rigidbody2D m_Rigidbody2D;
+    private Rigidbody2D m_Rigidbody2D;    
 
-    public int collisionCount = 0;
-    public int maxCollisionCount = 4;
+    [Header("Максимальное количество коллизий перед взрывом молнии")]
+    [SerializeField]
+    private int maxCollisionCount = 4;
+    //Настоящее количество попаданий во что-либо кроме павна
+    private int collisionCount = 0;
 
-    public bool isTheEnd = false;
-
+    [Header("Наносимый молнией урон")]
+    [SerializeField]
     public float damage = 4;
 
+    //GameObject FX попадания, трансформ, аниматор.
+    private GameObject hitGOPrefab;
     private GameObject hitGO;
+    private Transform hitGOTransform;
     private Animator hitAnimator;
-    
-    //для преобразования при повороте
-    private Vector3 xDirection;
-    private Vector3 yDirection;
-    private Vector3 zDirection;
 
-    private float ange;
+    //FX попадания не по павну
+    private GameObject hitSimpleLightingPrefab;
+    private GameObject hitSimpleLighting;
+    private Transform hitSimpleLightingTransform;
+    private ParticleSystem hitSimpleLightingPS;
+
+    private int findIndex;
+
+
 
     private void Awake()
     {
 
         m_Transform = gameObject.transform;
-        m_Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();        
+        m_Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+
+        hitGOPrefab = Resources.Load("Hit") as GameObject;
+        hitGO = Instantiate(hitGOPrefab);
+        hitGOTransform = hitGO.GetComponent<Transform>();
+        hitAnimator = hitGO.GetComponent<Animator>();
+
+        hitSimpleLightingPrefab = Resources.Load("SimpleLightingIskri") as GameObject;
+        hitSimpleLighting = Instantiate(hitSimpleLightingPrefab);
+        hitSimpleLightingTransform = hitSimpleLighting.GetComponent<Transform>();
+        hitSimpleLightingPS = hitSimpleLighting.GetComponent<ParticleSystem>();
 
     }
-
-    private void Update()
-    {
-        
-        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn) LookAt2D(GameManager.Instance.GetOurMouseMosition());
-        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerWeaponWait) m_Transform.rotation = Quaternion.Euler(0.0f, 0.0f, m_Rigidbody2D.angularVelocity);
-
-    }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") | collision.gameObject.CompareTag("DestructionObject"))
         {
+
+            if (collision.gameObject.CompareTag("DestructionObject"))
+            {
+
+                hitGOTransform.position = collision.GetContact(0).point;
+                hitAnimator.SetTrigger("isStart");
+                hitGOTransform.parent = null;
+
+                Destroy(collision.gameObject);
+
+            }
 
             collisionCount++;
 
             if (collisionCount > maxCollisionCount)
             {
+                
+                hitSimpleLightingTransform.position = collision.GetContact(0).point;
+                hitSimpleLightingPS.Play();
 
-                isTheEnd = true;
-                hitGO = Instantiate(GameManager.Instance.hitSimpleLightingPrefab, collision.GetContact(0).point, Quaternion.identity);
                 GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
-                Destroy(gameObject);
 
-            }
+                gameObject.SetActive(false);
+
+            }          
 
         }
         else if (collision.gameObject.CompareTag("Enemy") | collision.gameObject.CompareTag("Player"))
         {
-
-            isTheEnd = true;
-            if (collision.gameObject != null) if (collision.gameObject.GetComponent<EnemyPawn>() != null) collision.gameObject.GetComponent<EnemyPawn>().TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
-
-            hitGO = Instantiate(GameManager.Instance.hitPrefab, collision.GetContact(0).point, Quaternion.identity);
-            hitAnimator = hitGO.GetComponent<Animator>();
-            hitAnimator.SetTrigger("Start");
-
-            GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
-
-            Destroy(gameObject);
-
-        }
-        else if (collision.gameObject.CompareTag("DestructionObject"))
-        {
-
-            collisionCount++;
-
-            if (collisionCount > maxCollisionCount)
-            {
-
-                isTheEnd = true;
-                hitGO = Instantiate(GameManager.Instance.hitSimpleLightingPrefab, collision.GetContact(0).point, Quaternion.identity);
-                GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
-                Destroy(gameObject);
-
-            }
+            
+            if (collision.gameObject.CompareTag("Player")) GameManager.Instance.m_HeroPawn.TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
             else
             {
 
-                hitGO = Instantiate(GameManager.Instance.hitRockDestroyPrefab, collision.GetContact(0).point, Quaternion.identity);
-                hitGO.transform.parent = null;
-                Destroy(collision.gameObject);
+                findIndex = GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyPWGO.IndexOf(collision.gameObject);
+
+                GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyPW[findIndex].TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
 
             }
+               
+            hitGOTransform.position = collision.GetContact(0).point;
+            hitAnimator.SetTrigger("isStart");
+
+            GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
+
+            gameObject.SetActive(false);
 
         }
 
@@ -107,28 +117,16 @@ public class LightingWeapon : MonoBehaviour
     {
 
         collisionCount = 0;
-        isTheEnd = false;
 
     }
 
-    public void LookAt2D(Vector3 lookTarget)
+    private void OnDestroy()
     {
 
-        //Желаемое направление оси X, от которого устанавливаем ось Y. Z ось обращена к нам.
-        xDirection = (lookTarget - transform.position).normalized;
-        yDirection = Quaternion.Euler(0, 0, 90) * xDirection;
-        zDirection = Vector3.forward;
-
-        m_Transform.rotation = Quaternion.LookRotation(zDirection, yDirection);
+        Destroy(hitGO);
+        Destroy(hitSimpleLighting);
 
     }
-
-    public void LookAt2D()
-    {
-
-        ange = Vector2.Angle(Vector2.right, m_Rigidbody2D.velocity);
-
-    }
-
+    
 }
 

@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Скрипт выбора оружия. Вешаем на кнопку и выбираем нужное оружее.
+/// </summary>
 [RequireComponent(typeof(Button))]
 public class ChoiceWeaponHero : MonoBehaviour
 {
 
-    public GameManager.WeaponHero m_WeaponHero;
+    [Header("Выберите оружее:")]
+    [SerializeField]
+    private GameManager.WeaponHero m_WeaponHero;
 
     private Button m_Button;
 

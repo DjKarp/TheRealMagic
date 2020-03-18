@@ -3091,8 +3091,6 @@ MonoBehaviour:
   TextCurrentTurn: {fileID: 1511182103}
   strangeTwoGO: {fileID: 240756489}
   strangeTwo: {fileID: 368610485}
-  desToClick:
-  - {fileID: 0}
   m_TextMeshTimer: {fileID: 1877623198}
   timer: 0
   winnerScreen: {fileID: 2009837893}
@@ -4912,7 +4910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337162933}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.09, y: -3.076, z: 0}
+  m_LocalPosition: {x: 21.4, y: -3.076, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1841075461}
@@ -4941,7 +4939,7 @@ MonoBehaviour:
   isDamage: 0
   damageTimer: 0
   swordDamage: 3
-  speed: 10
+  speed: 20
   fakeSwordCollider: {fileID: 1604556765}
 --- !u!50 &337162939
 Rigidbody2D:
@@ -26624,7 +26622,7 @@ MonoBehaviour:
   - {fileID: 773485865}
   - {fileID: 594756257}
   - {fileID: 747312338}
-  isOff: 0
+  camPointNumberTarget: 4
 --- !u!1 &1070968837
 GameObject:
   m_ObjectHideFlags: 0
@@ -59326,7 +59324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentGameMode: 0
   CurrentWeaponHero: 0
-  ChoiceWeaponEnemy: 0
   m_HeroPawn: {fileID: 0}
   m_HeroTransform: {fileID: 0}
   pathPointHero:
@@ -59355,19 +59352,13 @@ MonoBehaviour:
   - {fileID: 541528004}
   m_Camera: {fileID: 0}
   camPointNumber: 0
-  weaponLightingPrefab: {fileID: 5491754040631319254, guid: aab0c8649362d014dabec107563689b6,
-    type: 3}
   weaponWaterBallPrefab: {fileID: 1009091369261619838, guid: 391f85d133f7ee34bab686a93db0dd35,
     type: 3}
   weaponFireBallPrefab: {fileID: 2660748417273524151, guid: 91d6f4d49c9cb744aa671560766c5bbb,
     type: 3}
   weaponIceBallPrefab: {fileID: 2195643903292128953, guid: a24a865a4a0bb314eb7feee96d81d1ec,
     type: 3}
-  hitPrefab: {fileID: 4797866877825429883, guid: 48b9414ca44caba4fa12c5260170f7ff,
-    type: 3}
   hitRockDestroyPrefab: {fileID: 6045922795954187455, guid: daa89865435dd9a46ad619712389f149,
-    type: 3}
-  hitSimpleLightingPrefab: {fileID: 826999145426980320, guid: 9b257ec8dbe772e449a3ed8c2803ba61,
     type: 3}
   hitWaterBallExplousenPrefab: {fileID: 5615058076746821933, guid: 751dc5bbe4cb744468055d06fa1b9363,
     type: 3}
@@ -59447,7 +59438,6 @@ MonoBehaviour:
   - {fileID: 1733678673}
   - {fileID: 324788744}
   Timer: 0
-  destr: {fileID: 0}
 --- !u!1 &2100193352
 GameObject:
   m_ObjectHideFlags: 0

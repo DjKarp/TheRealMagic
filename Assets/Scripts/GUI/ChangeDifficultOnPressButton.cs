@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Установка уровня сложности по нажатию на кнопку.
+/// </summary>
 [RequireComponent(typeof(Button))]
-public class StateButtonAndDiffycly : MonoBehaviour
+public class ChangeDifficultOnPressButton : MonoBehaviour
 {
 
     [Header("Кнопка.")]
     [SerializeField]
     private Button m_Button;
 
-    public Difficly m_Difficly = Difficly.Normal;
+    [Header("В какой игровой режим переводит кнопка.")]
+    [SerializeField]
+    private Difficly m_Difficly = Difficly.Normal;
+
     public enum Difficly
     {
 

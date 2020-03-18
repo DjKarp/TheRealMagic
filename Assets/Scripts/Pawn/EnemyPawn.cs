@@ -2,33 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Наследованый павн врагов в игре 
+/// </summary>
 public class EnemyPawn : Pawn
 {
-
+    //FX получения урона, его аниматор и трансформ. 
+    private GameObject hitGOPrefab;
     private GameObject hitGO;
+    private Transform hitGOTransform;
     private Animator hitAnimator;
 
+    [Header("Наносимый герою урон:")]
     public float damage = 7.0f;
 
+    //Дополнительное условие, чтобы мобы не аттаковали несколько раз за ход. 
     private bool isAttack = false;
 
-    
+    private int findIndex;
+
+
 
     protected override void Awake()
     {
         
         base.Awake();
-        
-        GameManager.Instance.changeGameModeEvent += OnGameChangeState;
-        
-    }
 
-    protected override void Update()
-    {
-
-        base.Update();
-
-        
+        //подгружаем FX попадания, чтобы был в памяти.
+        hitGOPrefab = Resources.Load("Hit") as GameObject;
+        hitGO = Instantiate(hitGOPrefab);
+        hitGOTransform = hitGO.GetComponent<Transform>();
+        hitGOTransform.parent = m_Transform.parent;
+        hitAnimator = hitGO.GetComponent<Animator>();
 
     }
 
@@ -39,10 +44,10 @@ public class EnemyPawn : Pawn
 
         m_Animator.SetTrigger("Attack");
 
-        hitGO = Instantiate(GameManager.Instance.hitPrefab, GameManager.Instance.m_HeroTransform.position, Quaternion.identity);
-        hitAnimator = hitGO.GetComponent<Animator>();
-        hitAnimator.SetTrigger("Start");
+        hitGOTransform.position = GameManager.Instance.m_HeroTransform.position;
+        hitAnimator.SetTrigger("isStart");
 
+        //Зандомизация урона - начальный дамаг +\- треть от него.
         GameManager.Instance.m_HeroPawn.TakeDamage(Random.Range((damage - (damage/3)), (damage + (damage/3))));
 
     }
@@ -50,37 +55,24 @@ public class EnemyPawn : Pawn
     protected override void Die()
     {
 
+        GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyGO.Remove(m_Transform.parent.gameObject);
+
         base.Die();
-
-        GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyGO.Remove(gameObject);
-        GameManager.Instance.enemyLiveInScene--;
-
+        
     }
-
-    public void OnGameChangeState()
-    {
-        /*
-        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.EnemyTurn)
-        {
-
-            if (HP > 0) StartCoroutine(EnemyTurn());
-
-        }
-        */
-    }
-
+    
     IEnumerator EnemyTurn()
     {
 
         isAttack = false;
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.5f);
 
         if (!isAttack) Attack();
 
         GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyWeaponWait);
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         if (!GameManager.Instance.m_HeroPawn.IsDie()) GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
 

@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Удар мечём. Фейковый.
+/// Фейк - так как это просто круг с анимированый. Он посещает места удара мечом.
+/// </summary>
 public class SwordWeapon : MonoBehaviour
 {
 
-    public float damage = 7;
-
-    private GameObject hitGO;
-
+    [Header("Урон от атаки мечом")]
+    [SerializeField]
+    private float damage = 7;
+    
+    //Защита от двойного удара. Бывает когда колайдер 2 раза входит в противника.
     private bool isDamage = false;
     private float damageTimer = 0.0f;
 
+    private int findIndex;
 
-    private void Awake()
-    {
-        
 
-    }
 
     protected virtual void Update()
     {
@@ -40,8 +42,10 @@ public class SwordWeapon : MonoBehaviour
         {
 
             isDamage = true;
-            collision.gameObject.GetComponent<EnemyPawn>().TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
-            
+
+            findIndex = GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyPWGO.IndexOf(collision.gameObject);
+            GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyPW[findIndex].TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
+
         }
 
     }

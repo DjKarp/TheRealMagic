@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public enum GameMode
     {
 
-        MainMenu,
         Dialog,
         PlayerTurn,
         PlayerWeaponWait,
@@ -42,42 +41,34 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public WeaponEnemy ChoiceWeaponEnemy;
-    public enum WeaponEnemy
-    {
-
-        Sword,
-        Lighting,
-        WaterBall,
-        FireBall,
-        FrozenBall        
-
-    }
-
     public HeroPawn m_HeroPawn;
     public Transform m_HeroTransform;
 
     [SerializeField]
     public List<Transform> pathPointHero;
-    public int nextMovePointHero;
+    [HideInInspector]
+    public int nextMovePointHero = -1;
 
     public int openWeapon;
     
     [SerializeField]
     public List<Transform> camPathPoint;
 
+    //Самера, её трансформ и точка в которой она должна бфть сейчас.
     [HideInInspector]
     public Camera m_Camera;
     private Transform camTransform;
     [HideInInspector]
-    public int camPointNumber = 0;
+    public int camPointNumber = -1;
     
     private float currentShootStrange;
-    private float timeShootLoad = 5.0f;
+    private float timeShootLoad = 3.0f;
     private float currentTimeShootLoad = 0.0f;
 
-    [SerializeField]
-    private GameObject weaponLightingPrefab;    
+    private GameObject weaponLightingPrefab;
+    private GameObject weaponLightingGO;
+    private Transform weaponLightingTransform;
+    private Rigidbody2D weaponLightingRB;
     private float weaponLightingSpeedMin = 10.0f;
     private float weaponLightingSpeedMax = 60.0f;
     private bool isCountTime = false;
@@ -92,26 +83,21 @@ public class GameManager : MonoBehaviour
     private GameObject weaponIceBallPrefab;
 
     private GameObject weaponGO;
+    private Transform weaponTransform;
     private Rigidbody2D weaponRB;
 
-    public GameObject hitPrefab;
-    public GameObject hitRockDestroyPrefab;
-    public GameObject hitSimpleLightingPrefab;
+    public GameObject hitRockDestroyPrefab;    
     public GameObject hitWaterBallExplousenPrefab;
     
     public float levelOfComplexity = 1.0f;
 
     public List<EnemyRoom> enemyInRoom;
-    public int enemyLiveInScene;
 
     [SerializeField]
     private List<GameObject> noWayBack;
-    private int noWayBackCount;
 
     public float Timer;
-
-    public GameObject destr;
-
+    
     //для преобразования при повороте
     private Vector3 xDirection;
     private Vector3 yDirection;
@@ -127,9 +113,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 
-        camPointNumber = -1;
-        nextMovePointHero = -1;
-        noWayBackCount = 0;
+        camPointNumber = 2;
+        nextMovePointHero = 2;
 
         SearchDestroyCopySingletonOrThisCreateInstance();
 
@@ -143,16 +128,34 @@ public class GameManager : MonoBehaviour
         GetWeaponOffValue();
         CurrentWeaponHero = WeaponHero.Sword;
 
-        foreach (EnemyRoom er in enemyInRoom) foreach (GameObject go in er.enemyGO) go.SetActive(false);
+        foreach (EnemyRoom er in enemyInRoom)
+        {
+            
+            foreach (GameObject go in er.enemyGO)
+            {
+
+                er.enemyPW.Add(go.GetComponentInChildren<EnemyPawn>());
+                er.enemyPWGO.Add(er.enemyPW[er.enemyPW.Count - 1].gameObject);
+                go.SetActive(false);
+
+            }
+
+        }
 
         levelOfComplexity = PlayerPrefs.HasKey("LevelOfComplexity") ? PlayerPrefs.GetFloat("LevelOfComplexity") : 0.75f;
-        
+
+        weaponLightingPrefab = Resources.Load("WeaponMagicLightingCircle") as GameObject;
+        weaponLightingGO = Instantiate(weaponLightingPrefab);
+        weaponLightingTransform = weaponLightingGO.transform;
+        weaponLightingRB = weaponLightingGO.GetComponent<Rigidbody2D>();
+        weaponLightingGO.SetActive(false);
+
     }
 
     private void Start()
     {
 
-        ChangeGameMode(GameMode.MainMenu);
+        ChangeGameMode(GameMode.Dialog);
 
     }
 
@@ -171,7 +174,7 @@ public class GameManager : MonoBehaviour
     public void ChangeGameMode(GameMode m_GameMode)
     {
 
-        if (m_GameMode != GameMode.Dialog && m_GameMode != GameMode.MainMenu && enemyLiveInScene == 0) ChangeGameMode(GameMode.Dialog);
+        if (m_GameMode != GameMode.Dialog && enemyInRoom[camPointNumber].enemyGO.Count == 0) ChangeGameMode(GameMode.Dialog);
 
         CurrentGameMode = m_GameMode;
 
@@ -181,7 +184,6 @@ public class GameManager : MonoBehaviour
         {
 
             case GameMode.Dialog:
-                destr.SetActive(false);
                 StartCoroutine(DialogeGameMode());
                 break;
 
@@ -193,27 +195,9 @@ public class GameManager : MonoBehaviour
 
                 break;
 
-            case GameMode.MainMenu:
-                StartCoroutine(MainMenu());
-                break;
-
             case GameMode.EnemyTurn:
                 StartCoroutine(EnemyTurn());
                 break;
-
-        }
-
-    }
-
-    IEnumerator MainMenu()
-    {
-
-        while (CurrentGameMode == GameMode.MainMenu)
-        {
-
-
-
-            yield return null;
 
         }
 
@@ -279,7 +263,6 @@ public class GameManager : MonoBehaviour
         m_HeroPawn.HeroMove(false);
         SetOnOffNoWayBack(true);
 
-        enemyLiveInScene = enemyInRoom[camPointNumber].enemyGO.Count;
         foreach (GameObject go in enemyInRoom[camPointNumber].enemyGO) go.SetActive(true);
 
         GUIManager.Instance.ShowAndHideDialogWindow(true, camPointNumber);        
@@ -336,8 +319,8 @@ public class GameManager : MonoBehaviour
         currentTimeShootLoad = 0.0f;
         isCountTime = true;
 
-        weaponGO = Instantiate(weaponLightingPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
-        weaponRB = weaponGO.GetComponent<Rigidbody2D>();             
+        weaponLightingGO.SetActive(true);
+        weaponLightingTransform.position = m_HeroPawn.shootPoint.position;           
                
         while (!Input.GetMouseButtonUp(0))
         {
@@ -353,7 +336,7 @@ public class GameManager : MonoBehaviour
         GUIManager.Instance.ShowAndHidePowerArrow(false);
         m_HeroPawn.AttackMagicHero(false);
 
-        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * 1.5f * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
+        weaponLightingRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * 1.5f * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
 
         ChangeGameMode(GameMode.PlayerWeaponWait);
 
@@ -471,12 +454,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        /*
-        yield return new WaitForSeconds(3.0f);
 
-        ChangeGameMode(GameMode.PlayerTurn);
-        */
-        if (enemyLiveInScene > 0)
+        if (enemyInRoom[camPointNumber].enemyGO.Count > 0)
         {
             
             for (int i = 0; i < enemyInRoom[camPointNumber].enemyGO.Count; i++)
@@ -529,8 +508,8 @@ public class GameManager : MonoBehaviour
 
     public void GetWeaponOffValue()
     {
-
-        openWeapon = 0;
+        //0
+        openWeapon = 2;
 
     }
     
@@ -583,19 +562,8 @@ public class GameManager : MonoBehaviour
 
         public int numberRoom;
         public List<GameObject> enemyGO;
-
-        private int tempCountGO;
-
-        public int LiveEnemyCount()
-        {
-
-            tempCountGO = 0;
-
-            foreach (GameObject go in enemyGO) if (go != null) tempCountGO++;
-
-            return tempCountGO;
-
-        }
+        public List<EnemyPawn> enemyPW;
+        public List<GameObject> enemyPWGO;      
 
     }
 
