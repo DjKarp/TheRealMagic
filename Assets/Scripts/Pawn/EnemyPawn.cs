@@ -19,8 +19,6 @@ public class EnemyPawn : Pawn
     //Дополнительное условие, чтобы мобы не аттаковали несколько раз за ход. 
     private bool isAttack = false;
 
-    private int findIndex;
-
 
 
     protected override void Awake()
@@ -47,7 +45,7 @@ public class EnemyPawn : Pawn
         hitGOTransform.position = GameManager.Instance.m_HeroTransform.position;
         hitAnimator.SetTrigger("isStart");
 
-        //Зандомизация урона - начальный дамаг +\- треть от него.
+        //Рандомизация урона - начальный дамаг +\- треть от него.
         GameManager.Instance.m_HeroPawn.TakeDamage(Random.Range((damage - (damage/3)), (damage + (damage/3))));
 
     }

@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
-
+/// <summary>
+/// Скрипт вешаем на точки пути автоматического перемещения рыцаря между комнатами.
+/// Рисуем редакторе сцены сами точки и их соединения между собой. И заполняем массив точек в GameManager.
+/// </summary>
 public class LevelHeroPathPoint : MonoBehaviour
 {
 
     public static LevelHeroPathPoint lastAwailablePoint;
     
+    /// <summary>
+    /// Выбор точки указателя. Типо она первая или последняя, или какая-то между ними
+    /// </summary>
     public PointType pointType = PointType.PathPoint;
     public enum PointType
     {
@@ -28,36 +30,27 @@ public class LevelHeroPathPoint : MonoBehaviour
     public List<LevelHeroPathPoint> linkedPoints = new List<LevelHeroPathPoint>();
     public static List<LevelHeroPathPoint> allPoints = new List<LevelHeroPathPoint>();
 
-
     private float size;
+
 
     private void Awake()
     {
-
-        switch (pointType)
+        //Если нет точки в массиве, то добавляем её и сортируем массив по имени.
+        if (!GameManager.Instance.pathPointHero.Contains(gameObject.transform))
         {
 
-            case PointType.PathPoint:
+            GameManager.Instance.pathPointHero.Add(gameObject.transform);
 
-                break;
-
-            case PointType.StartPoint:
-                pointPassed = true;
-                break;
-
-            case PointType.FinishPoint:
-
-                break;
-
-            default:
-                break;
+            GameManager.Instance.pathPointHero.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
 
         }
 
-        allPoints.Add(this);
-
     }
 
+    /// <summary>
+    /// Возвращает следующую доступную точку
+    /// </summary>
+    /// <returns>Трансформ следующей точки</returns>
     internal static Transform GetNextPoint()
     {
 
@@ -79,116 +72,7 @@ public class LevelHeroPathPoint : MonoBehaviour
         return tempTransform;
 
     }
-
-    internal static LevelHeroPathPoint GetNextAwailablePoint()
-    {
-        if (allPoints.Count == 0) return null;
-
-        //Находим стартовую точку
-        LevelHeroPathPoint startPoint = allPoints.Find(kpp => kpp.pointType == PointType.StartPoint);
-
-        if (lastAwailablePoint != null) startPoint = lastAwailablePoint;
-
-        if (startPoint == null)
-        {
-
-            Debug.LogError("На сцене нет стартовой точки.");
-            return null;
-
-        }
-
-        foreach (LevelHeroPathPoint point in startPoint.linkedPoints)
-        {
-
-            if (point == null) continue;
-            if (point.pointPassed) continue;
-
-            if (Linecast(startPoint.transform.position, point.transform.position))
-            {
-
-                Debug.Log("Попал физикой в другую точку: " + point.name, point);
-
-                LevelHeroPathPoint targetPoint = point;
-
-                //Точка доступна
-                while (targetPoint.pointPassed == true)
-                {
-
-                    foreach (LevelHeroPathPoint linkPoint in targetPoint.linkedPoints)
-                    {
-
-                        if (linkPoint.pointPassed) continue;
-
-                        if (Linecast(targetPoint.transform.position, linkPoint.transform.position))
-                        {
-
-                            targetPoint = linkPoint;
-                            continue;
-
-                        }
-
-                    }
-
-                    break;
-
-                }
-
-                lastAwailablePoint = targetPoint;
-
-                return targetPoint;
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-    public static bool Linecast(Vector3 start, Vector3 end)
-    {
-
-        List<RaycastHit2D> results = new List<RaycastHit2D>();
-        ContactFilter2D contactFilter = new ContactFilter2D();
-
-        contactFilter.useLayerMask = true;
-        contactFilter.useTriggers = false;
-
-        LayerMask layerMask = 1 << LayerMask.NameToLayer("Default");
-
-        contactFilter.SetLayerMask(layerMask);
-
-        int lineCasts = Physics2D.Linecast((Vector2)start, (Vector2)end, contactFilter, results);
-
-        if (lineCasts > 0)
-        {
-
-            foreach (RaycastHit2D hit in results)
-            {
-
-                if (hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Enemy")
-                {
-
-                    lineCasts--;
-
-                }
-
-            }
-
-        }
-
-        return lineCasts == 0;
-
-    }
-
-
-    internal void Passed()
-    {
-
-        pointPassed = true;
-
-    }
-         
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         
@@ -239,67 +123,12 @@ public class LevelHeroPathPoint : MonoBehaviour
         }
 
     }
-
+#endif
     private void OnDestroy()
     {
 
         allPoints.Remove(this);
 
     }
-
-
-
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(LevelHeroPathPoint))]
-    class KnightPathpointEditor : Editor
-    {
-
-        private void OnSceneGUI()
-        {
-
-            LevelHeroPathPoint m_PathPoint = target as LevelHeroPathPoint;
-
-            foreach (LevelHeroPathPoint pathPoint in FindObjectsOfType<LevelHeroPathPoint>())
-            {
-                if (pathPoint == m_PathPoint) continue;
-
-                Vector3 midpoint = m_PathPoint.transform.position + ((pathPoint.transform.position - m_PathPoint.transform.position) * 0.8f);
-
-                if (!m_PathPoint.linkedPoints.Contains(pathPoint))
-                {
-
-                    //Точки нет, рисуем добавлялку
-                    if (Handles.Button(midpoint, Quaternion.identity, 0.2f, 0.5f, Handles.RectangleHandleCap))
-                    {
-
-                        m_PathPoint.linkedPoints.Add(pathPoint);
-                        pathPoint.linkedPoints.Add(m_PathPoint);
-
-                    }
-
-                }
-                else
-                {
-
-                    Debug.DrawLine(m_PathPoint.transform.position, m_PathPoint.transform.position, Color.yellow);
-
-                    //Точки нет, рисуем добавлялку
-                    if (Handles.Button(midpoint, Quaternion.identity, 0.2f, 0.5f, Handles.CircleHandleCap))
-                    {
-                        m_PathPoint.linkedPoints.Remove(pathPoint);
-                        pathPoint.linkedPoints.Remove(m_PathPoint);
-
-                    }
-
-                }
-
-            }
-
-        }
-
-    }
-
-#endif
 
 }

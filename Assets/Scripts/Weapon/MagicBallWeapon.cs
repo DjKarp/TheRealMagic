@@ -7,13 +7,11 @@ public class MagicBallWeapon : MonoBehaviour
 
     public int collisionCount = 0;
     public int maxCollisionCount = 2;
-
-    public bool isTheEnd = false;
+    
 
     public float damage = 7;
 
     private GameObject hitGO;
-    private Animator hitAnimator;
 
     [SerializeField]
     private GameObject explousenPrefab;
@@ -33,7 +31,6 @@ public class MagicBallWeapon : MonoBehaviour
         if (!m_Rigidbody2D.isKinematic && collisionCount > 0 && m_Rigidbody2D.velocity.x <= 0.0f && m_Rigidbody2D.velocity.y <= 0.0f)
         {
 
-            isTheEnd = true;
             Instantiate(explousenPrefab, gameObject.transform.position, Quaternion.identity);
             GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
             Destroy(gameObject);
@@ -53,7 +50,6 @@ public class MagicBallWeapon : MonoBehaviour
             if (collisionCount > maxCollisionCount)
             {
 
-                isTheEnd = true;
                 Instantiate(explousenPrefab, collision.GetContact(0).point, Quaternion.identity);
                 GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
                 Destroy(gameObject);
@@ -64,7 +60,6 @@ public class MagicBallWeapon : MonoBehaviour
         else if (collision.gameObject.CompareTag("Enemy") | collision.gameObject.CompareTag("Player"))
         {
 
-            isTheEnd = true;
             collision.gameObject.GetComponent<Pawn>().TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
 
             hitGO = Instantiate(explousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
@@ -86,7 +81,6 @@ public class MagicBallWeapon : MonoBehaviour
             if (collisionCount > maxCollisionCount)
             {
 
-                isTheEnd = true;
                 Instantiate(explousenPrefab, collision.GetContact(0).point, Quaternion.identity);
                 GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
                 Destroy(gameObject);

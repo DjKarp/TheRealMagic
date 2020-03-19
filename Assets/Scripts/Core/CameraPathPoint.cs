@@ -2,9 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Точки положений камеры для каждой из комнат.
+/// При старте заполняем массив точек в GameManager.
+/// </summary>
 public class CameraPathPoint : MonoBehaviour
 {
+
+    private void Awake()
+    {
+
+        //Если нет точки в массиве, то добавляем её и сортируем массив по имени.
+        if (!GameManager.Instance.camPathPoint.Contains(gameObject.transform))
+        {
+
+            GameManager.Instance.camPathPoint.Add(gameObject.transform);
+            GameManager.Instance.camPathPoint.Sort((Transform t1, Transform t2) => { return t1.name.CompareTo(t2.name); });
+
+        }
+
+    }
+
 #if UNITY_EDITOR
+
     public void OnDrawGizmos()
     {
 

@@ -2468,7 +2468,7 @@ GameObject:
   - component: {fileID: 166696451}
   - component: {fileID: 166696452}
   m_Layer: 0
-  m_Name: CamPoint7
+  m_Name: CamPoint07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3106,7 +3106,7 @@ GameObject:
   - component: {fileID: 225232639}
   - component: {fileID: 225232640}
   m_Layer: 0
-  m_Name: CamPoint5
+  m_Name: CamPoint05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4910,7 +4910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337162933}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.4, y: -3.076, z: 0}
+  m_LocalPosition: {x: 21.43, y: -3.076, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1841075461}
@@ -4938,7 +4938,6 @@ MonoBehaviour:
   m_HPBarTextDamage: {fileID: 0}
   isDamage: 0
   damageTimer: 0
-  swordDamage: 3
   speed: 20
   fakeSwordCollider: {fileID: 1604556765}
 --- !u!50 &337162939
@@ -7184,7 +7183,7 @@ GameObject:
   - component: {fileID: 468550414}
   - component: {fileID: 468550415}
   m_Layer: 0
-  m_Name: CamPoint9
+  m_Name: CamPoint09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25173,7 +25172,7 @@ GameObject:
   - component: {fileID: 926538539}
   - component: {fileID: 926538540}
   m_Layer: 0
-  m_Name: CamPoint8
+  m_Name: CamPoint08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26351,7 +26350,7 @@ GameObject:
   - component: {fileID: 1034685635}
   - component: {fileID: 1034685636}
   m_Layer: 0
-  m_Name: CamPoint0
+  m_Name: CamPoint00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27839,7 +27838,7 @@ GameObject:
   - component: {fileID: 1168383709}
   - component: {fileID: 1168383710}
   m_Layer: 0
-  m_Name: CamPoint3
+  m_Name: CamPoint03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28166,7 +28165,7 @@ GameObject:
   - component: {fileID: 1202201446}
   - component: {fileID: 1202201447}
   m_Layer: 0
-  m_Name: CamPoint6
+  m_Name: CamPoint06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34979,7 +34978,7 @@ GameObject:
   - component: {fileID: 1407882438}
   - component: {fileID: 1407882439}
   m_Layer: 0
-  m_Name: CamPoint4
+  m_Name: CamPoint04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39794,7 +39793,7 @@ GameObject:
   - component: {fileID: 1848423068}
   - component: {fileID: 1848423069}
   m_Layer: 0
-  m_Name: CamPoint2
+  m_Name: CamPoint02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39837,7 +39836,7 @@ GameObject:
   - component: {fileID: 1857168296}
   - component: {fileID: 1857168297}
   m_Layer: 0
-  m_Name: CamPoint1
+  m_Name: CamPoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59326,30 +59325,10 @@ MonoBehaviour:
   CurrentWeaponHero: 0
   m_HeroPawn: {fileID: 0}
   m_HeroTransform: {fileID: 0}
-  pathPointHero:
-  - {fileID: 2008812541}
-  - {fileID: 254620558}
-  - {fileID: 586082398}
-  - {fileID: 32338625}
-  - {fileID: 1538120226}
-  - {fileID: 946872701}
-  - {fileID: 1114379743}
-  - {fileID: 417838768}
-  - {fileID: 312302381}
+  pathPointHero: []
   nextMovePointHero: 0
   openWeapon: 0
-  camPathPoint:
-  - {fileID: 1034685635}
-  - {fileID: 1857168296}
-  - {fileID: 1848423068}
-  - {fileID: 1168383709}
-  - {fileID: 1407882438}
-  - {fileID: 225232639}
-  - {fileID: 1202201446}
-  - {fileID: 166696451}
-  - {fileID: 926538539}
-  - {fileID: 468550414}
-  - {fileID: 541528004}
+  camPathPoint: []
   m_Camera: {fileID: 0}
   camPointNumber: 0
   weaponWaterBallPrefab: {fileID: 1009091369261619838, guid: 391f85d133f7ee34bab686a93db0dd35,
@@ -59367,43 +59346,61 @@ MonoBehaviour:
   - numberRoom: 0
     enemyGO:
     - {fileID: 1711775470}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 1
     enemyGO:
     - {fileID: 104318957}
     - {fileID: 7071244707507571176}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 2
     enemyGO:
     - {fileID: 545489967752554685}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 3
     enemyGO:
     - {fileID: 8603336323793046681}
     - {fileID: 2616267673322898154}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 4
     enemyGO:
     - {fileID: 7291123501691714793}
     - {fileID: 1007479783}
     - {fileID: 2311893469357059613}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 5
     enemyGO:
     - {fileID: 57137042966032396}
     - {fileID: 2106346445}
     - {fileID: 1586625389}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 6
     enemyGO:
     - {fileID: 8186890210703928749}
     - {fileID: 1137370459715149663}
     - {fileID: 2556644327949624275}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 7
     enemyGO:
     - {fileID: 435036302}
     - {fileID: 1925248018}
     - {fileID: 39939240365051455}
     - {fileID: 7882869402509564163}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 8
     enemyGO:
     - {fileID: 638870301}
     - {fileID: 4252555307818815799}
     - {fileID: 262974581}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 9
     enemyGO:
     - {fileID: 4305642628109239045}
@@ -59411,6 +59408,8 @@ MonoBehaviour:
     - {fileID: 428980098}
     - {fileID: 572147244}
     - {fileID: 803803429}
+    enemyPW: []
+    enemyPWGO: []
   - numberRoom: 10
     enemyGO:
     - {fileID: 708082876}
@@ -59423,7 +59422,8 @@ MonoBehaviour:
     - {fileID: 2061078165}
     - {fileID: 461517036}
     - {fileID: 873497029}
-  enemyLiveInScene: 0
+    enemyPW: []
+    enemyPWGO: []
   noWayBack:
   - {fileID: 725964372}
   - {fileID: 1589003321}

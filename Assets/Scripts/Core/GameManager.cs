@@ -41,17 +41,34 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Павн и трансформ игрока. Находится в Awake.
+    /// </summary>
+    [HideInInspector]
     public HeroPawn m_HeroPawn;
+    [HideInInspector]
     public Transform m_HeroTransform;
 
-    [SerializeField]
+    /// <summary>
+    /// Массив точек начала каждой новой комнаты. По ним рыцарь сам идёт после уничтожения всех противников в комнате, в которой сейчас находится.
+    /// Массив заполняется сам при старте из скрипта точек LevelHeroPathPoint,cs
+    /// </summary>
+    [HideInInspector]
     public List<Transform> pathPointHero;
+    //Следующая точка (следующая комната в которую герой автоматически перемещается)
     [HideInInspector]
     public int nextMovePointHero = -1;
 
+    //Количество открытого игроку оружия.
+    [HideInInspector]
     public int openWeapon;
-    
-    [SerializeField]
+
+    /// <summary>
+    /// Массив точек камеры для каждой комнаты.
+    /// Точки камеры и пути героя нужны для того, что центры комнат находятся на разном расстоянии друг от друга. 
+    /// Массив заполняется сам при старте игры из скрипта CameraPathPoint, который висит на каждой точке камеры.
+    /// </summary>
+    [HideInInspector]
     public List<Transform> camPathPoint;
 
     //Самера, её трансформ и точка в которой она должна бфть сейчас.

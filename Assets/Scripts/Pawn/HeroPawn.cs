@@ -3,34 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-
+/// <summary>
+/// Наследованый павн игрока в игре 
+/// </summary>
 //isCastMagic
 //isWalking
 //isWinner
 public class HeroPawn : Pawn
 {
 
-    public float swordDamage = 3.0f;
+    [Header("Скорость передвижения персонажа по уровню:")]
+    [SerializeField]
+    private float speed = 15.0f;
 
-    public float speed = 10.0f;
-    private bool isMove = false;
-    private bool isLeft = false;
-    private bool isRight = false;
+    //Координаты по Х правой и левой крайних точек экрана
+    //Для проверки выхода игрока за экран
     private float rightEdge;
     private float leftEdge;
 
     private SpriteRenderer m_SpriteRenderer;
 
+    //Колайдер фейковой атаки меча. 
     public CircleCollider2D fakeSwordCollider;
+
+    //Количество очков лечения при поднятии хилки
+    private float poisen = 50.0f;
 
 
     protected override void Awake()
     {
 
         base.Awake();
-
-        GameManager.Instance.changeGameModeEvent += OnGameChangeState;
-
+        
         m_SpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
                 
     }
@@ -67,9 +71,7 @@ public class HeroPawn : Pawn
 
     public  void TakePoisen()
     {
-
-        float poisen = 50.0f;
-
+        
         HP = Mathf.Clamp(HP + poisen, 0.0f, maxHP);
 
         m_Animator.SetTrigger("isPoisen");
@@ -111,72 +113,40 @@ public class HeroPawn : Pawn
         m_Animator.SetBool("isCastMagic", startEnd);
 
     }
-
-    public void OnGameChangeState()
-    {
-
-
-    }
-
+    
     private void MoveHero()
     {
 
         if(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn && GameManager.Instance.camPointNumber > 0)
         {
             
-            if ((Input.GetKeyDown(KeyCode.RightArrow) | (Input.GetKeyDown(KeyCode.D)) && (!isRight)))
+            if (Input.GetAxis("Horizontal") > 0 & Input.anyKey)
             {
 
-                if (!isMove)
-                {
-
-                    HeroMove(true);
-                    isMove = true;
-
-                }
-
+                if (!m_Animator.GetBool("isWalking")) HeroMove(true);
                 if (m_SpriteRenderer.flipX) m_SpriteRenderer.flipX = false;
-
-                isRight = true;
+                m_Transform.position = new Vector3(m_Transform.position.x + ((speed / 7) * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
 
             }
-            else if ((Input.GetKeyDown(KeyCode.LeftArrow) | (Input.GetKeyDown(KeyCode.A)) && !isLeft))
+            else if (Input.GetAxis("Horizontal") < 0 & Input.anyKey)
             {
 
-                if (!isMove)
-                {
-
-                    HeroMove(true);
-                    isMove = true;
-
-                }
-
+                if (!m_Animator.GetBool("isWalking")) HeroMove(true);
                 if (!m_SpriteRenderer.flipX) m_SpriteRenderer.flipX = true;
-
-                isLeft = true;
+                m_Transform.position = new Vector3(m_Transform.position.x - ((speed / 7) * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
 
             }
-            else if ((Input.GetKeyUp(KeyCode.RightArrow) | Input.GetKeyUp(KeyCode.LeftArrow)) | (Input.GetKeyUp(KeyCode.D) | (Input.GetKeyUp(KeyCode.A))))
+            else if (!Input.anyKey)
             {
 
-                if (isMove)
-                {
-
-                    HeroMove(false);
-                    isMove = false;
-                    isRight = false;
-                    isLeft = false;
-
-                }
+                if (m_Animator.GetBool("isWalking")) HeroMove(false);
 
             }
 
-            if (isMove)
+            //Проверка на выход игрока за пределы камеры
+            if (Input.GetAxis("Horizontal") != 0)
             {
-
-                if (isRight) m_Transform.position = new Vector3(m_Transform.position.x + ((speed / 7) * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
-                if (isLeft) m_Transform.position = new Vector3(m_Transform.position.x - ((speed / 7) * Time.deltaTime), m_Transform.position.y, m_Transform.position.z);
-
+                
                 rightEdge = GameManager.Instance.CameraTransform().position.x + 8.5f;
                 leftEdge = GameManager.Instance.CameraTransform().position.x - 8.5f;
 
@@ -203,15 +173,7 @@ public class HeroPawn : Pawn
         else if (collision.gameObject.CompareTag("DestructionObject"))
         {
 
-            if (isMove)
-            {
-
-                HeroMove(false);
-                isMove = false;
-                isRight = false;
-                isLeft = false;
-
-            }
+            if (m_Animator.GetBool("isWalking")) HeroMove(false);
 
         }
 
