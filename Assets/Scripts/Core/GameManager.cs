@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     private float timeShootLoad = 3.0f;
     private float currentTimeShootLoad = 0.0f;
 
+    //Префабы оружия и магии. А так же их зарактеристики.
     private GameObject weaponLightingPrefab;
     private GameObject weaponLightingGO;
     private Transform weaponLightingTransform;
@@ -90,21 +91,12 @@ public class GameManager : MonoBehaviour
     private float weaponLightingSpeedMax = 60.0f;
     private bool isCountTime = false;
 
-    [SerializeField]
     private GameObject weaponWaterBallPrefab;
-
-    [SerializeField]
     private GameObject weaponFireBallPrefab;
-
-    [SerializeField]
     private GameObject weaponIceBallPrefab;
 
     private GameObject weaponGO;
-    private Transform weaponTransform;
-    private Rigidbody2D weaponRB;
-
-    public GameObject hitRockDestroyPrefab;    
-    public GameObject hitWaterBallExplousenPrefab;
+    private Rigidbody2D weaponRB;  
     
     public float levelOfComplexity = 1.0f;
 
@@ -120,11 +112,6 @@ public class GameManager : MonoBehaviour
     private Vector3 yDirection;
     private Vector3 zDirection;
 
-    private float tempFloat;
-    private int tempInt;
-    private string tempString;
-    private GameObject tempGO;
-    private Transform tempTr;
 
 
     private void Awake()
@@ -166,6 +153,10 @@ public class GameManager : MonoBehaviour
         weaponLightingTransform = weaponLightingGO.transform;
         weaponLightingRB = weaponLightingGO.GetComponent<Rigidbody2D>();
         weaponLightingGO.SetActive(false);
+
+        weaponWaterBallPrefab = Resources.Load("WeaponMagicWaterBall") as GameObject;
+        weaponFireBallPrefab = Resources.Load("WeaponMagicFireBall") as GameObject;
+        weaponIceBallPrefab = Resources.Load("WeaponMagicIceBall") as GameObject;
 
     }
 
@@ -526,7 +517,7 @@ public class GameManager : MonoBehaviour
     public void GetWeaponOffValue()
     {
         //0
-        openWeapon = 2;
+        openWeapon = 5;
 
     }
     

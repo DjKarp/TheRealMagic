@@ -2,93 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBallWeapon : MonoBehaviour
+/// <summary>
+/// Скрипт отвечающий за попадания магическими шарами
+/// </summary>
+public class MagicBallWeapon : Weapon
 {
-
-    public int collisionCount = 0;
-    public int maxCollisionCount = 2;
     
-
-    public float damage = 7;
-
-    private GameObject hitGO;
-
-    [SerializeField]
-    private GameObject explousenPrefab;
-
     private Rigidbody2D m_Rigidbody2D;
 
-    private void Start()
+    public override void Awake()
     {
 
         m_Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+
+        base.Awake();
+        
+    }
+
+    public override void LoadResources()
+    {
+
+        hitGOPrefab = Resources.Load("Hit") as GameObject;
+
+        if (hitSimplePrefab == null) hitSimplePrefab = Resources.Load("FX_Explosion") as GameObject;
+
 
     }
 
     private void Update()
     {
 
+        //Если остановился, то взрывается.
         if (!m_Rigidbody2D.isKinematic && collisionCount > 0 && m_Rigidbody2D.velocity.x <= 0.0f && m_Rigidbody2D.velocity.y <= 0.0f)
         {
 
-            Instantiate(explousenPrefab, gameObject.transform.position, Quaternion.identity);
+            if (m_Transform != null && hitSimpleTransform != null) hitSimpleTransform.position = m_Transform.position;
+            if (hitSimplePS != null) hitSimplePS.Play();
+            if (hitSimpleAnimator != null) hitSimpleAnimator.SetTrigger("isStart");
+
             GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
-            Destroy(gameObject);
+            
+            gameObject.SetActive(false);
 
         }
 
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-
-            collisionCount++;
-
-            if (collisionCount > maxCollisionCount)
-            {
-
-                Instantiate(explousenPrefab, collision.GetContact(0).point, Quaternion.identity);
-                GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
-                Destroy(gameObject);
-
-            }
-
-        }
-        else if (collision.gameObject.CompareTag("Enemy") | collision.gameObject.CompareTag("Player"))
-        {
-
-            collision.gameObject.GetComponent<Pawn>().TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
-
-            hitGO = Instantiate(explousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
-
-            GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
-
-            Destroy(gameObject);
-
-        }
-        else if (collision.gameObject.CompareTag("DestructionObject"))
-        {
-
-            collisionCount++;
-
-            hitGO = Instantiate(explousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
-            hitGO.transform.parent = null;
-            Destroy(collision.gameObject);
-
-            if (collisionCount > maxCollisionCount)
-            {
-
-                Instantiate(explousenPrefab, collision.GetContact(0).point, Quaternion.identity);
-                GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
-                Destroy(gameObject);
-
-            }
-
-        }
-
-    }
-
+    
 }

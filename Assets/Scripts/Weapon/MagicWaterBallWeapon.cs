@@ -11,6 +11,16 @@ public class MagicWaterBallWeapon : MonoBehaviour
 
     private GameObject hitGO;
 
+    private GameObject hitWaterBallExplousenPrefab;
+
+    private void Awake()
+    {
+
+        hitWaterBallExplousenPrefab = Resources.Load("WaterBallExplosen") as GameObject;
+
+
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -18,7 +28,7 @@ public class MagicWaterBallWeapon : MonoBehaviour
         {
 
             isTheEnd = true;
-            hitGO = Instantiate(GameManager.Instance.hitWaterBallExplousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
+            hitGO = Instantiate(hitWaterBallExplousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
             GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
             Destroy(gameObject);
 
@@ -29,7 +39,7 @@ public class MagicWaterBallWeapon : MonoBehaviour
             isTheEnd = true;
             collision.gameObject.GetComponent<Pawn>().TakeDamage(damage);
 
-            hitGO = Instantiate(GameManager.Instance.hitWaterBallExplousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
+            hitGO = Instantiate(hitWaterBallExplousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
 
             GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
 
@@ -40,7 +50,7 @@ public class MagicWaterBallWeapon : MonoBehaviour
         {
 
             isTheEnd = true;
-            hitGO = Instantiate(GameManager.Instance.hitWaterBallExplousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
+            hitGO = Instantiate(hitWaterBallExplousenPrefab, collision.GetContact(0).point, collision.transform.rotation);
             hitGO.transform.parent = null;
             GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
             Destroy(collision.gameObject);

@@ -150,6 +150,7 @@ MonoBehaviour:
   - {fileID: -6762611078242973570, guid: 57f23f54e220e044cab2558c16fb8a64, type: 3}
   - {fileID: 8853520444377898355, guid: 57f23f54e220e044cab2558c16fb8a64, type: 3}
   - {fileID: 8030824328750709408, guid: 57f23f54e220e044cab2558c16fb8a64, type: 3}
+  isSlow: 1
 --- !u!114 &7739647122062845167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,11 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0baa35cb3ee3054580c959c6a366965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionCount: 0
   maxCollisionCount: 4
-  isTheEnd: 0
   damage: 7
-  explousenPrefab: {fileID: 4751278383852758902, guid: e3a79b14fd2c5ff43aa7157144431353,
+  hitSimplePrefab: {fileID: 4751278383852758902, guid: e3a79b14fd2c5ff43aa7157144431353,
     type: 3}
 --- !u!1 &4844345974362015816
 GameObject:
@@ -295,3 +294,4 @@ MonoBehaviour:
   - {fileID: 3473331777480643111, guid: 861be9c690904c645b99b3e05b5557c6, type: 3}
   - {fileID: 7184806871779052844, guid: 861be9c690904c645b99b3e05b5557c6, type: 3}
   - {fileID: 1009795268857004721, guid: 861be9c690904c645b99b3e05b5557c6, type: 3}
+  isSlow: 1

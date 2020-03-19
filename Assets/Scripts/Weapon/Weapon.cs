@@ -10,30 +10,38 @@ public class Weapon : MonoBehaviour
 
     [Header("Максимальное количество коллизий перед взрывом снаряда")]
     [SerializeField]
-    private int maxCollisionCount = 4;
+    protected int maxCollisionCount = 4;
     //Настоящее количество попаданий во что-либо кроме павна
-    private int collisionCount = 0;
+    protected int collisionCount = 0;
 
     [Header("Наносимый урон")]
     [SerializeField]
     public float damage = 4;
 
+    protected Transform m_Transform;
+
     //GameObject FX попадания, трансформ, аниматор.
-    private GameObject hitGOPrefab;
-    private GameObject hitGO;
-    private Transform hitGOTransform;
-    private Animator hitAnimator;
+    protected GameObject hitGOPrefab;
+    protected GameObject hitGO;
+    protected Transform hitGOTransform;
+    protected Animator hitAnimator;
 
     //FX попадания не по павну
-    private GameObject hitSimpleLightingPrefab;
-    private GameObject hitSimpleLighting;
-    private Transform hitSimpleLightingTransform;
-    private ParticleSystem hitSimpleLightingPS;
+    [SerializeField]
+    protected GameObject hitSimplePrefab;
+    protected GameObject hitSimple;
+    protected Transform hitSimpleTransform;
+    protected ParticleSystem hitSimplePS;
+    protected Animator hitSimpleAnimator;
 
-    private int findIndex;
+    public GameObject hitRockDestroyPrefab;
 
-    private void Awake()
+    protected int findIndex;
+
+    public virtual void Awake()
     {
+
+        m_Transform = gameObject.transform;
 
         LoadResources();
 
@@ -41,9 +49,12 @@ public class Weapon : MonoBehaviour
         hitGOTransform = hitGO.GetComponent<Transform>();
         hitAnimator = hitGO.GetComponent<Animator>();
 
-        hitSimpleLighting = Instantiate(hitSimpleLightingPrefab);
-        hitSimpleLightingTransform = hitSimpleLighting.GetComponent<Transform>();
-        hitSimpleLightingPS = hitSimpleLighting.GetComponent<ParticleSystem>();
+        hitSimple = Instantiate(hitSimplePrefab);
+        hitSimpleTransform = hitSimple.GetComponent<Transform>();
+        hitSimplePS = hitSimple.GetComponent<ParticleSystem>();
+        hitSimpleAnimator = hitSimple.GetComponent<Animator>();
+
+        hitRockDestroyPrefab = Resources.Load("RockDieParticles") as GameObject;
 
     }
 
@@ -52,7 +63,7 @@ public class Weapon : MonoBehaviour
 
         hitGOPrefab = Resources.Load("Hit") as GameObject;
 
-        hitSimpleLightingPrefab = Resources.Load("SimpleLightingIskri") as GameObject;
+        if (hitSimplePrefab == null) hitSimplePrefab = Resources.Load("SimpleLightingIskri") as GameObject;
 
     }
 
@@ -69,6 +80,8 @@ public class Weapon : MonoBehaviour
                 hitAnimator.SetTrigger("isStart");
                 hitGOTransform.parent = null;
 
+                Instantiate(hitRockDestroyPrefab, collision.GetContact(0).point, Quaternion.identity);
+
                 Destroy(collision.gameObject);
 
             }
@@ -78,8 +91,9 @@ public class Weapon : MonoBehaviour
             if (collisionCount > maxCollisionCount)
             {
 
-                hitSimpleLightingTransform.position = collision.GetContact(0).point;
-                hitSimpleLightingPS.Play();
+                hitSimpleTransform.position = collision.GetContact(0).point;
+                if (hitSimplePS != null) hitSimplePS.Play();
+                if (hitSimpleAnimator != null) hitSimpleAnimator.SetTrigger("isStart");
 
                 GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
 
@@ -123,7 +137,7 @@ public class Weapon : MonoBehaviour
     {
 
         Destroy(hitGO);
-        Destroy(hitSimpleLighting);
+        Destroy(hitSimple);
 
     }
 
