@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{5e9217cb-87cf-45c5-b737-db89669aa439}">
+        <property name="assetPath">
+            <value>FX/Weapon/Water/Wing_Impact_2.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>6.7918367346938773</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{260d33a0-c1af-407c-9342-e062a352f103}</destination>
+        </relationship>
+    </object>
+</objects>

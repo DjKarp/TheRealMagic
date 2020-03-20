@@ -19,6 +19,15 @@ public class EnemyPawn : Pawn
     //Дополнительное условие, чтобы мобы не аттаковали несколько раз за ход. 
     private bool isAttack = false;
 
+    public EnemyType currentEnemyType;
+    public enum EnemyType
+    {
+
+        Ghost, 
+        Enemy
+
+    }
+
 
 
     protected override void Awake()
@@ -38,20 +47,31 @@ public class EnemyPawn : Pawn
     public void Attack()
     {
 
-        isAttack = true;
+        if (m_Animator != null)
+        {
 
-        m_Animator.SetTrigger("Attack");
+            isAttack = true;
 
-        hitGOTransform.position = GameManager.Instance.m_HeroTransform.position;
-        hitAnimator.SetTrigger("isStart");
+            if (currentEnemyType == EnemyType.Enemy) SoundAndMusic.Instance.PlayEnemyAttack(SoundAndMusic.EnemyType.Enemy);
+            else SoundAndMusic.Instance.PlayEnemyAttack(SoundAndMusic.EnemyType.Ghost);
 
-        //Рандомизация урона - начальный дамаг +\- треть от него.
-        GameManager.Instance.m_HeroPawn.TakeDamage(Random.Range((damage - (damage/3)), (damage + (damage/3))));
+            m_Animator.SetTrigger("Attack");
+
+            hitGOTransform.position = GameManager.Instance.m_HeroTransform.position;
+            hitAnimator.SetTrigger("isStart");
+
+            //Рандомизация урона - начальный дамаг +\- треть от него.
+            GameManager.Instance.m_HeroPawn.TakeDamage(Random.Range((damage - (damage / 3)), (damage + (damage / 3))));
+
+        }
 
     }
 
     protected override void Die()
     {
+
+        if (currentEnemyType == EnemyType.Enemy) SoundAndMusic.Instance.PlayEnemyDie(SoundAndMusic.EnemyType.Enemy);
+        else SoundAndMusic.Instance.PlayEnemyDie(SoundAndMusic.EnemyType.Ghost);
 
         GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyGO.Remove(m_Transform.parent.gameObject);
 
@@ -75,6 +95,16 @@ public class EnemyPawn : Pawn
         if (!GameManager.Instance.m_HeroPawn.IsDie()) GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
 
         yield break;
+
+    }
+
+    public override void TakeDamage(float damage)
+    {
+
+        base.TakeDamage(damage);
+
+        if (currentEnemyType == EnemyType.Enemy) SoundAndMusic.Instance.PlayEnemyDamaged(SoundAndMusic.EnemyType.Enemy);
+        else SoundAndMusic.Instance.PlayEnemyDamaged(SoundAndMusic.EnemyType.Ghost);
 
     }
 

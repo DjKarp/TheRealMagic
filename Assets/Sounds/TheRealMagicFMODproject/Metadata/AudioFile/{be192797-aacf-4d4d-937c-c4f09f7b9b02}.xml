@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{be192797-aacf-4d4d-937c-c4f09f7b9b02}">
+        <property name="assetPath">
+            <value>FX/Weapon/Water/Water_Simple_Spell_1_v1.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1.2262131519274377</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{260d33a0-c1af-407c-9342-e062a352f103}</destination>
+        </relationship>
+    </object>
+</objects>

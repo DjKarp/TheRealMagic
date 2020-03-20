@@ -4910,7 +4910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337162933}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.43, y: -3.076, z: 0}
+  m_LocalPosition: {x: -17.28, y: -3.076, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1841075461}
@@ -6892,6 +6892,7 @@ MonoBehaviour:
   isDamage: 0
   damageTimer: 0
   damage: 2
+  currentEnemyType: 1
 --- !u!95 &452571387
 Animator:
   serializedVersion: 3
@@ -36501,6 +36502,7 @@ MonoBehaviour:
   isDamage: 0
   damageTimer: 0
   damage: 2
+  currentEnemyType: 1
 --- !u!95 &1549032445
 Animator:
   serializedVersion: 3
@@ -59288,6 +59290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096424030}
   - component: {fileID: 2096424031}
+  - component: {fileID: 2096424032}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -59331,16 +59334,6 @@ MonoBehaviour:
   camPathPoint: []
   m_Camera: {fileID: 0}
   camPointNumber: 0
-  weaponWaterBallPrefab: {fileID: 1009091369261619838, guid: 391f85d133f7ee34bab686a93db0dd35,
-    type: 3}
-  weaponFireBallPrefab: {fileID: 2660748417273524151, guid: 91d6f4d49c9cb744aa671560766c5bbb,
-    type: 3}
-  weaponIceBallPrefab: {fileID: 2195643903292128953, guid: a24a865a4a0bb314eb7feee96d81d1ec,
-    type: 3}
-  hitRockDestroyPrefab: {fileID: 6045922795954187455, guid: daa89865435dd9a46ad619712389f149,
-    type: 3}
-  hitWaterBallExplousenPrefab: {fileID: 5615058076746821933, guid: 751dc5bbe4cb744468055d06fa1b9363,
-    type: 3}
   levelOfComplexity: 1
   enemyInRoom:
   - numberRoom: 0
@@ -59438,6 +59431,20 @@ MonoBehaviour:
   - {fileID: 1733678673}
   - {fileID: 324788744}
   Timer: 0
+--- !u!114 &2096424032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096424029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50dbfca827d7f9a409bf88b131f35158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fmodGO: {fileID: 0}
+  m_EnemyType: 0
 --- !u!1 &2100193352
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,1235 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9123653425048955398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203111438775401
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-8774930621760473800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203081055016007
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-8573944137126000160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/WaterStart
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/WaterStart
+  guid: 35d3d5eccede59469fd23893ddca51a9
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 6791
+--- !u!114 &-7949807030649440391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/FireDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/FireDamage
+  guid: 87aae8938838254ea6989dea7d98f2d1
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1711
+--- !u!114 &-7476752218973481792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203098688968716
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-6008500695729970440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Die_Ghost
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Die_Ghost
+  guid: d0f5525bbb1ba44698987c9035a35f4a
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2000
+--- !u!114 &-5890948125774269021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203103366228562
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-5734920233056876433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203098687788548
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-5636932642954773244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203061741411385
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-5567240143877225714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203116254165450
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-5458618905807781747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Attack_Ghost
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Attack_Ghost
+  guid: 7352f76adea14a458813b4f361e5323a
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4336
+--- !u!114 &-5376994765554109280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203108838924070
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-5292535534348452888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/MainMenuMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MainMenuMusic
+  guid: 83aa0e0be3d2ec469f54ba8970b3ce93
+  Banks:
+  - {fileID: -5567240143877225714}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 79000
+--- !u!114 &-5158399542379723790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Die_Enemy
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Die_Enemy
+  guid: c331dcf0ea3e4742b5e9ef9d16534e40
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1724
+--- !u!114 &-5122875874884743473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203106586872378
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-5049528875108811100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203061740571190
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-4369302446213501177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FX/TakePoisen
+  m_EditorClassIdentifier: 
+  Path: event:/FX/TakePoisen
+  guid: ad77cec35e4dd64e8ba8d9ecd4732407
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1339
+--- !u!114 &-3121702748103329645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/SwordAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/SwordAttack
+  guid: b1b64d5f53ce454285ddc8c33d62f1a0
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1000
+--- !u!114 &-3100163849848253054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUI/MenuClick
+  m_EditorClassIdentifier: 
+  Path: event:/GUI/MenuClick
+  guid: 257bbbe56ee9c94aa922d4d1b6d11a25
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1500
+--- !u!114 &-3077759251061706661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/WaterDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/WaterDamage
+  guid: ae48f0954e3d464bbf0ba1783dec0915
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1309
+--- !u!114 &-2895167729920734639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203106587682568
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-2548912084844954752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203081052245377
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-1534149551506123103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203081054605922
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-1489755988974849158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203108837483562
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-557996592495061607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203105363672348
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-352241550997854255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203103365462729
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-274861647692620643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Damaged_Enemy
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Damaged_Enemy
+  guid: 7f3a0f6716889e408c2fbc1a4d84fc75
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 679
+--- !u!114 &-45647308852404292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203116252784796
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 8406500386741715130}
+  - {fileID: 3953985200545784095}
+  - {fileID: -45647308852404292}
+  - {fileID: -5567240143877225714}
+  EditorEvents:
+  - {fileID: -3100163849848253054}
+  - {fileID: 5676439422072686348}
+  - {fileID: -8573944137126000160}
+  - {fileID: 4857756644691554944}
+  - {fileID: 6161018652297317808}
+  - {fileID: 3252479950247635886}
+  - {fileID: 4126848558636469817}
+  - {fileID: 7742481417001470875}
+  - {fileID: -5458618905807781747}
+  - {fileID: -274861647692620643}
+  - {fileID: -7949807030649440391}
+  - {fileID: 7738854388637998757}
+  - {fileID: 6958808774159033106}
+  - {fileID: 6734590491936113428}
+  - {fileID: 2768219925062393332}
+  - {fileID: -4369302446213501177}
+  - {fileID: -3077759251061706661}
+  - {fileID: -3121702748103329645}
+  - {fileID: 4138819829440207791}
+  - {fileID: -5158399542379723790}
+  - {fileID: 7717937102066409357}
+  - {fileID: 5042721694065356167}
+  - {fileID: -6008500695729970440}
+  - {fileID: 449030823701877100}
+  - {fileID: 5577767905174391635}
+  - {fileID: -5292535534348452888}
+  - {fileID: 564953996695122291}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -45647308852404292}
+  StringsBanks:
+  - {fileID: 8406500386741715130}
+  stringsBankWriteTime: 637203116252814806
+  cacheVersion: 3
+--- !u!114 &449030823701877100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUI/WeaponChoise
+  m_EditorClassIdentifier: 
+  Path: event:/GUI/WeaponChoise
+  guid: d94896bda82e1745a0302f55e5549df9
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1400
+--- !u!114 &564953996695122291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FX/Rikoshet
+  m_EditorClassIdentifier: 
+  Path: event:/FX/Rikoshet
+  guid: 53f6556a496fc2479aa44913de62d5ae
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 100
+--- !u!114 &850280866115495934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203105364572545
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &894255930088329245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203028745288499
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &2405385547975862499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203105365012649
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &2768219925062393332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/LightingStart
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/LightingStart
+  guid: a6c0d6fd4bfec24cac0d012c0bfd8907
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1369
+--- !u!114 &3252479950247635886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/FireStart
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/FireStart
+  guid: 42715bd9db1ae942bf16e5b33e65f09a
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1369
+--- !u!114 &3523854160965747350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203111437995221
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &3572833261799558465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203108838393950
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &3953985200545784095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203116253694999
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &4126848558636469817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUI/Winner
+  m_EditorClassIdentifier: 
+  Path: event:/GUI/Winner
+  guid: 6330a23c965c6149828ac47176b41084
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 8136
+--- !u!114 &4138819829440207791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUI/RoomClear
+  m_EditorClassIdentifier: 
+  Path: event:/GUI/RoomClear
+  guid: bc9732530b53bf4185beb986907e33ff
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 5753
+--- !u!114 &4857756644691554944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUI/PlayerTurn
+  m_EditorClassIdentifier: 
+  Path: event:/GUI/PlayerTurn
+  guid: 36889e75896f7c4fad1196238f54541c
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1172
+--- !u!114 &4919383388316347851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203111439175494
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &5042721694065356167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Damaged_Ghost
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Damaged_Ghost
+  guid: cf0846b994cd8a4cb5d4502e67eec1eb
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2063
+--- !u!114 &5179893547790768915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203061741841481
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &5542327584332622743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FX Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/FX Bank.bank
+  SubDir: 
+  lastModified: 637203098688568624
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &5577767905174391635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/GameMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music/GameMusic
+  guid: 115982e39021cf48873d75bd4cca5a67
+  Banks:
+  - {fileID: -5567240143877225714}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 118000
+--- !u!114 &5676439422072686348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FX/Wind
+  m_EditorClassIdentifier: 
+  Path: event:/FX/Wind
+  guid: 2e65a6afaa133f44b1cc2646d804dbd8
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 6655
+--- !u!114 &5752614547807498041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203103366748689
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &5788320314495328220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203106588267777
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &5970774514923371098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637203028739745160
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &6161018652297317808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/IceDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/IceDamage
+  guid: 39b785997e4ca948aae89c54e7a37523
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1207
+--- !u!114 &6734590491936113428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/LightingDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/LightingDamage
+  guid: 9d369855710b1a4ba9e8fe3186310a53
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 625
+--- !u!114 &6794350350387839585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music Bank.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Music Bank.bank
+  SubDir: 
+  lastModified: 637203028745988659
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &6958808774159033106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon/IceStart
+  m_EditorClassIdentifier: 
+  Path: event:/Weapon/IceStart
+  guid: 9c417c63650db748b3d5a00280f99a7c
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1323
+--- !u!114 &7717937102066409357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Attack_Enemy
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Attack_Enemy
+  guid: cd8ca3bfadbecb4980052e18478a283a
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1776
+--- !u!114 &7738854388637998757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUI/PowerUP
+  m_EditorClassIdentifier: 
+  Path: event:/GUI/PowerUP
+  guid: 8d33bec300860b468064e794c390bc2e
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4455
+--- !u!114 &7742481417001470875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUI/Looser
+  m_EditorClassIdentifier: 
+  Path: event:/GUI/Looser
+  guid: 6f6e679d3914a249ad1a058ea1440639
+  Banks:
+  - {fileID: 3953985200545784095}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 8916
+--- !u!114 &8406500386741715130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sounds/TheRealMagicFMODproject/Build/Desktop/Master Bank.strings.bank
+  SubDir: 
+  lastModified: 637203116252814806
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2060
+  Exists: 1

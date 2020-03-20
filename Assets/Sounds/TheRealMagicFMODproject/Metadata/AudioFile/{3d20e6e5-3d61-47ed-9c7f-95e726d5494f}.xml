@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{3d20e6e5-3d61-47ed-9c7f-95e726d5494f}">
+        <property name="assetPath">
+            <value>FX/Weapon/Sword/Swoosh_Swipe-Smooth_04.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{260d33a0-c1af-407c-9342-e062a352f103}</destination>
+        </relationship>
+    </object>
+</objects>

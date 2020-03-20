@@ -97,7 +97,15 @@ public class Weapon : MonoBehaviour
 
                 GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
 
+                SoundAndMusic.Instance.PlayWeaponDamage();
+
                 gameObject.SetActive(false);
+
+            }
+            else
+            {
+
+                SoundAndMusic.Instance.PlayLightingRicoshetSound();
 
             }
 
@@ -114,6 +122,8 @@ public class Weapon : MonoBehaviour
                 GameManager.Instance.enemyInRoom[GameManager.Instance.camPointNumber].enemyPW[findIndex].TakeDamage(Random.Range((damage - (damage / 5)), (damage + (damage / 5))));
 
             }
+
+            SoundAndMusic.Instance.PlayWeaponDamage();
 
             hitGOTransform.position = collision.GetContact(0).point;
             hitAnimator.SetTrigger("isStart");

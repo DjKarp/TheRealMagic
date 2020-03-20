@@ -723,7 +723,11 @@ MonoBehaviour:
   maxHP: 4
   hpBar: {fileID: 8344332821552823538}
   shootPoint: {fileID: 8566811973820186640}
+  m_HPBarTextDamage: {fileID: 0}
+  isDamage: 0
+  damageTimer: 0
   damage: 3
+  currentEnemyType: 1
 --- !u!1 &7936390838466139030
 GameObject:
   m_ObjectHideFlags: 0

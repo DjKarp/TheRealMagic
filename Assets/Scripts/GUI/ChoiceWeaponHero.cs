@@ -30,6 +30,8 @@ public class ChoiceWeaponHero : MonoBehaviour
 
         GameManager.Instance.ChangeWeaponHero(m_WeaponHero);
 
+        SoundAndMusic.Instance.PlayChoiseWeaponSound();
+
     }
 
 }

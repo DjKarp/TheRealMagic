@@ -176,7 +176,10 @@ MonoBehaviour:
   hpBar: {fileID: 2903983390145291577}
   shootPoint: {fileID: 3580279627497072415}
   m_HPBarTextDamage: {fileID: 5079836442438380844}
+  isDamage: 0
+  damageTimer: 0
   damage: 2
+  currentEnemyType: 1
 --- !u!1 &3580279628573567432
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HP_Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471554539003003771, guid: b40e7acfb2d7ca840b396694930d7bdd,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8147128343036690887, guid: b40e7acfb2d7ca840b396694930d7bdd,
         type: 3}

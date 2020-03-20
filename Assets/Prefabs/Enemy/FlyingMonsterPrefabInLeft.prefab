@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7971840827568987326}
   m_Layer: 0
-  m_Name: FlyingMonsterPrefab
+  m_Name: FlyingMonsterPrefabInLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,7 +208,11 @@ MonoBehaviour:
   maxHP: 4
   hpBar: {fileID: 3859805841322447313}
   shootPoint: {fileID: 1347958840538160279}
+  m_HPBarTextDamage: {fileID: 0}
+  isDamage: 0
+  damageTimer: 0
   damage: 3
+  currentEnemyType: 1
 --- !u!1001 &3202754423049385385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,6 +224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HP_Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471554539003003771, guid: b40e7acfb2d7ca840b396694930d7bdd,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8147128343036690887, guid: b40e7acfb2d7ca840b396694930d7bdd,
         type: 3}

@@ -29,6 +29,16 @@ public class HeroPawn : Pawn
     //Количество очков лечения при поднятии хилки
     private float poisen = 50.0f;
 
+    public HeroState currentHeroState;
+    public enum HeroState
+    {
+
+        Move,
+        MoveAutomate,
+        Attack
+
+    }
+
 
     protected override void Awake()
     {
@@ -71,7 +81,9 @@ public class HeroPawn : Pawn
 
     public  void TakePoisen()
     {
-        
+
+        SoundAndMusic.Instance.PlayTakePoisenSound();
+
         HP = Mathf.Clamp(HP + poisen, 0.0f, maxHP);
 
         m_Animator.SetTrigger("isPoisen");
@@ -117,7 +129,7 @@ public class HeroPawn : Pawn
     private void MoveHero()
     {
 
-        if(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn && GameManager.Instance.camPointNumber > 0)
+        if(GameManager.Instance.CurrentGameMode == GameManager.GameMode.PlayerTurn && GameManager.Instance.camPointNumber > 0 && currentHeroState == HeroState.Move)
         {
             
             if (Input.GetAxis("Horizontal") > 0 & Input.anyKey)
@@ -178,5 +190,28 @@ public class HeroPawn : Pawn
         }
 
     }
-    
+
+    public void ChangeHeroState(HeroState heroState)
+    {
+
+        switch (heroState)
+        {
+
+            case HeroState.Attack:
+                currentHeroState = HeroState.Attack;
+                HeroMove(false);
+                break;
+
+            case HeroState.Move:
+                currentHeroState = HeroState.Move;
+                break;
+
+            case HeroState.MoveAutomate:
+                currentHeroState = HeroState.MoveAutomate;
+                break;
+
+        }
+
+    }
+        
 }

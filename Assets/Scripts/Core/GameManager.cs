@@ -117,8 +117,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 
-        camPointNumber = 2;
-        nextMovePointHero = 2;
+        camPointNumber = -1;
+        nextMovePointHero = -1;
 
         SearchDestroyCopySingletonOrThisCreateInstance();
 
@@ -197,6 +197,7 @@ public class GameManager : MonoBehaviour
 
             case GameMode.PlayerTurn:
                 GUIManager.Instance.ShowAndHideWeaponChoice(true);
+                m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Move);
                 break;
 
             case GameMode.PlayerWeaponWait:
@@ -264,6 +265,7 @@ public class GameManager : MonoBehaviour
 
         nextMovePointHero++;
         m_HeroPawn.HeroMove(true);
+        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.MoveAutomate);
         m_HeroTransform.DOMoveX(pathPointHero[nextMovePointHero].position.x, Vector2.Distance(m_HeroTransform.position, pathPointHero[nextMovePointHero].position) / 2);
 
         while (Mathf.Abs(m_HeroTransform.position.x - pathPointHero[nextMovePointHero].position.x) > 0.1f) yield return null;
@@ -289,7 +291,8 @@ public class GameManager : MonoBehaviour
 
         }
 
-        ChangeGameMode(GameMode.PlayerTurn);
+        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Move);
+        ChangeGameMode(GameMode.PlayerTurn);        
 
         yield break;
 
@@ -305,10 +308,16 @@ public class GameManager : MonoBehaviour
 
         }
 
+        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
+
         m_HeroPawn.fakeSwordCollider.enabled = true;
         m_HeroPawn.AttackSwordHero();
-        
-        yield return new WaitForSeconds(2.0f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        SoundAndMusic.Instance.PlayWeaponAttack();
+
+        yield return new WaitForSeconds(1.5f);
 
         m_HeroPawn.fakeSwordCollider.enabled = false;
 
@@ -322,13 +331,16 @@ public class GameManager : MonoBehaviour
     {
 
         while (!Input.GetMouseButtonDown(0)) yield return null;
+        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
         m_HeroPawn.AttackMagicHero(true);
         GUIManager.Instance.ShowAndHidePowerArrow(true);
         currentTimeShootLoad = 0.0f;
         isCountTime = true;
 
         weaponLightingGO.SetActive(true);
-        weaponLightingTransform.position = m_HeroPawn.shootPoint.position;           
+        weaponLightingTransform.position = m_HeroPawn.shootPoint.position;
+
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
                
         while (!Input.GetMouseButtonUp(0))
         {
@@ -344,6 +356,8 @@ public class GameManager : MonoBehaviour
         GUIManager.Instance.ShowAndHidePowerArrow(false);
         m_HeroPawn.AttackMagicHero(false);
 
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
+
         weaponLightingRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * 1.5f * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
 
         ChangeGameMode(GameMode.PlayerWeaponWait);
@@ -356,6 +370,7 @@ public class GameManager : MonoBehaviour
     {
 
         while (!Input.GetMouseButtonDown(0)) yield return null;
+        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
         m_HeroPawn.AttackMagicHero(true);
         GUIManager.Instance.ShowAndHidePowerArrow(true);
         currentTimeShootLoad = 0.0f;
@@ -364,6 +379,8 @@ public class GameManager : MonoBehaviour
         weaponGO = Instantiate(weaponWaterBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
         weaponRB = weaponGO.GetComponent<Rigidbody2D>();
         weaponRB.bodyType = RigidbodyType2D.Kinematic;
+
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
 
         while (!Input.GetMouseButtonUp(0))
         {
@@ -378,6 +395,8 @@ public class GameManager : MonoBehaviour
         isCountTime = false;
         GUIManager.Instance.ShowAndHidePowerArrow(false);
         m_HeroPawn.AttackMagicHero(false);
+
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
 
         weaponRB.bodyType = RigidbodyType2D.Dynamic;
         weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 10 * Time.deltaTime, ForceMode2D.Impulse);
@@ -392,6 +411,7 @@ public class GameManager : MonoBehaviour
     {
 
         while (!Input.GetMouseButtonDown(0)) yield return null;
+        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
         m_HeroPawn.AttackMagicHero(true);
         GUIManager.Instance.ShowAndHidePowerArrow(true);
         currentTimeShootLoad = 0.0f;
@@ -400,6 +420,8 @@ public class GameManager : MonoBehaviour
         weaponGO = Instantiate(weaponFireBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
         weaponRB = weaponGO.GetComponent<Rigidbody2D>();
         weaponRB.bodyType = RigidbodyType2D.Kinematic;
+
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
 
         while (!Input.GetMouseButtonUp(0))
         {
@@ -414,6 +436,8 @@ public class GameManager : MonoBehaviour
         isCountTime = false;
         GUIManager.Instance.ShowAndHidePowerArrow(false);
         m_HeroPawn.AttackMagicHero(false);
+
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
 
         weaponRB.bodyType = RigidbodyType2D.Dynamic;
         weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 10 * Time.deltaTime, ForceMode2D.Impulse);
@@ -428,6 +452,7 @@ public class GameManager : MonoBehaviour
     {
 
         while (!Input.GetMouseButtonDown(0)) yield return null;
+        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
         m_HeroPawn.AttackMagicHero(true);
         GUIManager.Instance.ShowAndHidePowerArrow(true);
         currentTimeShootLoad = 0.0f;
@@ -436,6 +461,8 @@ public class GameManager : MonoBehaviour
         weaponGO = Instantiate(weaponIceBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
         weaponRB = weaponGO.GetComponent<Rigidbody2D>();
         weaponRB.bodyType = RigidbodyType2D.Kinematic;
+
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
 
         while (!Input.GetMouseButtonUp(0))
         {
@@ -450,6 +477,8 @@ public class GameManager : MonoBehaviour
         isCountTime = false;
         GUIManager.Instance.ShowAndHidePowerArrow(false);
         m_HeroPawn.AttackMagicHero(false);
+
+        SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
 
         weaponRB.bodyType = RigidbodyType2D.Dynamic;
         weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 10 * Time.deltaTime, ForceMode2D.Impulse);
@@ -488,7 +517,12 @@ public class GameManager : MonoBehaviour
     public void CameraMoveOnNextCamPathPoint()
     {
 
+        if (camPointNumber >= 0) SoundAndMusic.Instance.PlayRoomClearMusic();               
+
         camPointNumber++;
+
+        if (camPointNumber >= 6 & camPointNumber <= 8) SoundAndMusic.Instance.ChekAndPlayWindSound(true);
+        else SoundAndMusic.Instance.ChekAndPlayWindSound(false);
 
         if (camPointNumber > 0) camTransform.DOMoveX(camPathPoint[camPointNumber].position.x, (camPathPoint[camPointNumber].position.x - camPathPoint[camPointNumber - 1].position.x) / 2);
 
@@ -517,7 +551,7 @@ public class GameManager : MonoBehaviour
     public void GetWeaponOffValue()
     {
         //0
-        openWeapon = 5;
+        openWeapon = 0;
 
     }
     
