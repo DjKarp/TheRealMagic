@@ -133,7 +133,7 @@ public class SoundAndMusic : MonoBehaviour
 
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
-
+                        
         }
         else
         {
@@ -141,9 +141,6 @@ public class SoundAndMusic : MonoBehaviour
             Destroy(gameObject);
 
         }
-
-        ChangePlayingMusicAwake();
-
 
     }
     void Start() { InitializeManager(); }
@@ -258,10 +255,10 @@ public class SoundAndMusic : MonoBehaviour
 
     }
 
-    private void StopMusic()
+    public void StopMusic()
     {
 
-        musicEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        musicEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
     }
 

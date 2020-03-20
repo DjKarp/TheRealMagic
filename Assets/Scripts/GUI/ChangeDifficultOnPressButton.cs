@@ -63,6 +63,8 @@ public class ChangeDifficultOnPressButton : MonoBehaviour
 
         m_MainMenuController.SetDiffyclyEnd();
 
+        SoundAndMusic.Instance.StopMusic();
+
         SoundAndMusic.Instance.ChangePlayingMusic(1);
         
     }
