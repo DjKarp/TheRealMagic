@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> noWayBack;
 
     public float Timer;
+
+    private bool isCamMove = false;
     
     //для преобразования при повороте
     private Vector3 xDirection;
@@ -184,6 +186,8 @@ public class GameManager : MonoBehaviour
 
         if (m_GameMode != GameMode.Dialog && enemyInRoom[camPointNumber].enemyGO.Count == 0) ChangeGameMode(GameMode.Dialog);
 
+        if (m_GameMode == GameMode.PlayerTurn && isCamMove) return; 
+
         CurrentGameMode = m_GameMode;
 
         changeGameModeEvent();
@@ -230,19 +234,19 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case WeaponHero.Lighting:
-                    StartCoroutine(WeaponLighting());
+                    StartCoroutine(WeaponMagic(weaponWaterBallPrefab, true));
                     break;
 
                 case WeaponHero.WaterBall:
-                    StartCoroutine(WeaponWaterBall());
+                    StartCoroutine(WeaponMagic(weaponWaterBallPrefab, false));
                     break;
 
                 case WeaponHero.FireBall:
-                    StartCoroutine(WeaponFireBall());
+                    StartCoroutine(WeaponMagic(weaponFireBallPrefab, false));
                     break;
 
                 case WeaponHero.IceBall:
-                    StartCoroutine(WeaponIceBall());
+                    StartCoroutine(WeaponMagic(weaponIceBallPrefab, false));
                     break;
 
                 default:
@@ -291,8 +295,9 @@ public class GameManager : MonoBehaviour
 
         }
 
+        isCamMove = false;
         m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Move);
-        ChangeGameMode(GameMode.PlayerTurn);        
+        ChangeGameMode(GameMode.PlayerTurn);
 
         yield break;
 
@@ -326,8 +331,7 @@ public class GameManager : MonoBehaviour
         yield break;
 
     } 
-    
-    IEnumerator WeaponLighting()
+    IEnumerator WeaponMagic(GameObject magicPrefab, bool isLighting)
     {
 
         while (!Input.GetMouseButtonDown(0)) yield return null;
@@ -337,48 +341,21 @@ public class GameManager : MonoBehaviour
         currentTimeShootLoad = 0.0f;
         isCountTime = true;
 
-        weaponLightingGO.SetActive(true);
-        weaponLightingTransform.position = m_HeroPawn.shootPoint.position;
-
-        SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
-               
-        while (!Input.GetMouseButtonUp(0))
+        if (!isLighting)
         {
 
-            currentShootStrange =(((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
-            GUIManager.Instance.SetPowerArrowSliderValue(currentShootStrange / (weaponLightingSpeedMax - weaponLightingSpeedMin));
-                        
-            yield return null;
+            weaponGO = Instantiate(magicPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
+            weaponRB = weaponGO.GetComponent<Rigidbody2D>();
+            weaponRB.bodyType = RigidbodyType2D.Kinematic;
 
         }
+        else
+        {
 
-        isCountTime = false;
-        GUIManager.Instance.ShowAndHidePowerArrow(false);
-        m_HeroPawn.AttackMagicHero(false);
+            weaponLightingGO.SetActive(true);
+            weaponLightingTransform.position = m_HeroPawn.shootPoint.position;
 
-        SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
-
-        weaponLightingRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * 1.5f * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
-
-        ChangeGameMode(GameMode.PlayerWeaponWait);
-
-        yield break;
-
-    }
-
-    IEnumerator WeaponWaterBall()
-    {
-
-        while (!Input.GetMouseButtonDown(0)) yield return null;
-        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
-        m_HeroPawn.AttackMagicHero(true);
-        GUIManager.Instance.ShowAndHidePowerArrow(true);
-        currentTimeShootLoad = 0.0f;
-        isCountTime = true;
-
-        weaponGO = Instantiate(weaponWaterBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
-        weaponRB = weaponGO.GetComponent<Rigidbody2D>();
-        weaponRB.bodyType = RigidbodyType2D.Kinematic;
+        }
 
         SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
 
@@ -398,96 +375,26 @@ public class GameManager : MonoBehaviour
 
         SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
 
-        weaponRB.bodyType = RigidbodyType2D.Dynamic;
-        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 10 * Time.deltaTime, ForceMode2D.Impulse);
-
-        ChangeGameMode(GameMode.PlayerWeaponWait);
-
-        yield break;
-
-    }
-
-    IEnumerator WeaponFireBall()
-    {
-
-        while (!Input.GetMouseButtonDown(0)) yield return null;
-        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
-        m_HeroPawn.AttackMagicHero(true);
-        GUIManager.Instance.ShowAndHidePowerArrow(true);
-        currentTimeShootLoad = 0.0f;
-        isCountTime = true;
-
-        weaponGO = Instantiate(weaponFireBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
-        weaponRB = weaponGO.GetComponent<Rigidbody2D>();
-        weaponRB.bodyType = RigidbodyType2D.Kinematic;
-
-        SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
-
-        while (!Input.GetMouseButtonUp(0))
+        if (!isLighting)
         {
 
-            currentShootStrange = (((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
-            GUIManager.Instance.SetPowerArrowSliderValue(currentShootStrange / (weaponLightingSpeedMax - weaponLightingSpeedMin));
+            weaponRB.bodyType = RigidbodyType2D.Dynamic;
+            weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 10 * Time.deltaTime, ForceMode2D.Impulse);
 
-            yield return null;
+        }
+        else
+        {
+
+            weaponLightingRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * 1.5f * (currentShootStrange + weaponLightingSpeedMin) * Time.deltaTime, ForceMode2D.Impulse);
 
         }
 
-        isCountTime = false;
-        GUIManager.Instance.ShowAndHidePowerArrow(false);
-        m_HeroPawn.AttackMagicHero(false);
-
-        SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
-
-        weaponRB.bodyType = RigidbodyType2D.Dynamic;
-        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 10 * Time.deltaTime, ForceMode2D.Impulse);
-
         ChangeGameMode(GameMode.PlayerWeaponWait);
 
         yield break;
 
     }
 
-    IEnumerator WeaponIceBall()
-    {
-
-        while (!Input.GetMouseButtonDown(0)) yield return null;
-        m_HeroPawn.ChangeHeroState(HeroPawn.HeroState.Attack);
-        m_HeroPawn.AttackMagicHero(true);
-        GUIManager.Instance.ShowAndHidePowerArrow(true);
-        currentTimeShootLoad = 0.0f;
-        isCountTime = true;
-
-        weaponGO = Instantiate(weaponIceBallPrefab, m_HeroPawn.shootPoint.position, Quaternion.identity);
-        weaponRB = weaponGO.GetComponent<Rigidbody2D>();
-        weaponRB.bodyType = RigidbodyType2D.Kinematic;
-
-        SoundAndMusic.Instance.PlayAndStopPowerUpSound(true);
-
-        while (!Input.GetMouseButtonUp(0))
-        {
-
-            currentShootStrange = (((weaponLightingSpeedMax - weaponLightingSpeedMin) * currentTimeShootLoad) / timeShootLoad);
-            GUIManager.Instance.SetPowerArrowSliderValue(currentShootStrange / (weaponLightingSpeedMax - weaponLightingSpeedMin));
-
-            yield return null;
-
-        }
-
-        isCountTime = false;
-        GUIManager.Instance.ShowAndHidePowerArrow(false);
-        m_HeroPawn.AttackMagicHero(false);
-
-        SoundAndMusic.Instance.PlayAndStopPowerUpSound(false);
-
-        weaponRB.bodyType = RigidbodyType2D.Dynamic;
-        weaponRB.AddForce((GetOurMouseMosition() - m_HeroPawn.shootPoint.position).normalized * (currentShootStrange + weaponLightingSpeedMin) * 10 * Time.deltaTime, ForceMode2D.Impulse);
-
-        ChangeGameMode(GameMode.PlayerWeaponWait);
-
-        yield break;
-
-    }
 
     IEnumerator EnemyTurn()
     {
@@ -524,7 +431,13 @@ public class GameManager : MonoBehaviour
         if (camPointNumber >= 6 & camPointNumber <= 8) SoundAndMusic.Instance.ChekAndPlayWindSound(true);
         else SoundAndMusic.Instance.ChekAndPlayWindSound(false);
 
-        if (camPointNumber > 0) camTransform.DOMoveX(camPathPoint[camPointNumber].position.x, (camPathPoint[camPointNumber].position.x - camPathPoint[camPointNumber - 1].position.x) / 2);
+        if (camPointNumber > 0)
+        {
+
+            isCamMove = true;
+            camTransform.DOMoveX(camPathPoint[camPointNumber].position.x, (camPathPoint[camPointNumber].position.x - camPathPoint[camPointNumber - 1].position.x) / 2);
+
+        }
 
     }
 
@@ -551,18 +464,18 @@ public class GameManager : MonoBehaviour
     public void GetWeaponOffValue()
     {
         //0
-        openWeapon = 0;
+        openWeapon = 5;
 
     }
     
     private void KeyBoardHack()
     {
-
+        /*
         if (Input.GetKeyUp(KeyCode.B)) return;
         else if (Input.GetKeyUp(KeyCode.C)) return;
         else if (Input.GetKeyUp(KeyCode.W)) return;
-        else if (Input.GetKeyUp(KeyCode.A)) return;
-
+        ele if (Input.GetKeyUp(KeyCode.A)) return;
+        */
     }
 
     private void SearchDestroyCopySingletonOrThisCreateInstance()

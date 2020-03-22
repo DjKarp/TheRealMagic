@@ -151,7 +151,7 @@ public class HeroPawn : Pawn
             else if (!Input.anyKey)
             {
 
-                if (m_Animator.GetBool("isWalking")) HeroMove(false);
+                if (m_Animator.GetBool("isWalking") & (currentHeroState != HeroState.MoveAutomate | currentHeroState != HeroState.Move)) HeroMove(false);
 
             }
 

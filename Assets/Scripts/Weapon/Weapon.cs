@@ -49,10 +49,7 @@ public class Weapon : MonoBehaviour
         hitGOTransform = hitGO.GetComponent<Transform>();
         hitAnimator = hitGO.GetComponent<Animator>();
 
-        hitSimple = Instantiate(hitSimplePrefab);
-        hitSimpleTransform = hitSimple.GetComponent<Transform>();
-        hitSimplePS = hitSimple.GetComponent<ParticleSystem>();
-        hitSimpleAnimator = hitSimple.GetComponent<Animator>();
+        CreateFX();
 
         hitRockDestroyPrefab = Resources.Load("RockDieParticles") as GameObject;
 
@@ -76,9 +73,14 @@ public class Weapon : MonoBehaviour
             if (collision.gameObject.CompareTag("DestructionObject"))
             {
 
-                hitGOTransform.position = collision.GetContact(0).point;
-                hitAnimator.SetTrigger("isStart");
-                hitGOTransform.parent = null;
+                if (hitSimpleTransform != null)
+                {
+
+                    hitGOTransform.position = collision.GetContact(0).point;
+                    hitAnimator.SetTrigger("isStart");
+                    hitGOTransform.parent = null;
+
+                } 
 
                 Instantiate(hitRockDestroyPrefab, collision.GetContact(0).point, Quaternion.identity);
 
@@ -91,10 +93,15 @@ public class Weapon : MonoBehaviour
             if (collisionCount > maxCollisionCount)
             {
 
-                hitSimpleTransform.position = collision.GetContact(0).point;
-                if (hitSimplePS != null) hitSimplePS.Play();
-                if (hitSimpleAnimator != null) hitSimpleAnimator.SetTrigger("isStart");
+                if (hitSimpleTransform != null)
+                {
 
+                    hitSimpleTransform.position = collision.GetContact(0).point;
+                    if (hitSimplePS != null) hitSimplePS.Play();
+                    if (hitSimpleAnimator != null) hitSimpleAnimator.SetTrigger("isStart");
+
+                }
+                
                 GameManager.Instance.ChangeGameMode(GameManager.GameMode.EnemyTurn);
 
                 SoundAndMusic.Instance.PlayWeaponDamage();
@@ -148,6 +155,16 @@ public class Weapon : MonoBehaviour
 
         Destroy(hitGO);
         Destroy(hitSimple);
+
+    }
+
+    private void CreateFX()
+    {
+
+        hitSimple = Instantiate(hitSimplePrefab);
+        hitSimpleTransform = hitSimple.GetComponent<Transform>();
+        hitSimplePS = hitSimple.GetComponent<ParticleSystem>();
+        hitSimpleAnimator = hitSimple.GetComponent<Animator>();
 
     }
 

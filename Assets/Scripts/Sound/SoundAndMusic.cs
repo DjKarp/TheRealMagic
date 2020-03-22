@@ -84,6 +84,8 @@ public class SoundAndMusic : MonoBehaviour
 
     private int sceneBuildIndex;
 
+    //
+    [HideInInspector]
     public EnemyType m_EnemyType;
     public enum EnemyType
     {

@@ -131,7 +131,12 @@ public class GUIManager : MonoBehaviour
             m_TextMeshTimer.text = Mathf.RoundToInt(timer).ToString();
 
         }
-        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.EnemyTurn && timer <= 0.0f) GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
+        else if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.EnemyTurn && timer <= 0.0f)
+        {
+
+            GameManager.Instance.ChangeGameMode(GameManager.GameMode.PlayerTurn);
+
+        }
 
     }
 
